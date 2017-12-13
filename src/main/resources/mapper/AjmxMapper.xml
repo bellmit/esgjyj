@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eastsoft.esgjyj.dao.AjmxMapper">
+  <resultMap id="BaseResultMap" type="com.eastsoft.esgjyj.domain.Ajmx">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="KHDXID" jdbcType="VARCHAR" property="khdxid" />
+    <result column="COL_INDEX" jdbcType="VARCHAR" property="colIndex" />
+    <result column="LB" jdbcType="VARCHAR" property="lb" />
+    <result column="CASE_SN" jdbcType="NUMERIC" property="caseSn" />
+    <result column="SCORE" jdbcType="DOUBLE" property="score" />
+    <result column="AVERAGE_SCORE" jdbcType="DOUBLE" property="averageScore" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eastsoft.esgjyj.domain.Ajmx">
+    <result column="DFSM" jdbcType="LONGVARCHAR" property="dfsm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, KHDXID, COL_INDEX, LB, CASE_SN, SCORE, AVERAGE_SCORE
+  </sql>
+  <sql id="Blob_Column_List">
+    DFSM
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from YJKH_AJMX
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from YJKH_AJMX
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.eastsoft.esgjyj.domain.Ajmx">
+    insert into YJKH_AJMX (ID, KHDXID, COL_INDEX, 
+      LB, CASE_SN, SCORE, AVERAGE_SCORE, 
+      DFSM)
+    values (#{id,jdbcType=VARCHAR}, #{khdxid,jdbcType=VARCHAR}, #{colIndex,jdbcType=VARCHAR}, 
+      #{lb,jdbcType=VARCHAR}, #{caseSn,jdbcType=NUMERIC}, #{score,jdbcType=DOUBLE}, #{averageScore,jdbcType=DOUBLE}, 
+      #{dfsm,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eastsoft.esgjyj.domain.Ajmx">
+    insert into YJKH_AJMX
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="khdxid != null">
+        KHDXID,
+      </if>
+      <if test="colIndex != null">
+        COL_INDEX,
+      </if>
+      <if test="lb != null">
+        LB,
+      </if>
+      <if test="caseSn != null">
+        CASE_SN,
+      </if>
+      <if test="score != null">
+        SCORE,
+      </if>
+      <if test="averageScore != null">
+        AVERAGE_SCORE,
+      </if>
+      <if test="dfsm != null">
+        DFSM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="khdxid != null">
+        #{khdxid,jdbcType=VARCHAR},
+      </if>
+      <if test="colIndex != null">
+        #{colIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="lb != null">
+        #{lb,jdbcType=VARCHAR},
+      </if>
+      <if test="caseSn != null">
+        #{caseSn,jdbcType=NUMERIC},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="averageScore != null">
+        #{averageScore,jdbcType=DOUBLE},
+      </if>
+      <if test="dfsm != null">
+        #{dfsm,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eastsoft.esgjyj.domain.Ajmx">
+    update YJKH_AJMX
+    <set>
+      <if test="khdxid != null">
+        KHDXID = #{khdxid,jdbcType=VARCHAR},
+      </if>
+      <if test="colIndex != null">
+        COL_INDEX = #{colIndex,jdbcType=VARCHAR},
+      </if>
+      <if test="lb != null">
+        LB = #{lb,jdbcType=VARCHAR},
+      </if>
+      <if test="caseSn != null">
+        CASE_SN = #{caseSn,jdbcType=NUMERIC},
+      </if>
+      <if test="score != null">
+        SCORE = #{score,jdbcType=DOUBLE},
+      </if>
+      <if test="averageScore != null">
+        AVERAGE_SCORE = #{averageScore,jdbcType=DOUBLE},
+      </if>
+      <if test="dfsm != null">
+        DFSM = #{dfsm,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.eastsoft.esgjyj.domain.Ajmx">
+    update YJKH_AJMX
+    set KHDXID = #{khdxid,jdbcType=VARCHAR},
+      COL_INDEX = #{colIndex,jdbcType=VARCHAR},
+      LB = #{lb,jdbcType=VARCHAR},
+      CASE_SN = #{caseSn,jdbcType=NUMERIC},
+      SCORE = #{score,jdbcType=DOUBLE},
+      AVERAGE_SCORE = #{averageScore,jdbcType=DOUBLE},
+      DFSM = #{dfsm,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.Ajmx">
+    update YJKH_AJMX
+    set KHDXID = #{khdxid,jdbcType=VARCHAR},
+      COL_INDEX = #{colIndex,jdbcType=VARCHAR},
+      LB = #{lb,jdbcType=VARCHAR},
+      CASE_SN = #{caseSn,jdbcType=NUMERIC},
+      SCORE = #{score,jdbcType=DOUBLE},
+      AVERAGE_SCORE = #{averageScore,jdbcType=DOUBLE}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

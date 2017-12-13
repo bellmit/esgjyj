@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eastsoft.esgjyj.dao.DatacodeDao">
+
+	<select id="get" resultType="com.eastsoft.esgjyj.domain.DatacodeDO">
+		select COURT_NO,D_ID,XH,STOREVAL,DISPVAL,ACTIVE,NOTE,OLDBM,OFTEN,GFBM,GFDISP,GFDMBH,ZXXTBM from DATACODE where COURT_NO = #{value}
+	</select>
+
+	<select id="list" resultType="com.eastsoft.esgjyj.domain.DatacodeDO">
+		select COURT_NO,D_ID,XH,STOREVAL,DISPVAL,ACTIVE,NOTE,OLDBM,OFTEN,GFBM,GFDISP,GFDMBH,ZXXTBM from DATACODE
+        <where>  
+		  		  <if test="courtNo != null and courtNo != ''"> and COURT_NO = #{courtNo} </if>
+		  		  <if test="dId != null and dId != ''"> and D_ID = #{dId} </if>
+		  		  <if test="xh != null and xh != ''"> and XH = #{xh} </if>
+		  		  <if test="storeval != null and storeval != ''"> and STOREVAL = #{storeval} </if>
+		  		  <if test="dispval != null and dispval != ''"> and DISPVAL = #{dispval} </if>
+		  		  <if test="active != null and active != ''"> and ACTIVE = #{active} </if>
+		  		  <if test="note != null and note != ''"> and NOTE = #{note} </if>
+		  		  <if test="oldbm != null and oldbm != ''"> and OLDBM = #{oldbm} </if>
+		  		  <if test="often != null and often != ''"> and OFTEN = #{often} </if>
+		  		  <if test="gfbm != null and gfbm != ''"> and GFBM = #{gfbm} </if>
+		  		  <if test="gfdisp != null and gfdisp != ''"> and GFDISP = #{gfdisp} </if>
+		  		  <if test="gfdmbh != null and gfdmbh != ''"> and GFDMBH = #{gfdmbh} </if>
+		  		  <if test="zxxtbm != null and zxxtbm != ''"> and ZXXTBM = #{zxxtbm} </if>
+		  		</where>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from DATACODE
+		 <where>  
+		  		  <if test="courtNo != null and courtNo != ''"> and COURT_NO = #{courtNo} </if>
+		  		  <if test="dId != null and dId != ''"> and D_ID = #{dId} </if>
+		  		  <if test="xh != null and xh != ''"> and XH = #{xh} </if>
+		  		  <if test="storeval != null and storeval != ''"> and STOREVAL = #{storeval} </if>
+		  		  <if test="dispval != null and dispval != ''"> and DISPVAL = #{dispval} </if>
+		  		  <if test="active != null and active != ''"> and ACTIVE = #{active} </if>
+		  		  <if test="note != null and note != ''"> and NOTE = #{note} </if>
+		  		  <if test="oldbm != null and oldbm != ''"> and OLDBM = #{oldbm} </if>
+		  		  <if test="often != null and often != ''"> and OFTEN = #{often} </if>
+		  		  <if test="gfbm != null and gfbm != ''"> and GFBM = #{gfbm} </if>
+		  		  <if test="gfdisp != null and gfdisp != ''"> and GFDISP = #{gfdisp} </if>
+		  		  <if test="gfdmbh != null and gfdmbh != ''"> and GFDMBH = #{gfdmbh} </if>
+		  		  <if test="zxxtbm != null and zxxtbm != ''"> and ZXXTBM = #{zxxtbm} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.eastsoft.esgjyj.domain.DatacodeDO">
+		insert into DATACODE
+		(
+			COURT_NO, 
+			D_ID, 
+			XH, 
+			STOREVAL, 
+			DISPVAL, 
+			ACTIVE, 
+			NOTE, 
+			OLDBM, 
+			OFTEN, 
+			GFBM, 
+			GFDISP, 
+			GFDMBH, 
+			ZXXTBM
+		)
+		values
+		(
+			#{courtNo}, 
+			#{dId}, 
+			#{xh}, 
+			#{storeval}, 
+			#{dispval}, 
+			#{active}, 
+			#{note}, 
+			#{oldbm}, 
+			#{often}, 
+			#{gfbm}, 
+			#{gfdisp}, 
+			#{gfdmbh}, 
+			#{zxxtbm}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.eastsoft.esgjyj.domain.DatacodeDO">
+		update DATACODE 
+		<set>
+			<if test="dId != null">D_ID = #{dId}, </if>
+			<if test="xh != null">XH = #{xh}, </if>
+			<if test="storeval != null">STOREVAL = #{storeval}, </if>
+			<if test="dispval != null">DISPVAL = #{dispval}, </if>
+			<if test="active != null">ACTIVE = #{active}, </if>
+			<if test="note != null">NOTE = #{note}, </if>
+			<if test="oldbm != null">OLDBM = #{oldbm}, </if>
+			<if test="often != null">OFTEN = #{often}, </if>
+			<if test="gfbm != null">GFBM = #{gfbm}, </if>
+			<if test="gfdisp != null">GFDISP = #{gfdisp}, </if>
+			<if test="gfdmbh != null">GFDMBH = #{gfdmbh}, </if>
+			<if test="zxxtbm != null">ZXXTBM = #{zxxtbm}</if>
+		</set>
+		where COURT_NO = #{courtNo}
+	</update>
+	
+	<delete id="remove">
+		delete from DATACODE where COURT_NO = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from DATACODE where COURT_NO in 
+		<foreach item="courtNo" collection="array" open="(" separator="," close=")">
+			#{courtNo}
+		</foreach>
+	</delete>
+
+</mapper>

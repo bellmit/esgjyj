@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eastsoft.esgjyj.dao.YjkhKgssDao">
+
+	<select id="get" resultType="com.eastsoft.esgjyj.domain.YjkhKgssDO">
+		select ID,USERID,ZBID,XH,FSSJ,SCORE,NOTE,LRRBS,LRSJ,ZT from YJKH_KGSS where ID = #{value}
+	</select>
+
+	<select id="list" resultType="com.eastsoft.esgjyj.domain.YjkhKgssDO">
+		select ID,USERID,ZBID,XH,FSSJ,SCORE,NOTE,LRRBS,LRSJ,ZT from YJKH_KGSS
+        <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="userid != null and userid != ''"> and USERID = #{userid} </if>
+		  		  <if test="zbid != null and zbid != ''"> and ZBID = #{zbid} </if>
+		  		  <if test="xh != null and xh != ''"> and XH = #{xh} </if>
+		  		  <if test="fssj != null and fssj != ''"> and FSSJ = #{fssj} </if>
+		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
+		  		  <if test="note != null and note != ''"> and NOTE = #{note} </if>
+		  		  <if test="lrrbs != null and lrrbs != ''"> and LRRBS = #{lrrbs} </if>
+		  		  <if test="lrsj != null and lrsj != ''"> and LRSJ = #{lrsj} </if>
+		  		  <if test="zt != null and zt != ''"> and ZT = #{zt} </if>
+		  		</where>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from YJKH_KGSS
+		 <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="userid != null and userid != ''"> and USERID = #{userid} </if>
+		  		  <if test="zbid != null and zbid != ''"> and ZBID = #{zbid} </if>
+		  		  <if test="xh != null and xh != ''"> and XH = #{xh} </if>
+		  		  <if test="fssj != null and fssj != ''"> and FSSJ = #{fssj} </if>
+		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
+		  		  <if test="note != null and note != ''"> and NOTE = #{note} </if>
+		  		  <if test="lrrbs != null and lrrbs != ''"> and LRRBS = #{lrrbs} </if>
+		  		  <if test="lrsj != null and lrsj != ''"> and LRSJ = #{lrsj} </if>
+		  		  <if test="zt != null and zt != ''"> and ZT = #{zt} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.eastsoft.esgjyj.domain.YjkhKgssDO">
+		insert into YJKH_KGSS
+		(
+			ID, 
+			USERID, 
+			ZBID, 
+			XH, 
+			FSSJ, 
+			SCORE, 
+			NOTE, 
+			LRRBS, 
+			LRSJ, 
+			ZT
+		)
+		values
+		(
+			#{id}, 
+			#{userid}, 
+			#{zbid}, 
+			#{xh}, 
+			#{fssj}, 
+			#{score}, 
+			#{note}, 
+			#{lrrbs}, 
+			#{lrsj}, 
+			#{zt}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.eastsoft.esgjyj.domain.YjkhKgssDO">
+		update YJKH_KGSS 
+		<set>
+			<if test="userid != null">USERID = #{userid}, </if>
+			<if test="zbid != null">ZBID = #{zbid}, </if>
+			<if test="xh != null">XH = #{xh}, </if>
+			<if test="fssj != null">FSSJ = #{fssj}, </if>
+			<if test="score != null">SCORE = #{score}, </if>
+			<if test="note != null">NOTE = #{note}, </if>
+			<if test="lrrbs != null">LRRBS = #{lrrbs}, </if>
+			<if test="lrsj != null">LRSJ = #{lrsj}, </if>
+			<if test="zt != null">ZT = #{zt}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from YJKH_KGSS where ID = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from YJKH_KGSS where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

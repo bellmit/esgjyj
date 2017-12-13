@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>管理员展示的iframe首页</title>
+		<link href="/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/css/animate.css" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+		 <!--[if lt IE 9]>
+	    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js"></script>-->
+	    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js"></script>-->
+	    <!--<script src="//cdnjs.cloudflare.com/ajax/libs/json2/20140204/json2.min.js"></script>-->
+	    <![endif]-->
+	</head>
+
+	<body class="gray-bg top-navigation">
+
+		<div id="wrapper">
+			<div id="page-wrapper" class="gray-bg">
+				<div class="wrapper wrapper-content">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-3">
+									<div class="ibox float-e-margins">
+										<div class="ibox-title">
+											<span class="label label-success pull-right">人</span>
+											<h5>访问人数</h5>
+										</div>
+										<div class="ibox-content">
+											<h1 class="no-margins">1000</h1>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-3">
+	                            <div class="ibox float-e-margins">
+	                                <div class="ibox-title">
+	                                    <span class="label label-info pull-right">次</span>
+	                                    <h5>登录次数</h5>
+	                                </div>
+	                                <div class="ibox-content">
+	                                    <h1 class="no-margins">650</h1>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-3">
+	                            <div class="ibox float-e-margins">
+	                                <div class="ibox-title">
+	                                    <span class="label label-primary pull-right">数</span>
+	                                    <h5>待办事项</h5>
+	                                </div>
+	                                 <div class="ibox-content">
+	                                    <h1 class="no-margins">10</h1>
+	                                </div>
+	                            </div>
+	                        </div>
+	                        <div class="col-md-3">
+	                            <div class="ibox float-e-margins">
+	                                <div class="ibox-title">
+	                                    <span class="label label-primary pull-right">件</span>
+	                                    <h5>累计处理案件</h5>
+	                                </div>
+	                                 <div class="ibox-content">
+	                                    <h1 class="no-margins">102060</h1>
+	                                </div>
+	                            </div>
+	                        </div>
+                    	</div>
+						<!--使用echart产生图表-->
+						<div class="row">
+
+							<div class="col-sm-12 col-md-6 col-lg-6">
+				                <div class="ibox float-e-margins">
+				                    <div class="ibox-title">
+				                        <h5>法官业绩统计</h5>
+				                    </div>
+				                    <div class="ibox-content">
+				                        <div class="echarts" id="echarts-bar-chart"></div>
+				                    </div>
+				                </div>
+				            </div>
+							<div class="col-sm-12 col-md-6 col-lg-6">
+								<div class="ibox float-e-margins">
+									<div class="ibox-title">
+										<h5>部门业绩统计</h5>
+									</div>
+									<div class="ibox-content">
+										<div class="echarts" id="echarts-pie-chart"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 全局js -->
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+	    <!--echarts-->
+	    <script src="/js/plugins/echarts/echarts-all.js"></script>
+	    <!--echarts demo-->
+	    <script src="/appjs/g-echart-demo.js"></script>
+	   
+
+
+	</body>
+
+</html>
