@@ -2,27 +2,28 @@ var prefix = "/tjbb/tzkp"
 $(function () {
     selectLoad();
 });
+
 function selectLoad() {
     var html = "";
     $.ajax({
-        url : '/esgjyj/yjkh/list',
-        success : function(data) {
+        url: '/esgjyj/yjkh/list',
+        success: function (data) {
             //加载数据
             for (var i = 0; i < data.length; i++) {
-                html += '<option value="' + data[i].id + '">' + data[i].khmc+ '</option>'
+                html += '<option value="' + data[i].id + '">' + data[i].khmc + '</option>'
             }
             $(".chosen-select").append(html);
             $(".chosen-select").chosen({
-                maxHeight : 200
+                maxHeight: 200
             });
-            khid=$('.chosen-select').val();
+            khid = $('.chosen-select').val();
             load();
             //点击事件
-            $('.chosen-select').on('change', function(e, params) {
+            $('.chosen-select').on('change', function (e, params) {
                 khid = params.selected;
                 var opt = {
-                    query : {
-                        khid : params.selected,
+                    query: {
+                        khid: params.selected,
                     }
                 }
                 $('#exampleTable').bootstrapTable('refresh', opt);
@@ -30,6 +31,7 @@ function selectLoad() {
         }
     });
 }
+
 function load() {
     $('#exampleTable')
         .bootstrapTable(
@@ -61,7 +63,7 @@ function load() {
                         // offset: params.offset
                         // name:$('#searchName').val(),
                         // username:$('#searchName').val()
-                        khid:khid
+                        khid: khid
                     };
                 },
                 // //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果
@@ -85,42 +87,82 @@ function load() {
                             field: 'office',
                             title: '部门',
                             align: "center",
+                            rowspan: 2
                         },
                         {
                             field: 'name',
                             title: '姓名',
                             align: "center",
+                            rowspan: 2
                         },
                         {
                             field: 'toScore',
                             title: '考核总分',
                             align: "center",
+                            rowspan: 2
                         },
                         {
                             field: 'a3',
                             title: '部门法官业绩',
                             align: "center",
+                            rowspan: 2,
                             formatter: function (value, row, index) {
-                                return '<a href="#" onclick="preview(\'a3\',\''+row.khdx+ '\')">' + row.a3 + '</a>';
+                                return '<a href="#" onclick="preview(\'a3\',\'' + row.khdx + '\')">' + row.a3 + '</a>';
                             }
                         },
                         {
                             field: 'a4',
                             title: '个人业绩',
                             align: "center",
+                            rowspan: 2,
                             formatter: function (value, row, index) {
-                                return '<a href="#" onclick="preview(\'a4\',\''+row.khdx+ '\')">' + row.a4 + '</a>';
+                                return '<a href="#" onclick="preview(\'a4\',\'' + row.khdx + '\')">' + row.a4 + '</a>';
                             }
                         },
                         {
                             field: 'a5',
                             title: '综合评价',
                             align: "center",
+                            rowspan: 2,
                             formatter: function (value, row, index) {
-                                return '<a href="#" onclick="preview(\'a5\',\''+row.khdx+ '\')">' + row.a5 + '</a>';
+                                return '<a href="#" onclick="preview(\'a5\',\'' + row.khdx + '\')">' + row.a5 + '</a>';
                             }
                         },
-                        ]]
+                        {
+                            title: "综合审判调研",
+                            valign: "middle",
+                            align: "center",
+                            colspan: 3,
+                            rowspan: 1
+                        }
+                    ],
+                    [
+                        {
+                            field: 'a6',
+                            title: '调研、理论成果',
+                            align: "center",
+                            formatter: function (value, row, index) {
+                                return '<a href="#" onclick="preview(\'a6\',\'' + row.khdx + '\')">' + row.a6 + '</a>';
+                            }
+                        },
+                        {
+                            field: 'a7',
+                            title: '案例采用',
+                            align: "center",
+                            formatter: function (value, row, index) {
+                                return '<a href="#" onclick="preview(\'a7\',\'' + row.khdx + '\')">' + row.a7 + '</a>';
+                            }
+                        },
+                        {
+                            field: 'a8',
+                            title: '宣传表彰',
+                            align: "center",
+                            formatter: function (value, row, index) {
+                                return '<a href="#" onclick="preview(\'a8\',\'' + row.khdx + '\')">' + row.a8 + '</a>';
+                            }
+                        },
+                    ]
+                ]
             });
 }
 
@@ -138,18 +180,20 @@ function add() {
         content: prefix + '/add.html' // iframe的url
     });
 }
-function preview(filed,khdx) {
+
+function preview(filed, khdx) {
     layer.open({
         type: 2,
         title: '编辑',
         maxmin: true,
         shadeClose: false, // 点击遮罩关闭层
         area: ['800px', '520px'],
-        content: "/esgjyj/tjbb/tjbx.html?colIndex="+filed+"&&khdxid="+khdx // iframe的url
+        content: "/esgjyj/tjbb/tjbx.html?colIndex=" + filed + "&&khdxid=" + khdx // iframe的url
     });
 
 
 }
+
 function edit(id) {
     layer.open({
         type: 2,

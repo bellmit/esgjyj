@@ -125,6 +125,16 @@ public class TjbbServiceImpl {
                 } else if (5 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
                     fgkpVO.setA5(String.format("%.2f", khjgDO.getScore()));
+                }else if (6 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA6(String.format("%.2f", khjgDO.getScore()));
+                } else if (7 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA7(String.format("%.2f", khjgDO.getScore()));
+                }
+                else if (8 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA8(String.format("%.2f", khjgDO.getScore()));
                 }
             }
             fgkpVOS.add(fgkpVO);
