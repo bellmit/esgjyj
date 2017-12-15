@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eastsoft.esgjyj.dao.YjkhAjmxDao">
+
+	<select id="get" resultType="com.eastsoft.esgjyj.domain.YjkhAjmxDO">
+		select ID,KHDXID,COL_INDEX,LB,CASE_SN,SCORE,DFSM from YJKH_AJMX where ID = #{value}
+	</select>
+
+	<select id="list" resultType="com.eastsoft.esgjyj.domain.YjkhAjmxDO">
+		select ID,KHDXID,COL_INDEX,LB,CASE_SN,SCORE,DFSM from YJKH_AJMX
+        <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="khdxid != null and khdxid != ''"> and KHDXID = #{khdxid} </if>
+		  		  <if test="colIndex != null and colIndex != ''"> and COL_INDEX = #{colIndex} </if>
+		  		  <if test="lb != null and lb != ''"> and LB = #{lb} </if>
+		  		  <if test="caseSn != null and caseSn != ''"> and CASE_SN = #{caseSn} </if>
+		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
+		  		  <if test="dfsm != null and dfsm != ''"> and DFSM = #{dfsm} </if>
+		  		  <if test="averageScore != null and averageScore != ''"> and AVERAGE_SCORE = #{averageScore} </if>
+		  		</where>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from YJKH_AJMX
+		 <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="khdxid != null and khdxid != ''"> and KHDXID = #{khdxid} </if>
+		  		  <if test="colIndex != null and colIndex != ''"> and COL_INDEX = #{colIndex} </if>
+		  		  <if test="lb != null and lb != ''"> and LB = #{lb} </if>
+		  		  <if test="caseSn != null and caseSn != ''"> and CASE_SN = #{caseSn} </if>
+		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
+		  		  <if test="dfsm != null and dfsm != ''"> and DFSM = #{dfsm} </if>
+		  		  <if test="averageScore != null and averageScore != ''"> and AVERAGE_SCORE = #{averageScore} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.eastsoft.esgjyj.domain.YjkhAjmxDO">
+		insert into YJKH_AJMX
+		(
+			ID, 
+			KHDXID, 
+			COL_INDEX, 
+			LB, 
+			CASE_SN, 
+			SCORE, 
+			DFSM,
+			AVERAGE_SCORE
+		)
+		values
+		(
+			#{id}, 
+			#{khdxid}, 
+			#{colIndex}, 
+			#{lb}, 
+			#{caseSn}, 
+			#{score}, 
+			#{dfsm},
+			#{averageScore}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.eastsoft.esgjyj.domain.YjkhAjmxDO">
+		update YJKH_AJMX 
+		<set>
+			<if test="khdxid != null">KHDXID = #{khdxid}, </if>
+			<if test="colIndex != null">COL_INDEX = #{colIndex}, </if>
+			<if test="lb != null">LB = #{lb}, </if>
+			<if test="caseSn != null">CASE_SN = #{caseSn}, </if>
+			<if test="score != null">SCORE = #{score}, </if>
+			<if test="dfsm != null">DFSM = #{dfsm}</if>
+			<if test="averageScore != null">AVERAGE_SCORE = #{averageScore}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from YJKH_AJMX where ID = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from YJKH_AJMX where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<select id="listByParam" resultType="com.eastsoft.esgjyj.domain.YjkhAjmxDO" parameterType="java.util.Map">
+		select '(' + CASES.ND + ')' + CASES.COURT_ABBRNAME + CASES.CASEWORD 
+		+ (CASE WHEN CASES.ND > '2015' THEN NULL ELSE '字第' END) + CONVERT(VARCHAR, CASES.BH) 
+		+ ltrim(rtrim(CASES.TSBH)) + '号' AS AH ,YJKH_AJMX.DFSM, YJKH_AJMX.SCORE, YJKH_AJMX.AVERAGE_SCORE, YJKH_AJMX.LB, YJKH_AJMX.COL_INDEX from CASES, YJKH_AJMX where CASES.SN = YJKH_AJMX.CASE_SN AND YJKH_AJMX.KHDXID = #{khdxid} and YJKH_AJMX.COL_INDEX=#{colIndex}
+	</select>
+</mapper>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eastsoft.esgjyj.dao.KhjgMapper">
+  <resultMap id="BaseResultMap" type="com.eastsoft.esgjyj.domain.Khjg">
+    <id column="DXID" jdbcType="VARCHAR" property="dxid" />
+    <id column="XH" jdbcType="INTEGER" property="xh" />
+    <result column="COL_INDEX" jdbcType="INTEGER" property="colIndex" />
+    <result column="COL_NAME" jdbcType="VARCHAR" property="colName" />
+    <result column="SCORE" jdbcType="NUMERIC" property="score" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eastsoft.esgjyj.domain.Khjg">
+    <result column="DFSM" jdbcType="LONGVARCHAR" property="dfsm" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    DXID, XH, COL_INDEX, COL_NAME, SCORE
+  </sql>
+  <sql id="Blob_Column_List">
+    DFSM
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.KhjgKey" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from YJKH_KHJG
+    where DXID = #{dxid,jdbcType=VARCHAR}
+      and XH = #{xh,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.KhjgKey">
+    delete from YJKH_KHJG
+    where DXID = #{dxid,jdbcType=VARCHAR}
+      and XH = #{xh,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.eastsoft.esgjyj.domain.Khjg">
+    insert into YJKH_KHJG (DXID, XH, COL_INDEX, 
+      COL_NAME, SCORE, DFSM
+      )
+    values (#{dxid,jdbcType=VARCHAR}, #{xh,jdbcType=INTEGER}, #{colIndex,jdbcType=INTEGER}, 
+      #{colName,jdbcType=VARCHAR}, #{score,jdbcType=NUMERIC}, #{dfsm,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eastsoft.esgjyj.domain.Khjg">
+    insert into YJKH_KHJG
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="dxid != null">
+        DXID,
+      </if>
+      <if test="xh != null">
+        XH,
+      </if>
+      <if test="colIndex != null">
+        COL_INDEX,
+      </if>
+      <if test="colName != null">
+        COL_NAME,
+      </if>
+      <if test="score != null">
+        SCORE,
+      </if>
+      <if test="dfsm != null">
+        DFSM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="dxid != null">
+        #{dxid,jdbcType=VARCHAR},
+      </if>
+      <if test="xh != null">
+        #{xh,jdbcType=INTEGER},
+      </if>
+      <if test="colIndex != null">
+        #{colIndex,jdbcType=INTEGER},
+      </if>
+      <if test="colName != null">
+        #{colName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=NUMERIC},
+      </if>
+      <if test="dfsm != null">
+        #{dfsm,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eastsoft.esgjyj.domain.Khjg">
+    update YJKH_KHJG
+    <set>
+      <if test="colIndex != null">
+        COL_INDEX = #{colIndex,jdbcType=INTEGER},
+      </if>
+      <if test="colName != null">
+        COL_NAME = #{colName,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        SCORE = #{score,jdbcType=NUMERIC},
+      </if>
+      <if test="dfsm != null">
+        DFSM = #{dfsm,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where DXID = #{dxid,jdbcType=VARCHAR}
+      and XH = #{xh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.eastsoft.esgjyj.domain.Khjg">
+    update YJKH_KHJG
+    set COL_INDEX = #{colIndex,jdbcType=INTEGER},
+      COL_NAME = #{colName,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=NUMERIC},
+      DFSM = #{dfsm,jdbcType=LONGVARCHAR}
+    where DXID = #{dxid,jdbcType=VARCHAR}
+      and XH = #{xh,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.Khjg">
+    update YJKH_KHJG
+    set COL_INDEX = #{colIndex,jdbcType=INTEGER},
+      COL_NAME = #{colName,jdbcType=VARCHAR},
+      SCORE = #{score,jdbcType=NUMERIC}
+    where DXID = #{dxid,jdbcType=VARCHAR}
+      and XH = #{xh,jdbcType=INTEGER}
+  </update>
+</mapper>
