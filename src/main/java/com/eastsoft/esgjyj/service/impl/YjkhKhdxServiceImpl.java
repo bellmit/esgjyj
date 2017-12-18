@@ -1,19 +1,20 @@
 package com.eastsoft.esgjyj.service.impl;
 
-import com.eastsoft.esgjyj.dao.YjkhDao;
-import com.eastsoft.esgjyj.domain.YjkhDO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.eastsoft.esgjyj.dao.YjkhDao;
 import com.eastsoft.esgjyj.dao.YjkhKhdxDao;
+import com.eastsoft.esgjyj.domain.Office;
+import com.eastsoft.esgjyj.domain.YjkhDO;
 import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
 import com.eastsoft.esgjyj.service.YjkhKhdxService;
-import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -89,6 +90,12 @@ public class YjkhKhdxServiceImpl implements YjkhKhdxService {
 			}
 		}
 	}
+
+	@Override
+	public List<Office> listOffice() {
+		return yjkhKhdxDao.listOffice();
+	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public void copy(String ta,String khid){
 		Map<String,Object> param = new HashMap<>();

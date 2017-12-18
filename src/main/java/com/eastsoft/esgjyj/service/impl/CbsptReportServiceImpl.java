@@ -151,4 +151,84 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 		}
 		return cbrList;
 	}
+	public List<Map<String, Object>> list(Map<String, Object> map) {
+		String khid = (String)map.get("khid");
+		String ksrq = (String)map.get("ksrq");
+		String jzrq = (String)map.get("jzrq");
+		Map<String, Double> xsMap = getXsMap(ksrq, jzrq);
+		Map<String, Double> yjMap = getYjMap(ksrq, jzrq);
+		Map<String, Object> rsMap = getCount(khid);
+		String sql = "select SHORTNAME, OFID from S_OFFICE where COURT_NO = '0F' "
+				+ " order by OFLEVEL";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		String ofid = "";
+		int count = 0;
+		long xsCnt = 0, yjCnt = 0, xs_zsCnt = 0, yj_zsCnt = 0;
+		List<Map<String, Object>> newList = new ArrayList<>();
+		for(Map<String, Object> item : list) {
+			ofid = (String)item.get("OFID");
+			xsCnt = Math.round(xsMap.get(ofid) == null ? 0 : xsMap.get(ofid));
+			yjCnt = Math.round(yjMap.get(ofid) == null ? 0 : yjMap.get(ofid));
+			xs_zsCnt = Math.round(xsMap.get(ofid + "_zs") == null ? 0 : xsMap.get(ofid + "_zs"));
+			yj_zsCnt = Math.round(yjMap.get(ofid + "_zs") == null ? 0 : yjMap.get(ofid + "_zs"));
+			item.put("XS", xsCnt);
+			item.put("YJ", yjCnt);
+			item.put("XS_ZS", xs_zsCnt);
+			item.put("YJ_ZS", yj_zsCnt);
+			count = rsMap.get(ofid) == null ? 0 : (Integer)rsMap.get(ofid);
+			if(count == 0) continue;
+			item.put("AVERAGE_SCORE", Math.round((yjMap.get(ofid + "_zs") == null ? 0 : yjMap.get(ofid + "_zs")) / count));
+			newList.add(item);
+		}
+		return newList;
+	}
+	/**
+	 * 获取新收案件
+	 * @param ksrq    开始日期
+	 * @param jzrq    截止日期
+	 * @return
+	 */
+	public Map<String, Double> getXsMap(String ksrq, String jzrq) {
+		String sql = "select CBSPTBS, AJLB from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
+		+ SftjUtil.generateXsWhere(ksrq, jzrq, "");
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		String cbsptbs = "", ajlb = "";
+		Map<String, Double> map = new HashMap<>();
+		double count = 0, xs = 0.0;
+		for(Map<String, Object> item : list) {
+			cbsptbs = (String)item.get("CBSPTBS");
+			if(Tools.isEmpty(cbsptbs)) continue;
+			count = map.get(cbsptbs) == null ? 1 : (double)map.get(cbsptbs) + 1;
+			map.put(cbsptbs, count);
+			ajlb = (String)item.get("AJLB");
+			xs = gySpyjkhService.getLxxs(ajlb);
+			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
+			map.put(cbsptbs + "_zs", xs);
+		}
+		return map;
+	}
+	/**
+	 * 获取已结案件
+	 * @param ksrq    开始日期
+	 * @param jzrq    截止日期
+	 * @return
+	 */
+	public Map<String, Double> getYjMap(String ksrq, String jzrq) {
+		String sql = "select CBSPTBS, AJLB from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
+		+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		String cbsptbs = "", ajlb = "";
+		Map<String, Double> map = new HashMap<>();
+		double count = 0, xs = 0.0;
+		for(Map<String, Object> item : list) {
+			cbsptbs = (String)item.get("CBSPTBS");
+			count = map.get(cbsptbs) == null ? 1 : (double)map.get(cbsptbs) + 1;
+			map.put(cbsptbs, count);
+			ajlb = (String)item.get("AJLB");
+			xs = gySpyjkhService.getLxxs(ajlb);
+			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
+			map.put(cbsptbs + "_zs", xs);
+		}
+		return map;
+	}
 }

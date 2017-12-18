@@ -32,7 +32,7 @@ public class TjbbServiceImpl {
     private OfficeMapper officeMapper;
 
     public List<FgkpVO> listFgKp(String khid,String ofid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "1");
         param.put("khid", khid);
@@ -97,7 +97,7 @@ public class TjbbServiceImpl {
     }
 
     public List<FgkpVO> listTzKp(String khid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "2");
         param.put("khid", khid);
@@ -145,7 +145,7 @@ public class TjbbServiceImpl {
     }
 
     public List<FgkpVO> listZhKp(String khid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>(16);
         param.put("dxtype", "3");
         param.put("khid", khid);
@@ -189,7 +189,7 @@ public class TjbbServiceImpl {
         return fgkpVOS;
     }
     public List<FgkpVO> listZhfzr(String khid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "8");
         param.put("khid", khid);
@@ -233,7 +233,7 @@ public class TjbbServiceImpl {
         return fgkpVOS;
     }
     public List<FgkpVO> listZhzl(String khid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "6");
         param.put("khid", khid);
@@ -276,7 +276,7 @@ public class TjbbServiceImpl {
         return fgkpVOS;
     }
     public List<FgkpVO> listZhsjy(String khid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "7");
         param.put("khid", khid);
@@ -320,7 +320,7 @@ public class TjbbServiceImpl {
 
 
     public List<FgkpVO> listZlKp(String khid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "4");
         param.put("khid", khid);
@@ -364,7 +364,7 @@ public class TjbbServiceImpl {
     }
 
     public List<FgkpVO> listSjyKp(String khid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "5");
         param.put("khid", khid);
@@ -416,7 +416,7 @@ public class TjbbServiceImpl {
     }
 
     public List<FgkpVO> listPrsjy(String khid) {
-        List<FgkpVO> fgkpVOS = new ArrayList();
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "9");
         param.put("khid", khid);

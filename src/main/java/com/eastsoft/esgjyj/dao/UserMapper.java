@@ -8,7 +8,6 @@ import com.eastsoft.esgjyj.domain.User;
 import com.eastsoft.esgjyj.domain.UserWithBLOBs;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-import org.mybatis.spring.annotation.MapperScan;
 
 @Mapper
 public interface UserMapper {

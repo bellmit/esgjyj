@@ -1,10 +1,12 @@
 package com.eastsoft.esgjyj.service;
 
-import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.transaction.annotation.Transactional;
+
+import com.eastsoft.esgjyj.domain.Office;
+import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
 
 /**
  * ${comments}
@@ -13,6 +15,7 @@ import java.util.Map;
  * @email 1992lcg@163.com
  * @date November 13, 2017 3:06:35 PM CST
  */
+
 public interface YjkhKhdxService {
 	
 	YjkhKhdxDO get(String id);
@@ -38,4 +41,6 @@ public interface YjkhKhdxService {
 
 	@Transactional(rollbackFor = Exception.class)
 	void copyAll(String khid);
+
+	List<Office> listOffice();
 }

@@ -9,12 +9,10 @@ import com.eastsoft.esgjyj.util.*;
 import com.eastsoft.esgjyj.vo.YjkhKhdxVO;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
 import com.eastsoft.esgjyj.service.YjkhKhdxService;
-import com.eastsoft.esgjyj.util.PageUtils;
 
 /**
  * ${comments}
@@ -173,5 +171,8 @@ public class YjkhKhdxController {
         yjkhKhdxService.copyAll(khid);
         return R.ok();
     }
-
+    @GetMapping("/listOffice")
+    List<Office> listOffice(){
+        return yjkhKhdxService.listOffice();
+    }
 }

@@ -2,14 +2,10 @@ package com.eastsoft.esgjyj.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.alibaba.druid.filter.config.ConfigTools;
-import com.eastsoft.esgjyj.dao.BaseDao;
 
 /**
  * 公共方法集合。
