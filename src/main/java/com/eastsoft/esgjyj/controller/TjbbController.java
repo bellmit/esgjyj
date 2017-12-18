@@ -3,6 +3,8 @@ package com.eastsoft.esgjyj.controller;
 import com.eastsoft.esgjyj.dao.YjkhDao;
 import com.eastsoft.esgjyj.domain.YjkhDO;
 import com.eastsoft.esgjyj.service.CbsptReportService;
+import com.eastsoft.esgjyj.service.FgzlReportService;
+import com.eastsoft.esgjyj.service.SjyReportService;
 import com.eastsoft.esgjyj.service.impl.TjbbServiceImpl;
 import com.eastsoft.esgjyj.util.DateUtil;
 import com.eastsoft.esgjyj.vo.FgkpVO;
@@ -27,6 +29,12 @@ public class TjbbController {
     TjbbServiceImpl tjbbService;
     @Autowired
     CbsptReportService cbsptReportService;
+
+    @Autowired
+    FgzlReportService fgzlReportService;
+
+    @Autowired
+    SjyReportService sjyReportService;
 
     @Autowired
     YjkhDao yjkhDao;
@@ -100,6 +108,54 @@ public class TjbbController {
         map.put("jzrq",jzrq);
         map.put("khid",khid);
         List<Map<String, Object>> list = cbsptReportService.cbrList(map);
+        return list;
+    }
+
+    @GetMapping("/fgzlRe/list")
+    List<Map<String, Object>> fgzlRe(String khid){
+        YjkhDO yjkhDO = yjkhDao.get(khid);
+        String ksyf = yjkhDO.getKsyf();
+        String jsyf = yjkhDO.getJsyf();
+        String ksrq="",jzrq="";
+        ksrq = ksyf+"-01";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date jzrqDate = null;
+        try {
+            jzrqDate = sdf.parse(jsyf);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        jzrq = sdf2.format(DateUtil.getLastDayOfMonth(jzrqDate));
+        Map<String,Object> map = new HashMap<>();
+        map.put("ksrq",ksrq);
+        map.put("jzrq",jzrq);
+        map.put("khid",khid);
+        List<Map<String, Object>> list = fgzlReportService.fgzlList(map);
+        return list;
+    }
+
+    @GetMapping("/sjyRe/list")
+    List<Map<String, Object>> sjyRe(String khid){
+        YjkhDO yjkhDO = yjkhDao.get(khid);
+        String ksyf = yjkhDO.getKsyf();
+        String jsyf = yjkhDO.getJsyf();
+        String ksrq="",jzrq="";
+        ksrq = ksyf+"-01";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date jzrqDate = null;
+        try {
+            jzrqDate = sdf.parse(jsyf);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        jzrq = sdf2.format(DateUtil.getLastDayOfMonth(jzrqDate));
+        Map<String,Object> map = new HashMap<>();
+        map.put("ksrq",ksrq);
+        map.put("jzrq",jzrq);
+        map.put("khid",khid);
+        List<Map<String, Object>> list = sjyReportService.sjyList(map);
         return list;
     }
 }
