@@ -93,6 +93,7 @@ function load() {
                                 field: 'AH',
                                 title: '案号',
                                 align: "center",
+								width: '20%'
                             },
                             {
                                 field: 'DFSM',

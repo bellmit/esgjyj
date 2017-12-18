@@ -1,0 +1,32 @@
+package com.eastsoft.esgjyj;
+
+import com.eastsoft.esgjyj.dao.GeneratorDao;
+import com.eastsoft.esgjyj.dao.YjkhDao;
+import com.eastsoft.esgjyj.domain.YjkhDO;
+import com.eastsoft.esgjyj.form.TreeNode;
+import com.eastsoft.esgjyj.service.impl.GeneratorServiceImpl;
+import com.eastsoft.esgjyj.service.impl.OfficeServiceImpl;
+import com.eastsoft.esgjyj.util.GeneratorUtilSupplyForSybase;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.HashMap;
+import java.util.List;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class EsgjyjApplicationTests {
+    @Autowired
+    OfficeServiceImpl officeService;
+
+    @Test
+    public void contextLoads() {
+        List<TreeNode> list = officeService.getOfficeUserTreeNodes("0FC");
+        System.out.println("-----"+list.size());
+    }
+
+}

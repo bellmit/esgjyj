@@ -1,0 +1,12 @@
+server.port=8080
+
+# escloud datasource
+escloud.datasource.driverClassName=net.sourceforge.jtds.jdbc.Driver
+escloud.datasource.url=jdbc:jtds:sybase://129.1.50.194:8888/escloud_sdgy;charset=cp936
+escloud.datasource.username=escloud
+escloud.datasource.password=ROj6cMYw4p97tTQ2KA5+vK3tKXuczaDdFQZcMlotjltcvEVX2/nC7AF0IPZUCmxfH6gXVkMEni/aYuA1t65yXg==
+escloud.datasource.validationQuery=select 'X'
+escloud.datasource.minIdle=200
+escloud.datasource.maxActive=300
+
+data.dir=/Users/Ben/Documents/workspace-eastsoft/data/iqImporter

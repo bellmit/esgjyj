@@ -1,11 +1,13 @@
 package com.eastsoft.esgjyj.domain;
 
+import java.math.BigDecimal;
+
 public class Khjg extends KhjgKey {
     private Integer colIndex;
 
     private String colName;
 
-    private Double score;
+    private BigDecimal score;
 
     private String dfsm;
 
@@ -25,11 +27,11 @@ public class Khjg extends KhjgKey {
         this.colName = colName == null ? null : colName.trim();
     }
 
-    public Double getScore() {
+    public BigDecimal getScore() {
         return score;
     }
 
-    public void setScore(Double score) {
+    public void setScore(BigDecimal score) {
         this.score = score;
     }
 

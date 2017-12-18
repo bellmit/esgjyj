@@ -1,0 +1,25 @@
+package com.eastsoft.esgjyj.dao;
+
+import java.util.List;
+import java.util.Map;
+
+import com.eastsoft.esgjyj.domain.User;
+import com.eastsoft.esgjyj.domain.UserWithBLOBs;
+
+public interface UserMapper {
+    int deleteByPrimaryKey(String userid);
+
+    int insert(UserWithBLOBs record);
+
+    int insertSelective(UserWithBLOBs record);
+
+    UserWithBLOBs selectByPrimaryKey(String userid);
+
+    int updateByPrimaryKeySelective(UserWithBLOBs record);
+
+    int updateByPrimaryKeyWithBLOBs(UserWithBLOBs record);
+
+    int updateByPrimaryKey(User record);
+    
+    List<User> selectByParams(Map<String, Object> params);
+}

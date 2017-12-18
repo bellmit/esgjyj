@@ -45,7 +45,7 @@ function load() {
                 toolbar: '#exampleToolbar',
                 striped: true, // 设置为true会有隔行变色效果
                 dataType: "json", // 服务器返回的数据类型
-                pagination: true, // 设置为true会在底部显示分页条
+                pagination: true,                 cache: false,
                 // queryParamsType : "limit",
                 // //设置为limit则会发送符合RESTFull格式的参数
                 singleSelect: false, // 设置为true将禁止多选
@@ -75,7 +75,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "综合审判部门书记员考评报表",
+                            title: "综合审判部门主要负责人考评报表",
                             halign: "center",
                             align: "center",
                             colspan: 9,
@@ -86,44 +86,82 @@ function load() {
                         {
                             field: 'office',
                             title: '部门',
+                            halign: "center",
                             align: "center",
+                            rowspan: 2,
                         },
                         {
                             field: 'name',
                             title: '姓名',
+                            halign: "center",
                             align: "center",
+                            rowspan: 2,
                         },
                         {
                             field: 'toScore',
                             title: '考核总分',
+                            halign: "center",
                             align: "center",
+                            rowspan: 2,
                         },
                         {
                             field: 'a3',
                             title: '综合审判业绩',
                             align: "center",
+                            halign: "center",
+                            rowspan: 2,
+                            formatter: function (value, row, index) {
+                                return '<a href="#" onclick="preview(\'a3\',\'' + row.khdx + '\')">' + row.a3 + '</a>';
+                            }
                         },
                         {
                             field: 'a4',
                             title: '个人办案业绩',
                             align: "center",
+                            rowspan: 2,
+                            formatter: function (value, row, index) {
+                                return '<a href="#" onclick="preview(\'a4\',\'' + row.khdx + '\')">' + row.a4 + '</a>';
+                            }
                         },
                         {
-                            field: 'a5',
-                            title: '调研理论成果',
+                            title: "综合审判调研",
+                            valign: "middle",
                             align: "center",
+                            colspan: 3,
+                            rowspan: 1
+                        }
+
+                    ],
+                    [
+                        {
+                            field: 'a5',
+                            title: '调研、理论成果',
+                            valign: "middle",
+                            align: "center",
+                            formatter: function (value, row, index) {
+                                return '<a href="#" onclick="preview(\'a5\',\'' + row.khdx + '\')">' + row.a5 + '</a>';
+                            }
                         },
                         {
                             field: 'a6',
                             title: '案例采用',
+                            valign: "middle",
                             align: "center",
+                            formatter: function (value, row, index) {
+                                return '<a href="#" onclick="preview(\'a6\',\'' + row.khdx + '\')">' + row.a6 + '</a>';
+                            }
                         },
                         {
                             field: 'a7',
                             title: '宣传表彰',
+                            valign: "middle",
                             align: "center",
+                            formatter: function (value, row, index) {
+                                return '<a href="#" onclick="preview(\'a7\',\'' + row.khdx + '\')">' + row.a7 + '</a>';
+                            }
                         },
-                    ]]
+                    ]
+                ]
             });
 }
 

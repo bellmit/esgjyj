@@ -1,0 +1,826 @@
+package com.eastsoft.esgjyj.service.impl;
+
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.eastsoft.esgjyj.context.ScopeUtil;
+import com.eastsoft.esgjyj.dao.AjmxMapper;
+import com.eastsoft.esgjyj.dao.BaseDao;
+import com.eastsoft.esgjyj.dao.KhjgMapper;
+import com.eastsoft.esgjyj.domain.Ajmx;
+import com.eastsoft.esgjyj.domain.Khjg;
+import com.eastsoft.esgjyj.domain.KhjgKey;
+import com.eastsoft.esgjyj.domain.User;
+import com.eastsoft.esgjyj.util.DateUtil;
+import com.eastsoft.esgjyj.util.SftjUtil;
+import com.eastsoft.esgjyj.util.Tools;
+
+
+//@Component
+@Service("gySpyjkhService")
+public class GySpyjkhServiceImpl {
+	@Autowired
+	private BaseDao baseDao;
+	@Autowired
+	private KhjgMapper khjgMapper;
+	@Autowired
+	private AjmxMapper ajmxMapper;
+	
+	/**
+	 * 高院绩效考核
+	 */
+//	@Scheduled(cron="0 0/1 8-20 * * ?")
+	public void execute() {
+		String sql = "select * from YJKH where COURT_NO = '" + ScopeUtil.getSessionUser(User.class).getCourtNo() + "' and ACTIVE = '1'";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		String id = "", ksyf = "", jsyf = "", khdxid = "", dxtype = "", userid = "", khdxbm = "", ksrq = "", jzrq = "";
+		double score = 0.0;
+		String[] dfsm;
+		List<Map<String, Object>> userList = null;
+		for(Map<String, Object> item : list) {
+			id = (String)item.get("ID");
+			ksyf = (String)item.get("KSYF");
+			ksyf += "-01";
+			jsyf = (String)item.get("JSYF");
+			jsyf += "-01";
+			SimpleDateFormat simple = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = new Date();
+			try {
+				date = simple.parse(jsyf);
+				date = DateUtil.getLastDayOfMonth(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			ksrq = ksyf;
+			jzrq = simple.format(date);
+			//遍历考核对象
+			sql = "select * from YJKH_KHDX where KHID = '" + id + "'";
+			userList = baseDao.queryForList(sql);
+			for(Map<String, Object> map : userList) {
+				khdxid = (String)map.get("ID");
+				dxtype = (String)map.get("DXTYPE");
+				userid = (String)map.get("USERID");
+				khdxbm = (String)map.get("OFFICEID");
+				//遍历考核对象类别
+				//审执部门法官考核指标
+				if("1".equals(dxtype)) {
+					//1.法官结案分值
+					dfsm = this.getJafz(id, userid, khdxbm, ksrq, jzrq).split("\\&");
+					score = Double.parseDouble(dfsm[0]);
+					//保存
+					this.save(khdxid, 3, "法官结案", score, dfsm[1]);
+					//2.二审改判发回数
+					score = this.getEsgpfhs(id, userid, ksrq, jzrq);
+					//保存
+					this.save(khdxid, 4, "二审改判发回", score, "");
+					//3.再审改判发回数
+					score = this.getZsgpfhs(id, userid, ksrq, jzrq);
+					//保存
+					this.save(khdxid, 5, "再审改判发回", score, "");
+					//4.案件质量评查结果꣩
+					score = getZlpcjg(id, khdxid, "案件质量评查结果");
+					this.save(khdxid, 6, "案件质量评查", score, "");
+					//5.超期限结案数
+					score = getCqxjas(id, userid, ksrq, jzrq);
+					this.save(khdxid, 7, "超期未结案", score, "");
+					//6.长期未结案件数
+					score = getCqwjajs(id, userid, ksrq, jzrq);
+					this.save(khdxid, 8, "长期未结案", score, "");
+					//7.服判息诉率
+					score = 4;
+					this.save(khdxid, 9, "服判息诉率", 4, "");
+					//8.信访投诉数
+					score = getZlpcjg(id, khdxid, "信访投诉数");
+					this.save(khdxid, 10, "信访投诉", score, "");
+					//9.引发负面舆情次数
+					score = getZlpcjg(id, khdxid, "引发负面舆情次数");
+					this.save(khdxid, 11, "引发负面舆情", score, "");
+					//10.调研、理论成果
+					score = getZlpcjg(id, khdxid, "调研、理论成果");
+					this.save(khdxid, 12, "调研、理论成果", score, "");
+					//11.案例采用
+					score = getZlpcjg(id, khdxid, "案例采用");
+					this.save(khdxid, 13, "案例采用", score, "");
+					//12.宣传表彰
+					score = getZlpcjg(id, khdxid, "宣传表彰");
+					this.save(khdxid, 14, "宣传表彰", score, "");
+				} else if("2".equals(dxtype)) {//审执部门庭长考核指标
+					//1.部门法官业绩
+					dfsm = this.getBmfgyj(id).split("\\&");
+					score = Double.parseDouble(dfsm[0]);
+					this.save(khdxid, 3, "部门法官业绩", score, dfsm[1]);
+					//2.个人业绩
+					dfsm = this.getGryj(id, userid, khdxbm, ksrq, jzrq).split("\\&");
+					score = Double.parseDouble(dfsm[0]);
+					this.save(khdxid, 4, "个人业绩", score, dfsm[1]);
+					//3.综合评价
+					score = getZlpcjg(id, khdxid, "综合评价");
+					this.save(khdxid, 5, "综合评价", score, "");
+				} else if("3".equals(dxtype)) {//综合部门法官考核指标
+					//1.综合审判业绩
+					score = getZlpcjg(id, khdxid, "综合审判业绩");
+					this.save(khdxid, 3, "综合审判业绩", score, "");
+					//2.个人办案业绩
+					dfsm = getGrbayj(id, userid, khdxbm, ksrq, jzrq).split("\\&");
+					score = Double.parseDouble(dfsm[0]);
+					this.save(khdxid, 4, "个人办案业绩", score, dfsm[1]);
+				} else if("4".equals(dxtype)) {//法官助理考核指标
+					//1.岗位业绩基础分
+					score = getGwyj(id, userid, khdxbm, ksrq, jzrq);
+					this.save(khdxid, 3, "岗位业绩基础得分", score, "");
+					//2.辅助办案绩效分
+					score = getFzbajxf(id, userid);
+					this.save(khdxid, 4, "辅助办案绩效得分", score, "");
+					//3.综合评价分
+					score = getZlpcjg(id, khdxid, "综合评价分");
+					this.save(khdxid, 5, "综合评价得分", score, "");
+					//4.奖惩得分
+					score = getZlpcjg(id, khdxid, "奖惩得分");
+					this.save(khdxid, 6, "奖惩得分", score, "");
+					//5.审判调研
+					score = getZlpcjg(id, khdxid, "审判调研");
+					this.save(khdxid, 7, "审判调研", score, "");
+				} else if("5".equals(dxtype)) {//书记员考核指标
+					//1.协助办结案件
+					score = getXzbja(id, userid, khdxbm, ksrq, jzrq);
+					this.save(khdxid, 3, "协助办结案件", score, "");
+					//2.ͥ庭审记录
+					score = getTsjl(id, userid, khdxbm, ksrq, jzrq);
+					this.save(khdxid, 4, "庭审记录", score, "");
+					//3.形成电子卷宗
+					score = getZlpcjg(id, khdxid, "形成电子卷宗");
+					this.save(khdxid, 5, "电子卷宗", score, "");
+					//4.卷宗管理工作
+					score = getZlpcjg(id, khdxid, "卷宗管理工作");
+					this.save(khdxid, 6, "卷宗管理工作", score, "");
+					//5.工作技能分
+					score = getZlpcjg(id, khdxid, "工作技能分");
+					this.save(khdxid, 7, "工作技能得分", score, "");
+					//6.综合评价分
+					score = getZlpcjg(id, khdxid, "综合评价分");
+					this.save(khdxid, 8, "综合评价得分", score, "");
+					//7.奖惩得分
+					score = getZlpcjg(id, khdxid, "奖惩得分");
+					this.save(khdxid, 9, "奖惩得分", score, "");
+					//8.审判调研
+					score = getZlpcjg(id, khdxid, "审判调研");
+					this.save(khdxid, 10, "审判调研", score, "");
+				}
+			}
+		}
+	}
+	/**
+	 * 保存考核结果
+	 * @param khjg   考核结果对象
+	 */
+	public void save(String dxid, int colIndex, String colName, double score, String dfsm) {
+		String sql = "select * from YJKH_KHJG where DXID = '" + dxid + "' and COL_INDEX = " + colIndex;
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		//删除已经存在的字段
+		for(Map<String, Object> item : list) {
+			KhjgKey key = new KhjgKey();
+			String id = (String)item.get("DXID");
+			Integer xh = (Integer)item.get("XH");
+			key.setDxid(id);
+			key.setXh(xh);
+			khjgMapper.deleteByPrimaryKey(key);
+		}
+		Khjg khjg = new Khjg();
+		khjg.setDxid(dxid);
+		khjg.setXh(this.getMaxXh(dxid));
+		khjg.setColIndex(colIndex);
+		khjg.setColName(colName);
+		khjg.setScore(score);
+		khjg.setDfsm(dfsm);
+		khjgMapper.insertSelective(khjg);
+	}
+	/**
+	 * 获取最大序号
+	 * @param dxid    对象主键
+	 * @return
+	 */
+	public int getMaxXh(String dxid) {
+		String sql = "select ISNULL(MAX(XH), 0) from YJKH_KHJG where DXID = '" + dxid + "'";
+		int cnt = baseDao.queryForInt(sql);
+		return ++cnt;
+	}
+	/**
+	 * 结案分值
+	 * @param khid    考核主键
+	 * @param khdx    考核对象id
+	 * @param ksrq    开始日期
+	 * @param jzrq    截止日期
+	 * @return
+	 */
+	public String getJafz(String khid, String khdx, String khdxbm, String ksrq, String jzrq) {
+		String sql = "select AJLB, CBRBS from CASES where (CBRBS = '" + khdx + "' OR SPZBS = '" + khdx + "' or HYTCYBS LIKE '%" + khdx + "%')"
+				+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		double jafz = 0.0, japjfz = 0.0;
+		String ajlb = "", cbrbs = "";
+		String[] dfsm;
+		//平均分
+		dfsm = getJafzBzz(khid, khdx, khdxbm, ksrq, jzrq).split("\\&");
+		japjfz = Double.parseDouble(dfsm[0]);
+		for(Map<String, Object> item : list) {
+			ajlb = (String)item.get("AJLB");
+			cbrbs = (String)item.get("CBRBS");
+			jafz += 10 * getLxxs(ajlb) * getJsxs(cbrbs, khdx);
+		}
+		double cnt = getJsjg(jafz, japjfz);
+		cnt = this.decimal(cnt);
+		//
+		if(cnt < 0) cnt = 0.0000;
+		return cnt + "&" + dfsm[1];
+	}
+	/**
+	 * 二审改判发回数
+	 * @param khid     考核主键
+	 * @param khdx     考核对象id
+	 * @param ksrq     开始日期
+	 * @param jzrq     截止日期
+	 * @return
+	 */
+	public double getEsgpfhs(String khid, String khdx, String ksrq, String jzrq) {
+		String sql = "select SN from CASES where CBRBS = '" + khdx + "' " 
+								+ " and JAFS like '%改判%' or JAFS like '%发回%' and AJLB in ('12','22','62','72')";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		Long sn = 0L;
+		List<Long> snList = new ArrayList<>();
+		for(Map<String, Object> item : list) {
+			sn = item.get("SN") == null ? 0 : ((BigDecimal)item.get("SN")).longValue();
+			if(sn != 0) snList.add(sn);
+		}
+		this.saveSn(khid, khdx, "2", snList);
+		Integer cnt = list.size();
+		double count = 7.5 - cnt * 2.5;
+		count = this.decimal(count);
+		if(count < 0) count = 0.0000;
+		return count;
+	}
+	/**
+	 * 再审改判发回数
+	 * @param khid     考核主键
+	 * @param khdx     考核对象id
+	 * @param ksrq     开始日期
+	 * @param jzrq     截止日期
+	 * @return
+	 */
+	public double getZsgpfhs(String khid, String khdx, String ksrq, String jzrq) {
+		String sql = "select SN from CASES where CBRBS = '" + khdx + "' " 
+				                 + " and JAFS like '%改判%' or JAFS like '%发回%' and SPCX = '审判监督'";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		Long sn = 0L;
+		List<Long> snList = new ArrayList<>();
+		for(Map<String, Object> item : list) {
+			sn = item.get("SN") == null ? 0 : ((BigDecimal)item.get("SN")).longValue();
+			if(sn != 0) snList.add(sn);
+		}
+		this.saveSn(khid, khdx, "3", snList);
+		Integer cnt = list.size();
+		double count = 7.5 - cnt * 2.5;
+		count = this.decimal(count);
+		if(count < 0) count = 0.0000;
+		return count;
+	}
+	/**
+	 * 案件质量评查结果
+	 * @param khid    考核主键
+	 * @param khdx    考核对象
+	 * @param zbmc    指标名称
+	 * @return
+	 */
+	public double getZlpcjg(String khid, String khdx, String zbmc) {
+		String sql = "select YJKH_ZBWH.*, YJKH_ZGKH.* from YJKH_ZBWH, YJKH_ZGKH where YJKH_ZBWH.ID = YJKH_ZGKH.ZBID "
+				+ " and YJKH_ZGKH.DXID = '" + khdx + "' and YJKH_ZBWH.ZBMC = '" + zbmc + "'"
+				+ " and YJKH_ZBWH.KHID = '" + khid + "'";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		double zbsx = 0.0, score = 0.0, zf = 0.0;
+		String zfz = "";
+		for(Map<String, Object> item : list) {
+			zbsx = ((Float)item.get("ZBSX")).doubleValue();
+			zfz = (String)item.get("ZFZ");
+			score = ((Float)item.get("SCORE")).doubleValue();
+			zf += score;
+			if(zbsx < zf) {
+				zf = zbsx;
+			}
+		}
+		double count = Double.parseDouble(zfz + zf);
+		count = this.decimal(count);
+		if(count < 0) count = 0.0000;
+		return count;
+	}
+	/**
+	 * 超期限结案数
+	 * @param khid     考核主键
+	 * @param khdx     考核对象id
+	 * @param ksrq     开始日期
+	 * @param jzrq     截止日期
+	 * @return
+	 */
+	public double getCqxjas(String khid, String khdx, String ksrq, String jzrq) {
+		String sql = "select COUNT(*) from CASES, CASES_SX where CASES.CBRBS = '" + khdx + "' "
+						+ SftjUtil.generateCsxjaWhere(ksrq, jzrq, "", "");
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		Long sn = 0L;
+		List<Long> snList = new ArrayList<>();
+		for(Map<String, Object> item : list) {
+			sn = item.get("SN") == null ? 0 : ((BigDecimal)item.get("SN")).longValue();
+			if(sn != 0) snList.add(sn);
+		}
+		this.saveSn(khid, khdx, "4", snList);
+		Integer cnt = list.size();
+		double count = 4 - cnt;
+		count = this.decimal(count);
+		if(count < 0) count = 0.0000;
+		return count;
+	}
+	/**
+	 * 长期未结案件数
+	 * @param khid     考核主键
+	 * @param khdx     考核对象id
+	 * @param ksrq     开始日期
+	 * @param jzrq     截止日期
+	 * @return
+	 */
+	public double getCqwjajs(String khid, String khdx, String ksrq, String jzrq) {
+		String sql = "select COUNT(*) from CASES where CBRBS = '" + khdx + "' "
+						+ SftjUtil.generateC18wjWhere("");
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		Long sn = 0L;
+		List<Long> snList = new ArrayList<>();
+		for(Map<String, Object> item : list) {
+			sn = item.get("SN") == null ? 0 : ((BigDecimal)item.get("SN")).longValue();
+			if(sn != 0) snList.add(sn);
+		}
+		this.saveSn(khid, khdx, "5", snList);
+		Integer cnt = list.size();
+		double count = 6 - cnt;
+		count = this.decimal(count);
+		if(count < 0) count = 0.0000;
+		return count;
+	}
+	/**
+	 * 服判息诉率
+	 * @param khdx     考核对象id
+	 * @param khdxbm   考核对象部门id
+	 * @param ksrq     开始日期
+	 * @param jzrq     截止日期
+	 * @return
+	 */
+//	public double getFpxsl(String khdx, String khdxbm, String ksrq, String jzrq) {
+//		String sql = "select COUNT(*) from CASES where CBRBS = '" + khdx + "' "
+//						+ ;
+//	}
+	/**
+	 * 部门法官业绩
+	 * @param khid 考核主键
+	 * @return
+	 */
+	public String getBmfgyj(String khid) {
+		String sql = "select SCORE, (select USERNAME from S_USER "
+				+ " where USERID = YJKH_KHDX.USERID) as USERNAME "
+				+ " from YJKH_KHJG, YJKH_KHDX where YJKH_KHJG.DXID = YJKH_KHDX.ID "
+							+ " and YJKH_KHDX.DXTYPE = '1'";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		sql = "select COUNT(*) from YJKH_KHDX where KHID = '" + khid + "' and DXTYPE = '1'";
+		int userCnt = baseDao.queryForInt(sql);
+		double cnt = 0.0, score = 0.0;
+		String username = "", dfsm = "";
+		for(Map<String, Object> item : list) {
+			username = (String)item.get("USERNAME");
+			score = ((Float)item.get("SCORE")).doubleValue();
+			cnt += score;
+			if(dfsm.contains(username)) {
+				dfsm = dfsm.substring(0, dfsm.lastIndexOf(":")) + ":" + cnt + ";";
+			} else {
+				dfsm += username + ":" + cnt + ";";
+			}
+		}
+		if(list.size() > 0) {
+			double count = cnt / userCnt * 0.5;
+			count = this.decimal(count);
+			dfsm += "本部门法官业绩考评人均分:" + count * 2 + ";";
+			if(count < 0) count = 0.00;
+			return count + "&" + dfsm;
+		} else {
+			return 0.00 + "&" + "本部门法官业绩还未考评！";
+		}
+	}
+	/**
+	 * 个人业绩（完成办案任务是指：庭长个人承办的案件数，即庭长担任案件承办人的案件数（已结案），应当达到本部门法官平均办案量的50%）
+	 * @param khid    考核主键
+	 * @param khdx    考核对象id
+	 * @param khdxbm  考核对象部门
+	 * @param ksrq    开始日期
+	 * @param jzrq    截止日期
+	 * @return
+	 */
+	public String getGryj(String khid, String khdx, String khdxbm, String ksrq, String jzrq) {
+		String sql = "select USERID, USERNAME from S_USER where COURT_NO = '" 
+					+ ScopeUtil.getSessionUser(User.class).getCourtNo() + "' and OFFICEID = '" + khdxbm + "'";
+		List<Map<String, Object>> userList = baseDao.queryForList(sql);
+		String userid = "", username = "", dfsm = "";
+		List<Map<String, Object>> list = null;
+		Long sn;
+		int mbjas = 0;
+		List<Long> snList = new ArrayList<>();
+		for(Map<String, Object> item : userList) {
+			userid = (String)item.get("USERID");
+			username = (String)item.get("USERNAME");
+			sql = "select SN, AJLB, CBRBS from CASES where (CBRBS = '" + userid + "' OR SPZBS = '" + userid + "' or HYTCYBS LIKE '%" + userid + "%')"
+					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			list = baseDao.queryForList(sql);
+			for(Map<String, Object> map : list) {
+				sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
+				if(sn != 0) snList.add(sn);
+			}
+			mbjas += list.size();
+			dfsm += username + " 的办案数为：" + list.size() + ";";
+		}
+		this.saveSn(khid, khdx, "8", snList);
+		sql = "select COUNT(*) from CASES where CBRBS = '" + khdx + "' "
+				+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+		int cnt = baseDao.queryForInt(sql);
+		if(userList.size() == 0) return 0.0 + "本部门人员为空！";
+		mbjas = mbjas / userList.size() / 2;
+		dfsm += "本部门的平均办案数为：" + mbjas * 2 + ";";
+		dfsm += "考核对象的办案数为：" + cnt + ";";
+		double count = cnt - mbjas;
+		count = this.decimal(40 + count);
+		if(count < 0) count = 0.00;
+		return count + "&" + dfsm;
+	}
+	/**
+	 * 个人办案业绩  （标准值为：综合审判部门（研究室、审管办）法官在考核区间内结案数达到全院法官平均办案量的30%，即算完成办案任务）
+	 * @param khid    考核主键
+	 * @param khdx    考核对象id
+	 * @param khdxbm  考核对象部门
+	 * @param ksrq    开始日期
+	 * @param jzrq    截止日期
+	 * @return
+	 */
+	public String getGrbayj(String khid, String khdx, String khdxbm, String ksrq, String jzrq) {
+		String sql = "select USERID, USERNAME from S_USER where COURT_NO = '" 
+					+ ScopeUtil.getSessionUser(User.class).getCourtNo() + "' ";
+		List<Map<String, Object>> userList = baseDao.queryForList(sql);
+		String userid = "", username = "", dfsm = "";
+		List<Map<String, Object>> list = null;
+		Long sn;
+		int mbjas = 0;
+		List<Long> snList = new ArrayList<>();
+		for(Map<String, Object> item : userList) {
+			userid = (String)item.get("USERID");
+			username = (String)item.get("USERNAME");
+			sql = "select SN, AJLB, CBRBS from CASES where (CBRBS = '" + userid + "' OR SPZBS = '" + userid + "' or HYTCYBS LIKE '%" + userid + "%')"
+					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			list = baseDao.queryForList(sql);
+			for(Map<String, Object> map : list) {
+				sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
+				if(sn != 0) snList.add(sn);
+			}
+			mbjas += list.size();
+			dfsm += username + " 的办案数为：" + list.size() + ";";
+		}
+		this.saveSn(khid, khdx, "9", snList);
+		sql = "select COUNT(*) from CASES where (CBRBS = '" + khdx + "' OR SPZBS = '" + khdx + "' or HYTCYBS LIKE '%" + khdx + "%')"
+				+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+		int cnt = baseDao.queryForInt(sql);
+		if(userList.size() == 0) return 0.00 + "全院法官未维护！";
+		mbjas = mbjas / userList.size() * 3 / 10;
+		dfsm += "本部门的平均办案数为：" + mbjas * 10 / 3 + ";";
+		dfsm += "考核对象的办案数为：" + cnt + ";";
+		double count = cnt - mbjas;
+		count = this.decimal(40 + count);
+		if(count < 0) count = 0.00;
+		return count + "&" + dfsm;
+	}
+	/**
+	 * 岗位业绩
+	 * @param khzj     考核主键
+	 * @param khdx     考核对象id
+	 * @param khdxbm   考核对象部门
+	 * @param ksrq     开始日期
+	 * @param jzrq     截止日期
+	 * @return
+	 */
+	public double getGwyj(String khzj, String khdx, String khdxbm, String ksrq, String jzrq) {
+		String sql = "select * from YJKH_KHDX where KHID = '" + khzj + "' "
+				+ " and OFFICEID = '" + khdxbm + "'";
+		List<Map<String, Object>> fgzlList = baseDao.queryForList(sql);
+		String userid = "";
+		int ajs = 0, zs = 0, khdxs = 0;
+		for(Map<String, Object> item : fgzlList) {
+			userid = (String)item.get("USERID");
+			if(Tools.isEmpty(userid)) continue;
+			sql = "select COUNT(*) from CASES where FGZLBS = '" + userid + "' "
+					      + SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			ajs = baseDao.queryForInt(sql);
+			if(userid.equals(khdx)) khdxs = ajs;
+			zs += ajs;
+		}
+		double tzf = 0.0, pjf = 0.0, bl = 0.0;
+		if(fgzlList.size() > 0) {
+			pjf = zs * 1.0 / fgzlList.size();
+			if(pjf == 0) return 0.0;
+			bl = (khdxs - pjf) / pjf;
+			if(bl > 0) {
+				while(bl - 0.1 > 0) {
+					tzf += 2;
+					bl -= 0.1;
+				}
+			} else {
+				while(bl + 0.2 < 0) {
+					tzf -= 2;
+					bl += 0.2;
+				}
+			}
+			double df = 40 + tzf;
+			df = this.decimal(df);
+			if(df < 0) df = 0.0000;
+			return df;
+		} else {
+			return 0.0000;
+		}
+	}
+	/**
+	 * 辅助办案绩效分
+	 * @param khdx    考核对象id
+	 * @return
+	 */
+	public double getFzbajxf(String khzj, String khdx) {
+		String sql = "select CBRBS from CASES where FGZLBS = '" + khdx + "'";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		String cbrbs = "";
+		List<Map<String, Object>> dfList = null;
+		double df = 0.0, zdf = 0.0;
+		for(Map<String, Object> item : list) {
+			cbrbs = (String)item.get("CBRBS");
+			sql = "select YJKH_KHJG.* from YJKH_KHDX, YJKH_KHJG where YJKH_KHDX.ID = YJKH_KHJG.DXID"
+					+ " and YJKH_KHDX.KHID = '" + khzj + "' and YJKH_KHDX.USERID = '" + cbrbs + "'";
+			dfList = baseDao.queryForList(sql);
+			for(Map<String, Object> map : dfList) {
+				df = ((Float)map.get("SCORE")).doubleValue();
+				zdf += df;
+				df = 0.0;
+			}
+		}
+		if(list.size() > 0) {
+			zdf = this.decimal(zdf / list.size());
+		} else {
+			zdf = 0;
+		}
+		return zdf;
+	}
+	/**
+	 * 协助办结案件
+	 * @param khzj       考核主键
+	 * @param khdx       考核对象id
+	 * @param khdxbm     考核对象部门
+	 * @param ksrq       开始日期
+	 * @param jzrq       截止日期
+	 * @return
+	 */
+	public double getXzbja(String khzj, String khdx, String khdxbm, String ksrq, String jzrq) {
+		String sql = "select * from YJKH_KHDX where KHID = '" + khzj + "' "
+				+ " and OFFICEID = '" + khdxbm + "'";
+		List<Map<String, Object>> sjyList = baseDao.queryForList(sql);
+		String userid = "";
+		int ajs = 0, zs = 0, khdxs = 0;
+		for(Map<String, Object> item : sjyList) {
+			userid = (String)item.get("USERID");
+			if(Tools.isEmpty(userid)) continue;
+			sql = "select COUNT(*) from CASES where SJYBS = '" + userid + "' "
+					      + SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			ajs = baseDao.queryForInt(sql);
+			if(userid.equals(khdx)) khdxs = ajs;
+			zs += ajs;
+		}
+		double tzf = 0.0, pjf = 0.0, bl = 0.0;
+		if(sjyList.size() > 0) {
+			pjf = zs * 1.0 / sjyList.size();
+			if(pjf == 0) return 0.0;
+			bl = (khdxs - pjf) / pjf;
+			if(bl > 0) {
+				while(bl - 0.1 > 0) {
+					tzf += 2;
+					bl -= 0.1;
+				}
+			} else {
+				while(bl + 0.2 < 0) {
+					tzf -= 2;
+					bl += 0.2;
+				}
+			}
+			double df = 20 + tzf;
+			df = this.decimal(df);
+			if(df < 0) df = 0.0000;
+			return df;
+		} else {
+			return 0.0000;
+		}
+	}
+	/**
+	 * 庭审记录
+	 * @param khzj       考核主键
+	 * @param khdx       考核对象id
+	 * @param khdxbm     考核对象部门
+	 * @param ksrq       开始日期
+	 * @param jzrq       截止日期
+	 * @return
+	 */
+	public double getTsjl(String khzj, String khdx, String khdxbm, String ksrq, String jzrq) {
+		String sql = "select * from YJKH_KHDX where KHID = '" + khzj + "' "
+				+ " and OFFICEID = '" + khdxbm + "'";
+		List<Map<String, Object>> sjyList = baseDao.queryForList(sql);
+		String userid = "";
+		int ajs = 0, zs = 0, khdxs = 0;
+		for(Map<String, Object> item : sjyList) {
+			userid = (String)item.get("USERID");
+			if(Tools.isEmpty(userid)) continue;
+			sql = "select COUNT(*) from CASES where SJYBS = '" + userid + "' "
+						  + " and exists(select 1 from CASES_PQ where CASES.SN = CASES_PQ.CASE_SN "
+						  + " and CASES_PQ.FTYT like '%��ͥ%') "
+					      + SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			ajs = baseDao.queryForInt(sql);
+			if(userid.equals(khdx)) khdxs = ajs;
+			zs += ajs;
+		}
+		double tzf = 0.0, pjf = 0.0, bl = 0.0;
+		if(sjyList.size() > 0) {
+			pjf = zs * 1.0 / sjyList.size();
+			if(pjf == 0) return 0.0;
+			bl = (khdxs - pjf) / pjf;
+			if(bl > 0) {
+				while(bl - 0.1 > 0) {
+					tzf += 2;
+					bl -= 0.1;
+				}
+			} else {
+				while(bl + 0.2 < 0) {
+					tzf -= 2;
+					bl += 0.2;
+				}
+			}
+			double df = 20 + tzf;
+			df = this.decimal(df);
+			if(df < 0) df = 0.0000;
+			return df;
+		} else {
+			return 0.0000;
+		}
+	}
+	/**
+	 * 结案分值
+	 * @param jafz     结案分值
+	 * @param japjfz   结案平均分值
+	 * @return
+	 */
+	public double getJsjg(double jafz, double japjfz) {
+		double bl = 0.0, tzf = 0.0;
+		if(japjfz <= 0.0) return 60;
+		bl = (jafz - japjfz) / japjfz;
+		tzf = 0.0;
+		//����ƽ��ֵ
+		if(bl > 0) {
+			while(bl - 0.1 > 0) {
+				tzf += 5;
+				bl -= 0.1;
+			}
+		} else {          //����ƽ��ֵ
+			if(-bl < 0.8) {
+				while(bl + 0.2 < 0) {
+					tzf -= 5;
+					bl += 0.2;
+				}
+			} else {
+				if(bl > -1) {
+					tzf = -40;
+				} else {
+					tzf = -50;
+				}
+			}
+		}
+		return 60 + tzf;
+	}
+	/**
+	 * 计算法官结案平均值
+	 * @param khid    考核主键
+	 * @param khdx    考核对象id
+	 * @param khdxbm  考核对象部门id
+	 * @param ksrq    开始日期
+	 * @param jzrq    截止日期
+	 * @return
+	 */
+	public String getJafzBzz(String khid, String khdx, String khdxbm, String ksrq, String jzrq) {
+		String sql = "select USERID, USERNAME from S_USER where COURT_NO = '" 
+						+ ScopeUtil.getSessionUser(User.class).getCourtNo() + "' and OFFICEID = '" + khdxbm + "'";
+		List<Map<String, Object>> userList = baseDao.queryForList(sql);
+		String userid = "", username = "";
+		List<Map<String, Object>> list = null;
+		Double jafz = 0.0, jazfz = 0.0;
+		String ajlb = "", cbrbs = "";
+		Long sn;
+		List<Long> snList = new ArrayList<>();
+		String dfsm = "";
+		for(Map<String, Object> item : userList) {
+			userid = (String)item.get("USERID");
+			username = (String)item.get("USERNAME");
+			sql = "select SN, AJLB, CBRBS from CASES where (CBRBS = '" + userid + "' OR SPZBS = '" + userid + "' or HYTCYBS LIKE '%" + userid + "%')"
+					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			list = baseDao.queryForList(sql);
+			for(Map<String, Object> map : list) {
+				sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
+				if(sn != 0) snList.add(sn);
+				ajlb = (String)map.get("AJLB");
+				cbrbs = (String)map.get("CBRBS");
+				jafz += 10 * getLxxs(ajlb) * getJsxs(cbrbs, userid);
+			}
+			dfsm += username + "：" + jafz + ";";
+			jazfz += jafz;
+			jafz = 0.0;
+		}
+		this.saveSn(khid, khdx, "1", snList);
+		if(jazfz < 0) jazfz = 0.00;
+		if(userList.size() == 0) return 0.00 + "&" + "部门人员为空！";
+		dfsm += "部门平均法官结案分值：" + this.decimal(jazfz / userList.size());
+		return jazfz / userList.size() + "&" + dfsm;
+	}
+	/**
+	 * 插入到案件明细表
+	 * @param khdxid     考核对象主键
+	 * @param colIndex   列代号
+	 * @param lb         类别
+	 * @param sn         案件sn
+	 */
+	public void saveSn(String khdxid, String colIndex, String lb, List<Long> list) {
+		String sql = "delete from YJKH_AJMX where KHDXID = '" + khdxid 
+								+ "' and COL_INDEX = '" + colIndex + "' and LB = '" + lb + "'";
+		baseDao.update(sql);
+		for(Long sn : list) {
+			Ajmx ajmx = new Ajmx();
+			ajmx.setId(Tools.getUUID());
+			ajmx.setLb(lb);
+			ajmx.setCaseSn(sn);
+			ajmxMapper.insertSelective(ajmx);
+		}
+	}
+	/**
+	 * 相关系数
+	 * @param ajlb   案件类别
+	 * @return
+	 */
+	public Double getLxxs(String ajlb) {
+		Double lxxs = 0.0;
+		String ysajlb = "11,21,61,71", zsajlb = "1S, 1T, 1Y, 2Y, 2f, 2g, 6C, 6D, 6Y, 7F, 7G, 7Y, G1";
+		if(ysajlb.contains(ajlb)) {
+			lxxs = 1.5;
+		} else if(zsajlb.contains(ajlb)) {
+			lxxs = 0.5;
+		} else if("15".equals(ajlb)) {
+			lxxs = 0.07;
+		}
+		return lxxs;
+	}
+	/**
+	 * 获取计算系数
+	 * @param cbrbs  承办人标识
+	 * @param khdx   考核对象id
+	 * @return
+	 */
+	public Double getJsxs(String cbrbs, String khdx) {
+		Double jsxs = 1.0;
+		if(cbrbs.equals(khdx)) {
+			jsxs = 0.6;
+		} else {
+			jsxs = 0.2;
+		}
+		return jsxs;
+	}
+	/**
+	 * 保留4位小数
+	 * @return
+	 */
+	public double decimal(double cnt) {
+		DecimalFormat format = new DecimalFormat("0.00");
+		double count = Double.parseDouble(format.format(cnt));
+		return count;
+	}
+	
+	
+	public static void main(String[] args) {
+		double cnt = 1234.11119;
+		GySpyjkhServiceImpl ss = new GySpyjkhServiceImpl();
+		System.out.println(ss.decimal(cnt));
+	}
+}

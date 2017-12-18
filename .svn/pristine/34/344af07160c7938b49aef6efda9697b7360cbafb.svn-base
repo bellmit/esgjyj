@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eastsoft.esgjyj.dao.OfficeMapper">
+  <resultMap id="BaseResultMap" type="com.eastsoft.esgjyj.domain.Office">
+    <id column="OFID" jdbcType="VARCHAR" property="ofid" />
+    <result column="FULLNAME" jdbcType="VARCHAR" property="fullname" />
+    <result column="SHORTNAME" jdbcType="VARCHAR" property="shortname" />
+    <result column="OFTYPE" jdbcType="VARCHAR" property="oftype" />
+    <result column="OFLEVEL" jdbcType="VARCHAR" property="oflevel" />
+    <result column="SFTJBH" jdbcType="VARCHAR" property="sftjbh" />
+    <result column="STATE" jdbcType="CHAR" property="state" />
+    <result column="HEADER" jdbcType="VARCHAR" property="header" />
+    <result column="COURT_NO" jdbcType="VARCHAR" property="courtNo" />
+    <result column="KBLAJLX" jdbcType="INTEGER" property="kblajlx" />
+    <result column="ZXXTBM" jdbcType="VARCHAR" property="zxxtbm" />
+    <result column="BMBS" jdbcType="INTEGER" property="bmbs" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    OFID, FULLNAME, SHORTNAME, OFTYPE, OFLEVEL, SFTJBH, STATE, HEADER, COURT_NO, KBLAJLX, 
+    ZXXTBM, BMBS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from S_OFFICE
+    where OFID = #{ofid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from S_OFFICE
+    where OFID = #{ofid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.eastsoft.esgjyj.domain.Office">
+    insert into S_OFFICE (OFID, FULLNAME, SHORTNAME, 
+      OFTYPE, OFLEVEL, SFTJBH, 
+      STATE, HEADER, COURT_NO, 
+      KBLAJLX, ZXXTBM, BMBS
+      )
+    values (#{ofid,jdbcType=VARCHAR}, #{fullname,jdbcType=VARCHAR}, #{shortname,jdbcType=VARCHAR}, 
+      #{oftype,jdbcType=VARCHAR}, #{oflevel,jdbcType=VARCHAR}, #{sftjbh,jdbcType=VARCHAR}, 
+      #{state,jdbcType=CHAR}, #{header,jdbcType=VARCHAR}, #{courtNo,jdbcType=VARCHAR}, 
+      #{kblajlx,jdbcType=INTEGER}, #{zxxtbm,jdbcType=VARCHAR}, #{bmbs,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eastsoft.esgjyj.domain.Office">
+    insert into S_OFFICE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ofid != null">
+        OFID,
+      </if>
+      <if test="fullname != null">
+        FULLNAME,
+      </if>
+      <if test="shortname != null">
+        SHORTNAME,
+      </if>
+      <if test="oftype != null">
+        OFTYPE,
+      </if>
+      <if test="oflevel != null">
+        OFLEVEL,
+      </if>
+      <if test="sftjbh != null">
+        SFTJBH,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="header != null">
+        HEADER,
+      </if>
+      <if test="courtNo != null">
+        COURT_NO,
+      </if>
+      <if test="kblajlx != null">
+        KBLAJLX,
+      </if>
+      <if test="zxxtbm != null">
+        ZXXTBM,
+      </if>
+      <if test="bmbs != null">
+        BMBS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ofid != null">
+        #{ofid,jdbcType=VARCHAR},
+      </if>
+      <if test="fullname != null">
+        #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null">
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="oftype != null">
+        #{oftype,jdbcType=VARCHAR},
+      </if>
+      <if test="oflevel != null">
+        #{oflevel,jdbcType=VARCHAR},
+      </if>
+      <if test="sftjbh != null">
+        #{sftjbh,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=CHAR},
+      </if>
+      <if test="header != null">
+        #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="courtNo != null">
+        #{courtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="kblajlx != null">
+        #{kblajlx,jdbcType=INTEGER},
+      </if>
+      <if test="zxxtbm != null">
+        #{zxxtbm,jdbcType=VARCHAR},
+      </if>
+      <if test="bmbs != null">
+        #{bmbs,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eastsoft.esgjyj.domain.Office">
+    update S_OFFICE
+    <set>
+      <if test="fullname != null">
+        FULLNAME = #{fullname,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null">
+        SHORTNAME = #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="oftype != null">
+        OFTYPE = #{oftype,jdbcType=VARCHAR},
+      </if>
+      <if test="oflevel != null">
+        OFLEVEL = #{oflevel,jdbcType=VARCHAR},
+      </if>
+      <if test="sftjbh != null">
+        SFTJBH = #{sftjbh,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=CHAR},
+      </if>
+      <if test="header != null">
+        HEADER = #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="courtNo != null">
+        COURT_NO = #{courtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="kblajlx != null">
+        KBLAJLX = #{kblajlx,jdbcType=INTEGER},
+      </if>
+      <if test="zxxtbm != null">
+        ZXXTBM = #{zxxtbm,jdbcType=VARCHAR},
+      </if>
+      <if test="bmbs != null">
+        BMBS = #{bmbs,jdbcType=INTEGER},
+      </if>
+    </set>
+    where OFID = #{ofid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.Office">
+    update S_OFFICE
+    set FULLNAME = #{fullname,jdbcType=VARCHAR},
+      SHORTNAME = #{shortname,jdbcType=VARCHAR},
+      OFTYPE = #{oftype,jdbcType=VARCHAR},
+      OFLEVEL = #{oflevel,jdbcType=VARCHAR},
+      SFTJBH = #{sftjbh,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=CHAR},
+      HEADER = #{header,jdbcType=VARCHAR},
+      COURT_NO = #{courtNo,jdbcType=VARCHAR},
+      KBLAJLX = #{kblajlx,jdbcType=INTEGER},
+      ZXXTBM = #{zxxtbm,jdbcType=VARCHAR},
+      BMBS = #{bmbs,jdbcType=INTEGER}
+    where OFID = #{ofid,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 手动添加 -->
+  <select id="selectByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from S_OFFICE
+    <where>
+      <if test="courtNo != null">
+        and COURT_NO = #{courtNo,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null">
+        and STATE = #{state,jdbcType=CHAR}
+      </if>
+      <if test="oftype != null">
+        and OFTYPE = #{oftype,jdbcType=VARCHAR}
+      </if>
+    </where>
+    order by COURT_NO, OFLEVEL
+  </select>
+</mapper>

@@ -31,11 +31,12 @@ public class TjbbServiceImpl {
     @Autowired
     private OfficeMapper officeMapper;
 
-    public List<FgkpVO> listFgKp(String khid) {
+    public List<FgkpVO> listFgKp(String khid,String ofid) {
         List<FgkpVO> fgkpVOS = new ArrayList();
         Map<String, Object> param = new HashMap<>();
         param.put("dxtype", "1");
         param.put("khid", khid);
+        param.put("officeid", ofid);
         List<YjkhKhdxDO> khdxDOS = yjkhKhdxDao.list(param);
         for (YjkhKhdxDO khdxDO : khdxDOS) {
             FgkpVO fgkpVO = new FgkpVO();

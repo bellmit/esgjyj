@@ -4,7 +4,7 @@ package com.eastsoft.esgjyj.vo;
 
  */
 public class FgkpVO {
-    private  String khdx;
+    private String khdx;
     private String office;
     private String name;
     private String toScore;
@@ -20,6 +20,7 @@ public class FgkpVO {
     private String a12;
     private String a13;
     private String a14;
+    private String a15;
 
     public String getKhdx() {
         return khdx;
@@ -147,5 +148,13 @@ public class FgkpVO {
 
     public void setA14(String a14) {
         this.a14 = a14;
+    }
+
+    public String getA15() {
+        return a15;
+    }
+
+    public void setA15(String a15) {
+        this.a15 = a15;
     }
 }

@@ -1,6 +1,7 @@
 package com.eastsoft.esgjyj.service.impl;
 
 import com.eastsoft.esgjyj.dao.YjkhDao;
+import com.eastsoft.esgjyj.domain.Office;
 import com.eastsoft.esgjyj.domain.YjkhDO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -89,6 +90,12 @@ public class YjkhKhdxServiceImpl implements YjkhKhdxService {
 			}
 		}
 	}
+
+	@Override
+	public List<Office> listOffice() {
+		return yjkhKhdxDao.listOffice();
+	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public void copy(String ta,String khid){
 		Map<String,Object> param = new HashMap<>();

@@ -1,5 +1,6 @@
 package com.eastsoft.esgjyj.service;
 
+import com.eastsoft.esgjyj.domain.Office;
 import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,4 +39,6 @@ public interface YjkhKhdxService {
 
 	@Transactional(rollbackFor = Exception.class)
 	void copyAll(String khid);
+
+	List<Office> listOffice();
 }

@@ -1,0 +1,132 @@
+package com.eastsoft.esgjyj.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import com.eastsoft.esgjyj.dao.OfficeMapper;
+import com.eastsoft.esgjyj.dao.UserMapper;
+import com.eastsoft.esgjyj.domain.Office;
+import com.eastsoft.esgjyj.util.PageUtils;
+import com.eastsoft.esgjyj.vo.YjkhKhdxVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
+import com.eastsoft.esgjyj.service.YjkhKhdxService;
+import com.eastsoft.esgjyj.util.PageUtils;
+import com.eastsoft.esgjyj.util.Query;
+import com.eastsoft.esgjyj.util.R;
+
+/**
+ * ${comments}
+ *
+ * @author chglee
+ * @email 1992lcg@163.com
+ * @date November 13, 2017 3:18:15 PM CST
+ */
+
+@RestController
+@RequestMapping("/esgjyj/yjkhKhdx")
+public class YjkhKhdxController {
+    @Autowired
+    private YjkhKhdxService yjkhKhdxService;
+    @Autowired
+    private UserMapper userMapper;
+    @Autowired
+    private OfficeMapper officeMapper;
+
+    @GetMapping("/get/{id}")
+    YjkhKhdxVO get(@PathVariable("id") String id) {
+        YjkhKhdxDO yjkhKhdx = yjkhKhdxService.get(id);
+        YjkhKhdxVO yjkhKhdxVO = new YjkhKhdxVO();
+        yjkhKhdxVO.setId(yjkhKhdx.getId());
+        if(null!=yjkhKhdx.getUserid()){
+            yjkhKhdxVO.setName(userMapper.selectByPrimaryKey(yjkhKhdx.getUserid()).getUsername());
+        }
+        yjkhKhdxVO.setDxtype(yjkhKhdx.getDxtype());
+        yjkhKhdxVO.setMbjas(yjkhKhdx.getMbjas());
+        yjkhKhdxVO.setOfficeid(yjkhKhdx.getOfficeid());
+        if(null!=yjkhKhdx.getOfficeid()&&null!=officeMapper.selectByPrimaryKey(yjkhKhdx.getOfficeid())){
+            yjkhKhdxVO.setOfficeName(officeMapper.selectByPrimaryKey(yjkhKhdx.getOfficeid()).getShortname());
+        }
+        if(null!=yjkhKhdx.getDxtype()){
+            yjkhKhdxVO.setTypeName(yjkhKhdxService.dxlbConvert(yjkhKhdx.getDxtype()));
+        }
+
+        yjkhKhdxVO.setUserid(yjkhKhdx.getUserid());
+        yjkhKhdxVO.setKhid(yjkhKhdx.getKhid());
+        return yjkhKhdxVO;
+    }
+
+    @GetMapping("/list")
+    public List<YjkhKhdxVO> list(@RequestParam Map<String, Object> params) {
+        //查询列表数据
+        List<YjkhKhdxDO> yjkhKhdxList = yjkhKhdxService.list(params);
+        List<YjkhKhdxVO> res = new ArrayList<>();
+        for (YjkhKhdxDO yjkhKhdx : yjkhKhdxList) {
+            YjkhKhdxVO yjkhKhdxVO = new YjkhKhdxVO();
+            yjkhKhdxVO.setId(yjkhKhdx.getId());
+            if(null!=yjkhKhdx.getUserid()){
+                yjkhKhdxVO.setName(userMapper.selectByPrimaryKey(yjkhKhdx.getUserid()).getUsername());
+            }
+            yjkhKhdxVO.setDxtype(yjkhKhdx.getDxtype());
+            yjkhKhdxVO.setMbjas(yjkhKhdx.getMbjas());
+            yjkhKhdxVO.setOfficeid(yjkhKhdx.getOfficeid());
+            if(null!=yjkhKhdx.getOfficeid()&&null!=officeMapper.selectByPrimaryKey(yjkhKhdx.getOfficeid())){
+                yjkhKhdxVO.setOfficeName(officeMapper.selectByPrimaryKey(yjkhKhdx.getOfficeid()).getShortname());
+            }
+            if(null!=yjkhKhdx.getDxtype()){
+                yjkhKhdxVO.setTypeName(yjkhKhdxService.dxlbConvert(yjkhKhdx.getDxtype()));
+            }
+            res.add(yjkhKhdxVO);
+        }
+        return res;
+    }
+
+    /**
+     * 保存
+     */
+    @PostMapping("/save")
+    public R save(YjkhKhdxDO yjkhKhdx) {
+        yjkhKhdx.setId(UUID.randomUUID().toString().replace("-", ""));
+        yjkhKhdx.setUserid(yjkhKhdx.getUserid().replace("user_",""));
+        if (yjkhKhdxService.save(yjkhKhdx) > 0) {
+            return R.ok();
+        }
+        return R.ok();
+    }
+
+    /**
+     * 修改
+     */
+    @RequestMapping("/update")
+    public R update(YjkhKhdxDO yjkhKhdx) {
+        yjkhKhdx.setUserid(yjkhKhdx.getUserid().replace("user_",""));
+        yjkhKhdxService.update(yjkhKhdx);
+        return R.ok();
+    }
+
+    /**
+     * 删除
+     */
+    @PostMapping("/remove")
+    public R remove(String id) {
+        if (yjkhKhdxService.remove(id) > 0) {
+            return R.ok();
+        }
+        return R.ok();
+    }
+
+    /**
+     * 删除
+     */
+    @PostMapping("/batchRemove")
+    public R remove(@RequestParam("ids[]") String[] ids) {
+        yjkhKhdxService.batchRemove(ids);
+        return R.ok();
+    }
+
+}

@@ -1,0 +1,69 @@
+package com.eastsoft.esgjyj.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Map;
+
+import com.eastsoft.esgjyj.dao.BaseDao;
+import com.eastsoft.esgjyj.dao.YjkhAjmxDao;
+import com.eastsoft.esgjyj.domain.YjkhAjmxDO;
+import com.eastsoft.esgjyj.service.YjkhAjmxService;
+
+
+@Service
+public class YjkhAjmxServiceImpl implements YjkhAjmxService {
+    @Autowired
+    private YjkhAjmxDao yjkhAjmxDao;
+    @Autowired
+    private GySpyjkhServiceImpl gyspyjkhService;
+
+    @Override
+    public YjkhAjmxDO get(String id) {
+        return yjkhAjmxDao.get(id);
+    }
+
+    @Override
+    public List<YjkhAjmxDO> list(Map<String, Object> map) {
+        //return yjkhAjmxDao.list(map);
+    	List<YjkhAjmxDO> list = yjkhAjmxDao.listByParam(map);
+    	double ysf = 0.0, zsf = 0.0;
+    	for(YjkhAjmxDO dao: list) {
+    		ysf += ((Float)dao.getScore()).doubleValue();
+    	}
+    	zsf = gyspyjkhService.decimal(ysf * 0.6);
+    	YjkhAjmxDO dao = new YjkhAjmxDO();
+    	dao.setAh("合计");
+    	dao.setDfsm("个案结案分值总和（原始分）：" + ysf + "分；折算后个案结案分值总和：" + zsf + "分");
+    	list.add(dao);
+    	return list;
+    }
+
+    @Override
+    public int count(Map<String, Object> map) {
+        return yjkhAjmxDao.count(map);
+    }
+
+    @Override
+    public int save(YjkhAjmxDO yjkhAjmx) {
+        return yjkhAjmxDao.save(yjkhAjmx);
+    }
+
+    @Override
+    public int update(YjkhAjmxDO yjkhAjmx) {
+        return yjkhAjmxDao.update(yjkhAjmx);
+    }
+
+    @Override
+    public int remove(String id) {
+        return yjkhAjmxDao.remove(id);
+    }
+
+    @Override
+    public int batchRemove(String[] ids) {
+        return yjkhAjmxDao.batchRemove(ids);
+    }
+
+}

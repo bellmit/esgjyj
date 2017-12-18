@@ -1,77 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eastsoft.esgjyj.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.eastsoft.esgjyj.domain.User">
-    <id column="USERID" jdbcType="VARCHAR" property="userid" />
-    <result column="SORTID" jdbcType="INTEGER" property="sortid" />
-    <result column="COURT_NO" jdbcType="VARCHAR" property="courtNo" />
-    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
-    <result column="LOGID" jdbcType="VARCHAR" property="logid" />
-    <result column="LOGPASS" jdbcType="VARCHAR" property="logpass" />
-    <result column="GRADE" jdbcType="CHAR" property="grade" />
-    <result column="OFFICEID" jdbcType="VARCHAR" property="officeid" />
-    <result column="POSITION" jdbcType="VARCHAR" property="position" />
-    <result column="DEGREE" jdbcType="VARCHAR" property="degree" />
-    <result column="XZZW" jdbcType="VARCHAR" property="xzzw" />
-    <result column="E_MAIL" jdbcType="VARCHAR" property="eMail" />
-    <result column="SIGN" jdbcType="VARCHAR" property="sign" />
-    <result column="STATE" jdbcType="CHAR" property="state" />
-    <result column="SFTJBH" jdbcType="VARCHAR" property="sftjbh" />
-    <result column="MAILACCOUNT" jdbcType="VARCHAR" property="mailaccount" />
-    <result column="MAILPASS" jdbcType="VARCHAR" property="mailpass" />
-    <result column="SFKBA" jdbcType="CHAR" property="sfkba" />
-    <result column="XB" jdbcType="CHAR" property="xb" />
-    <result column="CSRQ" jdbcType="TIMESTAMP" property="csrq" />
-    <result column="MZ" jdbcType="VARCHAR" property="mz" />
-    <result column="WHCD" jdbcType="VARCHAR" property="whcd" />
-    <result column="HYZK" jdbcType="VARCHAR" property="hyzk" />
-    <result column="SFZHM" jdbcType="VARCHAR" property="sfzhm" />
-    <result column="ZZMM" jdbcType="VARCHAR" property="zzmm" />
-    <result column="FGDJ" jdbcType="VARCHAR" property="fgdj" />
-    <result column="FJDJ" jdbcType="VARCHAR" property="fjdj" />
-    <result column="LXFS" jdbcType="VARCHAR" property="lxfs" />
-    <result column="ZSBZ" jdbcType="VARCHAR" property="zsbz" />
-    <result column="YXRQ" jdbcType="TIMESTAMP" property="yxrq" />
-    <result column="WSSPPASS" jdbcType="VARCHAR" property="wssppass" />
-    <result column="SCHEMAURL" jdbcType="CHAR" property="schemaurl" />
-    <result column="LASTDATE" jdbcType="TIMESTAMP" property="lastdate" />
-    <result column="MIMA" jdbcType="VARCHAR" property="mima" />
-    <result column="ZXXTDM" jdbcType="VARCHAR" property="zxxtdm" />
-    <result column="SJHM" jdbcType="VARCHAR" property="sjhm" />
-    <result column="ZXXTBM" jdbcType="VARCHAR" property="zxxtbm" />
-    <result column="BMBS" jdbcType="INTEGER" property="bmbs" />
-    <result column="RYBS" jdbcType="INTEGER" property="rybs" />
-    <result column="GRJJ" jdbcType="VARCHAR" property="grjj" />
-    <result column="XSLXFS" jdbcType="VARCHAR" property="xslxfs" />
-    <result column="SFWZXS" jdbcType="VARCHAR" property="sfwzxs" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eastsoft.esgjyj.domain.UserWithBLOBs">
-    <result column="QMTP" jdbcType="LONGVARBINARY" property="qmtp" />
-    <result column="PHOTO" jdbcType="LONGVARBINARY" property="photo" />
-    <result column="SIGNATURE" jdbcType="LONGVARBINARY" property="signature" />
-  </resultMap>
-  <sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.eastsoft.esgjyj.domain.User">
+        <id column="USERID" jdbcType="VARCHAR" property="userid"/>
+        <result column="SORTID" jdbcType="INTEGER" property="sortid"/>
+        <result column="COURT_NO" jdbcType="VARCHAR" property="courtNo"/>
+        <result column="USERNAME" jdbcType="VARCHAR" property="username"/>
+        <result column="LOGID" jdbcType="VARCHAR" property="logid"/>
+        <result column="LOGPASS" jdbcType="VARCHAR" property="logpass"/>
+        <result column="GRADE" jdbcType="CHAR" property="grade"/>
+        <result column="OFFICEID" jdbcType="VARCHAR" property="officeid"/>
+        <result column="POSITION" jdbcType="VARCHAR" property="position"/>
+        <result column="DEGREE" jdbcType="VARCHAR" property="degree"/>
+        <result column="XZZW" jdbcType="VARCHAR" property="xzzw"/>
+        <result column="E_MAIL" jdbcType="VARCHAR" property="eMail"/>
+        <result column="SIGN" jdbcType="VARCHAR" property="sign"/>
+        <result column="STATE" jdbcType="CHAR" property="state"/>
+        <result column="SFTJBH" jdbcType="VARCHAR" property="sftjbh"/>
+        <result column="MAILACCOUNT" jdbcType="VARCHAR" property="mailaccount"/>
+        <result column="MAILPASS" jdbcType="VARCHAR" property="mailpass"/>
+        <result column="SFKBA" jdbcType="CHAR" property="sfkba"/>
+        <result column="XB" jdbcType="CHAR" property="xb"/>
+        <result column="CSRQ" jdbcType="TIMESTAMP" property="csrq"/>
+        <result column="MZ" jdbcType="VARCHAR" property="mz"/>
+        <result column="WHCD" jdbcType="VARCHAR" property="whcd"/>
+        <result column="HYZK" jdbcType="VARCHAR" property="hyzk"/>
+        <result column="SFZHM" jdbcType="VARCHAR" property="sfzhm"/>
+        <result column="ZZMM" jdbcType="VARCHAR" property="zzmm"/>
+        <result column="FGDJ" jdbcType="VARCHAR" property="fgdj"/>
+        <result column="FJDJ" jdbcType="VARCHAR" property="fjdj"/>
+        <result column="LXFS" jdbcType="VARCHAR" property="lxfs"/>
+        <result column="ZSBZ" jdbcType="VARCHAR" property="zsbz"/>
+        <result column="YXRQ" jdbcType="TIMESTAMP" property="yxrq"/>
+        <result column="WSSPPASS" jdbcType="VARCHAR" property="wssppass"/>
+        <result column="SCHEMAURL" jdbcType="CHAR" property="schemaurl"/>
+        <result column="LASTDATE" jdbcType="TIMESTAMP" property="lastdate"/>
+        <result column="MIMA" jdbcType="VARCHAR" property="mima"/>
+        <result column="ZXXTDM" jdbcType="VARCHAR" property="zxxtdm"/>
+        <result column="SJHM" jdbcType="VARCHAR" property="sjhm"/>
+        <result column="ZXXTBM" jdbcType="VARCHAR" property="zxxtbm"/>
+        <result column="BMBS" jdbcType="INTEGER" property="bmbs"/>
+        <result column="RYBS" jdbcType="INTEGER" property="rybs"/>
+        <result column="GRJJ" jdbcType="VARCHAR" property="grjj"/>
+        <result column="XSLXFS" jdbcType="VARCHAR" property="xslxfs"/>
+        <result column="SFWZXS" jdbcType="VARCHAR" property="sfwzxs"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eastsoft.esgjyj.domain.UserWithBLOBs">
+        <result column="QMTP" jdbcType="LONGVARBINARY" property="qmtp"/>
+        <result column="PHOTO" jdbcType="LONGVARBINARY" property="photo"/>
+        <result column="SIGNATURE" jdbcType="LONGVARBINARY" property="signature"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     USERID, SORTID, COURT_NO, USERNAME, LOGID, LOGPASS, GRADE, OFFICEID, POSITION, DEGREE, 
     XZZW, E_MAIL, SIGN, STATE, SFTJBH, MAILACCOUNT, MAILPASS, SFKBA, XB, CSRQ, MZ, WHCD, 
     HYZK, SFZHM, ZZMM, FGDJ, FJDJ, LXFS, ZSBZ, YXRQ, WSSPPASS, SCHEMAURL, LASTDATE, MIMA, 
     ZXXTDM, SJHM, ZXXTBM, BMBS, RYBS, GRJJ, XSLXFS, SFWZXS
   </sql>
-  <sql id="Blob_Column_List">
+    <sql id="Blob_Column_List">
     QMTP, PHOTO, SIGNATURE
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from S_USER
-    where USERID = #{userid,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from S_USER
+        where USERID = #{userid,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from S_USER
     where USERID = #{userid,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.eastsoft.esgjyj.domain.UserWithBLOBs">
+    <insert id="insert" parameterType="com.eastsoft.esgjyj.domain.UserWithBLOBs">
     insert into S_USER (USERID, SORTID, COURT_NO, 
       USERNAME, LOGID, LOGPASS, 
       GRADE, OFFICEID, POSITION, 
@@ -101,422 +101,422 @@
       #{sfwzxs,jdbcType=VARCHAR}, #{qmtp,jdbcType=LONGVARBINARY}, #{photo,jdbcType=LONGVARBINARY}, 
       #{signature,jdbcType=LONGVARBINARY})
   </insert>
-  <insert id="insertSelective" parameterType="com.eastsoft.esgjyj.domain.UserWithBLOBs">
-    insert into S_USER
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
-        USERID,
-      </if>
-      <if test="sortid != null">
-        SORTID,
-      </if>
-      <if test="courtNo != null">
-        COURT_NO,
-      </if>
-      <if test="username != null">
-        USERNAME,
-      </if>
-      <if test="logid != null">
-        LOGID,
-      </if>
-      <if test="logpass != null">
-        LOGPASS,
-      </if>
-      <if test="grade != null">
-        GRADE,
-      </if>
-      <if test="officeid != null">
-        OFFICEID,
-      </if>
-      <if test="position != null">
-        POSITION,
-      </if>
-      <if test="degree != null">
-        DEGREE,
-      </if>
-      <if test="xzzw != null">
-        XZZW,
-      </if>
-      <if test="eMail != null">
-        E_MAIL,
-      </if>
-      <if test="sign != null">
-        SIGN,
-      </if>
-      <if test="state != null">
-        STATE,
-      </if>
-      <if test="sftjbh != null">
-        SFTJBH,
-      </if>
-      <if test="mailaccount != null">
-        MAILACCOUNT,
-      </if>
-      <if test="mailpass != null">
-        MAILPASS,
-      </if>
-      <if test="sfkba != null">
-        SFKBA,
-      </if>
-      <if test="xb != null">
-        XB,
-      </if>
-      <if test="csrq != null">
-        CSRQ,
-      </if>
-      <if test="mz != null">
-        MZ,
-      </if>
-      <if test="whcd != null">
-        WHCD,
-      </if>
-      <if test="hyzk != null">
-        HYZK,
-      </if>
-      <if test="sfzhm != null">
-        SFZHM,
-      </if>
-      <if test="zzmm != null">
-        ZZMM,
-      </if>
-      <if test="fgdj != null">
-        FGDJ,
-      </if>
-      <if test="fjdj != null">
-        FJDJ,
-      </if>
-      <if test="lxfs != null">
-        LXFS,
-      </if>
-      <if test="zsbz != null">
-        ZSBZ,
-      </if>
-      <if test="yxrq != null">
-        YXRQ,
-      </if>
-      <if test="wssppass != null">
-        WSSPPASS,
-      </if>
-      <if test="schemaurl != null">
-        SCHEMAURL,
-      </if>
-      <if test="lastdate != null">
-        LASTDATE,
-      </if>
-      <if test="mima != null">
-        MIMA,
-      </if>
-      <if test="zxxtdm != null">
-        ZXXTDM,
-      </if>
-      <if test="sjhm != null">
-        SJHM,
-      </if>
-      <if test="zxxtbm != null">
-        ZXXTBM,
-      </if>
-      <if test="bmbs != null">
-        BMBS,
-      </if>
-      <if test="rybs != null">
-        RYBS,
-      </if>
-      <if test="grjj != null">
-        GRJJ,
-      </if>
-      <if test="xslxfs != null">
-        XSLXFS,
-      </if>
-      <if test="sfwzxs != null">
-        SFWZXS,
-      </if>
-      <if test="qmtp != null">
-        QMTP,
-      </if>
-      <if test="photo != null">
-        PHOTO,
-      </if>
-      <if test="signature != null">
-        SIGNATURE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userid != null">
-        #{userid,jdbcType=VARCHAR},
-      </if>
-      <if test="sortid != null">
-        #{sortid,jdbcType=INTEGER},
-      </if>
-      <if test="courtNo != null">
-        #{courtNo,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="logid != null">
-        #{logid,jdbcType=VARCHAR},
-      </if>
-      <if test="logpass != null">
-        #{logpass,jdbcType=VARCHAR},
-      </if>
-      <if test="grade != null">
-        #{grade,jdbcType=CHAR},
-      </if>
-      <if test="officeid != null">
-        #{officeid,jdbcType=VARCHAR},
-      </if>
-      <if test="position != null">
-        #{position,jdbcType=VARCHAR},
-      </if>
-      <if test="degree != null">
-        #{degree,jdbcType=VARCHAR},
-      </if>
-      <if test="xzzw != null">
-        #{xzzw,jdbcType=VARCHAR},
-      </if>
-      <if test="eMail != null">
-        #{eMail,jdbcType=VARCHAR},
-      </if>
-      <if test="sign != null">
-        #{sign,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        #{state,jdbcType=CHAR},
-      </if>
-      <if test="sftjbh != null">
-        #{sftjbh,jdbcType=VARCHAR},
-      </if>
-      <if test="mailaccount != null">
-        #{mailaccount,jdbcType=VARCHAR},
-      </if>
-      <if test="mailpass != null">
-        #{mailpass,jdbcType=VARCHAR},
-      </if>
-      <if test="sfkba != null">
-        #{sfkba,jdbcType=CHAR},
-      </if>
-      <if test="xb != null">
-        #{xb,jdbcType=CHAR},
-      </if>
-      <if test="csrq != null">
-        #{csrq,jdbcType=TIMESTAMP},
-      </if>
-      <if test="mz != null">
-        #{mz,jdbcType=VARCHAR},
-      </if>
-      <if test="whcd != null">
-        #{whcd,jdbcType=VARCHAR},
-      </if>
-      <if test="hyzk != null">
-        #{hyzk,jdbcType=VARCHAR},
-      </if>
-      <if test="sfzhm != null">
-        #{sfzhm,jdbcType=VARCHAR},
-      </if>
-      <if test="zzmm != null">
-        #{zzmm,jdbcType=VARCHAR},
-      </if>
-      <if test="fgdj != null">
-        #{fgdj,jdbcType=VARCHAR},
-      </if>
-      <if test="fjdj != null">
-        #{fjdj,jdbcType=VARCHAR},
-      </if>
-      <if test="lxfs != null">
-        #{lxfs,jdbcType=VARCHAR},
-      </if>
-      <if test="zsbz != null">
-        #{zsbz,jdbcType=VARCHAR},
-      </if>
-      <if test="yxrq != null">
-        #{yxrq,jdbcType=TIMESTAMP},
-      </if>
-      <if test="wssppass != null">
-        #{wssppass,jdbcType=VARCHAR},
-      </if>
-      <if test="schemaurl != null">
-        #{schemaurl,jdbcType=CHAR},
-      </if>
-      <if test="lastdate != null">
-        #{lastdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="mima != null">
-        #{mima,jdbcType=VARCHAR},
-      </if>
-      <if test="zxxtdm != null">
-        #{zxxtdm,jdbcType=VARCHAR},
-      </if>
-      <if test="sjhm != null">
-        #{sjhm,jdbcType=VARCHAR},
-      </if>
-      <if test="zxxtbm != null">
-        #{zxxtbm,jdbcType=VARCHAR},
-      </if>
-      <if test="bmbs != null">
-        #{bmbs,jdbcType=INTEGER},
-      </if>
-      <if test="rybs != null">
-        #{rybs,jdbcType=INTEGER},
-      </if>
-      <if test="grjj != null">
-        #{grjj,jdbcType=VARCHAR},
-      </if>
-      <if test="xslxfs != null">
-        #{xslxfs,jdbcType=VARCHAR},
-      </if>
-      <if test="sfwzxs != null">
-        #{sfwzxs,jdbcType=VARCHAR},
-      </if>
-      <if test="qmtp != null">
-        #{qmtp,jdbcType=LONGVARBINARY},
-      </if>
-      <if test="photo != null">
-        #{photo,jdbcType=LONGVARBINARY},
-      </if>
-      <if test="signature != null">
-        #{signature,jdbcType=LONGVARBINARY},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.eastsoft.esgjyj.domain.UserWithBLOBs">
-    update S_USER
-    <set>
-      <if test="sortid != null">
-        SORTID = #{sortid,jdbcType=INTEGER},
-      </if>
-      <if test="courtNo != null">
-        COURT_NO = #{courtNo,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null">
-        USERNAME = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="logid != null">
-        LOGID = #{logid,jdbcType=VARCHAR},
-      </if>
-      <if test="logpass != null">
-        LOGPASS = #{logpass,jdbcType=VARCHAR},
-      </if>
-      <if test="grade != null">
-        GRADE = #{grade,jdbcType=CHAR},
-      </if>
-      <if test="officeid != null">
-        OFFICEID = #{officeid,jdbcType=VARCHAR},
-      </if>
-      <if test="position != null">
-        POSITION = #{position,jdbcType=VARCHAR},
-      </if>
-      <if test="degree != null">
-        DEGREE = #{degree,jdbcType=VARCHAR},
-      </if>
-      <if test="xzzw != null">
-        XZZW = #{xzzw,jdbcType=VARCHAR},
-      </if>
-      <if test="eMail != null">
-        E_MAIL = #{eMail,jdbcType=VARCHAR},
-      </if>
-      <if test="sign != null">
-        SIGN = #{sign,jdbcType=VARCHAR},
-      </if>
-      <if test="state != null">
-        STATE = #{state,jdbcType=CHAR},
-      </if>
-      <if test="sftjbh != null">
-        SFTJBH = #{sftjbh,jdbcType=VARCHAR},
-      </if>
-      <if test="mailaccount != null">
-        MAILACCOUNT = #{mailaccount,jdbcType=VARCHAR},
-      </if>
-      <if test="mailpass != null">
-        MAILPASS = #{mailpass,jdbcType=VARCHAR},
-      </if>
-      <if test="sfkba != null">
-        SFKBA = #{sfkba,jdbcType=CHAR},
-      </if>
-      <if test="xb != null">
-        XB = #{xb,jdbcType=CHAR},
-      </if>
-      <if test="csrq != null">
-        CSRQ = #{csrq,jdbcType=TIMESTAMP},
-      </if>
-      <if test="mz != null">
-        MZ = #{mz,jdbcType=VARCHAR},
-      </if>
-      <if test="whcd != null">
-        WHCD = #{whcd,jdbcType=VARCHAR},
-      </if>
-      <if test="hyzk != null">
-        HYZK = #{hyzk,jdbcType=VARCHAR},
-      </if>
-      <if test="sfzhm != null">
-        SFZHM = #{sfzhm,jdbcType=VARCHAR},
-      </if>
-      <if test="zzmm != null">
-        ZZMM = #{zzmm,jdbcType=VARCHAR},
-      </if>
-      <if test="fgdj != null">
-        FGDJ = #{fgdj,jdbcType=VARCHAR},
-      </if>
-      <if test="fjdj != null">
-        FJDJ = #{fjdj,jdbcType=VARCHAR},
-      </if>
-      <if test="lxfs != null">
-        LXFS = #{lxfs,jdbcType=VARCHAR},
-      </if>
-      <if test="zsbz != null">
-        ZSBZ = #{zsbz,jdbcType=VARCHAR},
-      </if>
-      <if test="yxrq != null">
-        YXRQ = #{yxrq,jdbcType=TIMESTAMP},
-      </if>
-      <if test="wssppass != null">
-        WSSPPASS = #{wssppass,jdbcType=VARCHAR},
-      </if>
-      <if test="schemaurl != null">
-        SCHEMAURL = #{schemaurl,jdbcType=CHAR},
-      </if>
-      <if test="lastdate != null">
-        LASTDATE = #{lastdate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="mima != null">
-        MIMA = #{mima,jdbcType=VARCHAR},
-      </if>
-      <if test="zxxtdm != null">
-        ZXXTDM = #{zxxtdm,jdbcType=VARCHAR},
-      </if>
-      <if test="sjhm != null">
-        SJHM = #{sjhm,jdbcType=VARCHAR},
-      </if>
-      <if test="zxxtbm != null">
-        ZXXTBM = #{zxxtbm,jdbcType=VARCHAR},
-      </if>
-      <if test="bmbs != null">
-        BMBS = #{bmbs,jdbcType=INTEGER},
-      </if>
-      <if test="rybs != null">
-        RYBS = #{rybs,jdbcType=INTEGER},
-      </if>
-      <if test="grjj != null">
-        GRJJ = #{grjj,jdbcType=VARCHAR},
-      </if>
-      <if test="xslxfs != null">
-        XSLXFS = #{xslxfs,jdbcType=VARCHAR},
-      </if>
-      <if test="sfwzxs != null">
-        SFWZXS = #{sfwzxs,jdbcType=VARCHAR},
-      </if>
-      <if test="qmtp != null">
-        QMTP = #{qmtp,jdbcType=LONGVARBINARY},
-      </if>
-      <if test="photo != null">
-        PHOTO = #{photo,jdbcType=LONGVARBINARY},
-      </if>
-      <if test="signature != null">
-        SIGNATURE = #{signature,jdbcType=LONGVARBINARY},
-      </if>
-    </set>
-    where USERID = #{userid,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.eastsoft.esgjyj.domain.UserWithBLOBs">
+    <insert id="insertSelective" parameterType="com.eastsoft.esgjyj.domain.UserWithBLOBs">
+        insert into S_USER
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                USERID,
+            </if>
+            <if test="sortid != null">
+                SORTID,
+            </if>
+            <if test="courtNo != null">
+                COURT_NO,
+            </if>
+            <if test="username != null">
+                USERNAME,
+            </if>
+            <if test="logid != null">
+                LOGID,
+            </if>
+            <if test="logpass != null">
+                LOGPASS,
+            </if>
+            <if test="grade != null">
+                GRADE,
+            </if>
+            <if test="officeid != null">
+                OFFICEID,
+            </if>
+            <if test="position != null">
+                POSITION,
+            </if>
+            <if test="degree != null">
+                DEGREE,
+            </if>
+            <if test="xzzw != null">
+                XZZW,
+            </if>
+            <if test="eMail != null">
+                E_MAIL,
+            </if>
+            <if test="sign != null">
+                SIGN,
+            </if>
+            <if test="state != null">
+                STATE,
+            </if>
+            <if test="sftjbh != null">
+                SFTJBH,
+            </if>
+            <if test="mailaccount != null">
+                MAILACCOUNT,
+            </if>
+            <if test="mailpass != null">
+                MAILPASS,
+            </if>
+            <if test="sfkba != null">
+                SFKBA,
+            </if>
+            <if test="xb != null">
+                XB,
+            </if>
+            <if test="csrq != null">
+                CSRQ,
+            </if>
+            <if test="mz != null">
+                MZ,
+            </if>
+            <if test="whcd != null">
+                WHCD,
+            </if>
+            <if test="hyzk != null">
+                HYZK,
+            </if>
+            <if test="sfzhm != null">
+                SFZHM,
+            </if>
+            <if test="zzmm != null">
+                ZZMM,
+            </if>
+            <if test="fgdj != null">
+                FGDJ,
+            </if>
+            <if test="fjdj != null">
+                FJDJ,
+            </if>
+            <if test="lxfs != null">
+                LXFS,
+            </if>
+            <if test="zsbz != null">
+                ZSBZ,
+            </if>
+            <if test="yxrq != null">
+                YXRQ,
+            </if>
+            <if test="wssppass != null">
+                WSSPPASS,
+            </if>
+            <if test="schemaurl != null">
+                SCHEMAURL,
+            </if>
+            <if test="lastdate != null">
+                LASTDATE,
+            </if>
+            <if test="mima != null">
+                MIMA,
+            </if>
+            <if test="zxxtdm != null">
+                ZXXTDM,
+            </if>
+            <if test="sjhm != null">
+                SJHM,
+            </if>
+            <if test="zxxtbm != null">
+                ZXXTBM,
+            </if>
+            <if test="bmbs != null">
+                BMBS,
+            </if>
+            <if test="rybs != null">
+                RYBS,
+            </if>
+            <if test="grjj != null">
+                GRJJ,
+            </if>
+            <if test="xslxfs != null">
+                XSLXFS,
+            </if>
+            <if test="sfwzxs != null">
+                SFWZXS,
+            </if>
+            <if test="qmtp != null">
+                QMTP,
+            </if>
+            <if test="photo != null">
+                PHOTO,
+            </if>
+            <if test="signature != null">
+                SIGNATURE,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userid != null">
+                #{userid,jdbcType=VARCHAR},
+            </if>
+            <if test="sortid != null">
+                #{sortid,jdbcType=INTEGER},
+            </if>
+            <if test="courtNo != null">
+                #{courtNo,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="logid != null">
+                #{logid,jdbcType=VARCHAR},
+            </if>
+            <if test="logpass != null">
+                #{logpass,jdbcType=VARCHAR},
+            </if>
+            <if test="grade != null">
+                #{grade,jdbcType=CHAR},
+            </if>
+            <if test="officeid != null">
+                #{officeid,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="degree != null">
+                #{degree,jdbcType=VARCHAR},
+            </if>
+            <if test="xzzw != null">
+                #{xzzw,jdbcType=VARCHAR},
+            </if>
+            <if test="eMail != null">
+                #{eMail,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                #{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=CHAR},
+            </if>
+            <if test="sftjbh != null">
+                #{sftjbh,jdbcType=VARCHAR},
+            </if>
+            <if test="mailaccount != null">
+                #{mailaccount,jdbcType=VARCHAR},
+            </if>
+            <if test="mailpass != null">
+                #{mailpass,jdbcType=VARCHAR},
+            </if>
+            <if test="sfkba != null">
+                #{sfkba,jdbcType=CHAR},
+            </if>
+            <if test="xb != null">
+                #{xb,jdbcType=CHAR},
+            </if>
+            <if test="csrq != null">
+                #{csrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mz != null">
+                #{mz,jdbcType=VARCHAR},
+            </if>
+            <if test="whcd != null">
+                #{whcd,jdbcType=VARCHAR},
+            </if>
+            <if test="hyzk != null">
+                #{hyzk,jdbcType=VARCHAR},
+            </if>
+            <if test="sfzhm != null">
+                #{sfzhm,jdbcType=VARCHAR},
+            </if>
+            <if test="zzmm != null">
+                #{zzmm,jdbcType=VARCHAR},
+            </if>
+            <if test="fgdj != null">
+                #{fgdj,jdbcType=VARCHAR},
+            </if>
+            <if test="fjdj != null">
+                #{fjdj,jdbcType=VARCHAR},
+            </if>
+            <if test="lxfs != null">
+                #{lxfs,jdbcType=VARCHAR},
+            </if>
+            <if test="zsbz != null">
+                #{zsbz,jdbcType=VARCHAR},
+            </if>
+            <if test="yxrq != null">
+                #{yxrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="wssppass != null">
+                #{wssppass,jdbcType=VARCHAR},
+            </if>
+            <if test="schemaurl != null">
+                #{schemaurl,jdbcType=CHAR},
+            </if>
+            <if test="lastdate != null">
+                #{lastdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mima != null">
+                #{mima,jdbcType=VARCHAR},
+            </if>
+            <if test="zxxtdm != null">
+                #{zxxtdm,jdbcType=VARCHAR},
+            </if>
+            <if test="sjhm != null">
+                #{sjhm,jdbcType=VARCHAR},
+            </if>
+            <if test="zxxtbm != null">
+                #{zxxtbm,jdbcType=VARCHAR},
+            </if>
+            <if test="bmbs != null">
+                #{bmbs,jdbcType=INTEGER},
+            </if>
+            <if test="rybs != null">
+                #{rybs,jdbcType=INTEGER},
+            </if>
+            <if test="grjj != null">
+                #{grjj,jdbcType=VARCHAR},
+            </if>
+            <if test="xslxfs != null">
+                #{xslxfs,jdbcType=VARCHAR},
+            </if>
+            <if test="sfwzxs != null">
+                #{sfwzxs,jdbcType=VARCHAR},
+            </if>
+            <if test="qmtp != null">
+                #{qmtp,jdbcType=LONGVARBINARY},
+            </if>
+            <if test="photo != null">
+                #{photo,jdbcType=LONGVARBINARY},
+            </if>
+            <if test="signature != null">
+                #{signature,jdbcType=LONGVARBINARY},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.eastsoft.esgjyj.domain.UserWithBLOBs">
+        update S_USER
+        <set>
+            <if test="sortid != null">
+                SORTID = #{sortid,jdbcType=INTEGER},
+            </if>
+            <if test="courtNo != null">
+                COURT_NO = #{courtNo,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                USERNAME = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="logid != null">
+                LOGID = #{logid,jdbcType=VARCHAR},
+            </if>
+            <if test="logpass != null">
+                LOGPASS = #{logpass,jdbcType=VARCHAR},
+            </if>
+            <if test="grade != null">
+                GRADE = #{grade,jdbcType=CHAR},
+            </if>
+            <if test="officeid != null">
+                OFFICEID = #{officeid,jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                POSITION = #{position,jdbcType=VARCHAR},
+            </if>
+            <if test="degree != null">
+                DEGREE = #{degree,jdbcType=VARCHAR},
+            </if>
+            <if test="xzzw != null">
+                XZZW = #{xzzw,jdbcType=VARCHAR},
+            </if>
+            <if test="eMail != null">
+                E_MAIL = #{eMail,jdbcType=VARCHAR},
+            </if>
+            <if test="sign != null">
+                SIGN = #{sign,jdbcType=VARCHAR},
+            </if>
+            <if test="state != null">
+                STATE = #{state,jdbcType=CHAR},
+            </if>
+            <if test="sftjbh != null">
+                SFTJBH = #{sftjbh,jdbcType=VARCHAR},
+            </if>
+            <if test="mailaccount != null">
+                MAILACCOUNT = #{mailaccount,jdbcType=VARCHAR},
+            </if>
+            <if test="mailpass != null">
+                MAILPASS = #{mailpass,jdbcType=VARCHAR},
+            </if>
+            <if test="sfkba != null">
+                SFKBA = #{sfkba,jdbcType=CHAR},
+            </if>
+            <if test="xb != null">
+                XB = #{xb,jdbcType=CHAR},
+            </if>
+            <if test="csrq != null">
+                CSRQ = #{csrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mz != null">
+                MZ = #{mz,jdbcType=VARCHAR},
+            </if>
+            <if test="whcd != null">
+                WHCD = #{whcd,jdbcType=VARCHAR},
+            </if>
+            <if test="hyzk != null">
+                HYZK = #{hyzk,jdbcType=VARCHAR},
+            </if>
+            <if test="sfzhm != null">
+                SFZHM = #{sfzhm,jdbcType=VARCHAR},
+            </if>
+            <if test="zzmm != null">
+                ZZMM = #{zzmm,jdbcType=VARCHAR},
+            </if>
+            <if test="fgdj != null">
+                FGDJ = #{fgdj,jdbcType=VARCHAR},
+            </if>
+            <if test="fjdj != null">
+                FJDJ = #{fjdj,jdbcType=VARCHAR},
+            </if>
+            <if test="lxfs != null">
+                LXFS = #{lxfs,jdbcType=VARCHAR},
+            </if>
+            <if test="zsbz != null">
+                ZSBZ = #{zsbz,jdbcType=VARCHAR},
+            </if>
+            <if test="yxrq != null">
+                YXRQ = #{yxrq,jdbcType=TIMESTAMP},
+            </if>
+            <if test="wssppass != null">
+                WSSPPASS = #{wssppass,jdbcType=VARCHAR},
+            </if>
+            <if test="schemaurl != null">
+                SCHEMAURL = #{schemaurl,jdbcType=CHAR},
+            </if>
+            <if test="lastdate != null">
+                LASTDATE = #{lastdate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="mima != null">
+                MIMA = #{mima,jdbcType=VARCHAR},
+            </if>
+            <if test="zxxtdm != null">
+                ZXXTDM = #{zxxtdm,jdbcType=VARCHAR},
+            </if>
+            <if test="sjhm != null">
+                SJHM = #{sjhm,jdbcType=VARCHAR},
+            </if>
+            <if test="zxxtbm != null">
+                ZXXTBM = #{zxxtbm,jdbcType=VARCHAR},
+            </if>
+            <if test="bmbs != null">
+                BMBS = #{bmbs,jdbcType=INTEGER},
+            </if>
+            <if test="rybs != null">
+                RYBS = #{rybs,jdbcType=INTEGER},
+            </if>
+            <if test="grjj != null">
+                GRJJ = #{grjj,jdbcType=VARCHAR},
+            </if>
+            <if test="xslxfs != null">
+                XSLXFS = #{xslxfs,jdbcType=VARCHAR},
+            </if>
+            <if test="sfwzxs != null">
+                SFWZXS = #{sfwzxs,jdbcType=VARCHAR},
+            </if>
+            <if test="qmtp != null">
+                QMTP = #{qmtp,jdbcType=LONGVARBINARY},
+            </if>
+            <if test="photo != null">
+                PHOTO = #{photo,jdbcType=LONGVARBINARY},
+            </if>
+            <if test="signature != null">
+                SIGNATURE = #{signature,jdbcType=LONGVARBINARY},
+            </if>
+        </set>
+        where USERID = #{userid,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.eastsoft.esgjyj.domain.UserWithBLOBs">
     update S_USER
     set SORTID = #{sortid,jdbcType=INTEGER},
       COURT_NO = #{courtNo,jdbcType=VARCHAR},
@@ -564,7 +564,7 @@
       SIGNATURE = #{signature,jdbcType=LONGVARBINARY}
     where USERID = #{userid,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.User">
+    <update id="updateByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.User">
     update S_USER
     set SORTID = #{sortid,jdbcType=INTEGER},
       COURT_NO = #{courtNo,jdbcType=VARCHAR},
@@ -609,29 +609,36 @@
       SFWZXS = #{sfwzxs,jdbcType=VARCHAR}
     where USERID = #{userid,jdbcType=VARCHAR}
   </update>
-  
-  <!-- 手动添加 -->
-  <select id="selectByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from S_USER
-    <where>
-      <if test="courtNo != null">
-        and COURT_NO = #{courtNo,jdbcType=VARCHAR}
-      </if>
-      <if test="officeid != null">
-        and OFFICEID = #{officeid,jdbcType=VARCHAR}
-      </if>
-      <if test="position != null">
-        and POSITION = #{position,jdbcType=VARCHAR}
-      </if>
-      <if test="logid != null">
-        and LOGID = #{logid,jdbcType=VARCHAR}
-      </if>
-      <if test="state != null">
-        and STATE = #{state,jdbcType=CHAR}
-      </if>
-    </where>
-    order by COURT_NO, SORTID
-  </select>
+
+    <!-- 手动添加 -->
+    <select id="selectByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from S_USER
+        <where>
+            <if test="courtNo != null">
+                and COURT_NO = #{courtNo,jdbcType=VARCHAR}
+            </if>
+            <if test="officeid != null">
+                and OFFICEID = #{officeid,jdbcType=VARCHAR}
+            </if>
+            <if test="position != null">
+                and POSITION = #{position,jdbcType=VARCHAR}
+            </if>
+            <if test="logid != null">
+                and LOGID = #{logid,jdbcType=VARCHAR}
+            </if>
+            <if test="state != null">
+                and STATE = #{state,jdbcType=CHAR}
+            </if>
+        </where>
+        order by COURT_NO, SORTID
+    </select>
+
+    <select id="listByUserName" parameterType="java.util.Map" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from S_USER
+        where LOGID = #{username} and COURT_NO=#{courtNo}
+    </select>
 </mapper>

@@ -4,29 +4,66 @@ $().ready(function() {
 	zbid = GetQueryString('zbid');
 	if(zbid=='1-1'){
         $('#note').val("最大分值为5分");
+        validateRule(5);
 	} else if(zbid=='2-1'){
         $('#note').val("最大分值为10分");
+        validateRule(10);
 	}else if(zbid=='3-1'){
         $('#note').val("最大分值为60分");
         selfOffice = true;
+        validateRule(60);
     }else if(zbid=='4-1'){
         $('#note').val("最大分值为60分");
         selfOffice = true;
+        validateRule(60);
     }
     else if(zbid=='8-1'){
         $('#note').val("最大分值为60分");
+        validateRule(60);
     }
     else if(zbid=='6-1'){
         $('#note').val("最大分值为60分");
         selfOffice = true;
+        validateRule(60);
     }
     else if(zbid=='7-1'){
         $('#note').val("最大分值为60分");
+        validateRule(60);
         selfOffice = true;
     }
     else if(zbid=='5-4'){
         //书记员-综合评价分
         $('#note').val("最大分值为30分");
+        validateRule(30)
+        selfOffice = true;
+    }
+    else if(zbid=='9-3'){
+        //书记员-综合评价分
+        $('#note').val("最大分值为20分");
+        validateRule(20)
+    }
+    else if(zbid=='9-4'){
+        //书记员-综合评价分
+        $('#note').val("最大分值为30分");
+        validateRule(30);
+        selfOffice = true;
+    }
+    else if(zbid=='9-2'){
+        //书记员-卷宗管理工作
+        $('#note').val("最大分值为10分");
+        validateRule(10);
+        selfOffice = true;
+    }
+    else if(zbid=='5-2'){
+        //书记员-卷宗管理工作
+        $('#note').val("最大分值为10分");
+        validateRule(10);
+        selfOffice = true;
+    }
+    else if(zbid=='5-3'){
+        //书记员-卷宗管理工作
+        $('#note').val("最大分值为20分");
+        validateRule(20);
         selfOffice = true;
     }
 	$("#zbid").val(zbid);
@@ -119,17 +156,19 @@ function save() {
 	});
 
 }
-function validateRule() {
+function validateRule(max) {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({
 		rules : {
-			name : {
-				required : true
+			score : {
+				required : true,
+                max:max
 			}
 		},
 		messages : {
-			name : {
-				required : icon + "请输入姓名"
+            score : {
+				required : icon + "请输入数值",
+                max:icon + "最大值不能超过"+max
 			}
 		}
 	})

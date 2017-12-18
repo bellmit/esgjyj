@@ -1,6 +1,9 @@
-var prefix = "/tjbb/fgkp"
+var prefix = "/tjbb/fgkp";
+var khid,ofid;
 $(function () {
     selectLoad();
+    selectLoad2();
+
 });
 
 function selectLoad() {
@@ -12,18 +15,48 @@ function selectLoad() {
             for (var i = 0; i < data.length; i++) {
                 html += '<option value="' + data[i].id + '">' + data[i].khmc + '</option>'
             }
-            $(".chosen-select").append(html);
-            $(".chosen-select").chosen({
+            $("#selectTime").append(html);
+            $("#selectTime").chosen({
                 maxHeight: 200
             });
-            khid = $('.chosen-select').val();
-            load();
+            khid = $('#selectTime').val();
             //点击事件
-            $('.chosen-select').on('change', function (e, params) {
+            $('#selectTime').on('change', function (e, params) {
                 khid = params.selected;
                 var opt = {
                     query: {
-                        khid: params.selected,
+                        khid: khid,
+                        ofid:ofid,
+                    }
+                }
+                $('#exampleTable').bootstrapTable('refresh', opt);
+            });
+        }
+    });
+}
+
+function selectLoad2() {
+    var html = "";
+    $.ajax({
+        url: '/esgjyj/yjkhKhdx/listOffice',
+        success: function (data) {
+            //加载数据
+            for (var i = 0; i < data.length; i++) {
+                html += '<option value="' + data[i].ofid + '">' + data[i].shortname + '</option>'
+            }
+            $("#selectOffice").append(html);
+            $("#selectOffice").chosen({
+                maxHeight: 200
+            });
+            ofid = $('#selectOffice').val();
+            load();
+            //点击事件
+            $('#selectOffice').on('change', function (e, params) {
+                ofid = params.selected;
+                var opt = {
+                    query: {
+                        khid: khid,
+                        ofid:ofid,
                     }
                 }
                 $('#exampleTable').bootstrapTable('refresh', opt);
@@ -45,7 +78,7 @@ function load() {
                 toolbar: '#exampleToolbar',
                 striped: true, // 设置为true会有隔行变色效果
                 dataType: "json", // 服务器返回的数据类型
-                pagination: true, // 设置为true会在底部显示分页条
+                pagination: true,                 cache: false,
                 // queryParamsType : "limit",
                 // //设置为limit则会发送符合RESTFull格式的参数
                 singleSelect: false, // 设置为true将禁止多选
@@ -53,7 +86,7 @@ function load() {
                 // //发送到服务器的数据编码类型
                 pageSize: 10, // 如果设置了分页，每页数据条数
                 pageNumber: 1, // 如果设置了分布，首页页码
-                search: true, // 是否显示搜索框
+                //search: true, // 是否显示搜索框
                 showColumns: false, // 是否显示内容下拉框（选择显示的列）
                 sidePagination: "client", // 设置在哪里进行分页，可选值为"client" 或者 "server"
                 queryParams: function (params) {
@@ -64,6 +97,7 @@ function load() {
                         // name:$('#searchName').val(),
                         // username:$('#searchName').val()
                         khid: khid,
+                        ofid:ofid,
                     };
                 },
                 // //请求服务器数据时，你可以通过重写参数的方式添加一些额外的参数，例如 toolbar 中的参数 如果

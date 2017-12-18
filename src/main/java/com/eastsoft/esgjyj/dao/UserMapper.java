@@ -29,6 +29,7 @@ public interface UserMapper {
     List<User> selectByParams(Map<String, Object> params);
     @Select("select * from S_OFFICE o LEFT JOIN S_USER u ON o.OFID = u.OFFICEID where u.USERID=#{userIds}")
     Office getByUserId(String userIds);
-    @Select("select * from S_USER where LOGID = #{username} and COURT_NO=#{courtNo}")
+
+
     List<User> listByUserName(Map<String,Object> map);
 }

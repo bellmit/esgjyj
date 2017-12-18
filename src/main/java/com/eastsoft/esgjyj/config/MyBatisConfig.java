@@ -32,9 +32,9 @@ public class MyBatisConfig {
 		return sqlSessionFactoryBean;
 	}
 
-	@Bean
-	@Description("支持批量操作的 sqlSession")
-	public SqlSessionTemplate sqlSession(SqlSessionFactoryBean sqlSessionFactory) throws Exception {
-		return new SqlSessionTemplate(sqlSessionFactory.getObject(), ExecutorType.SIMPLE);
-	}
+//	@Bean
+//	@Description("支持批量操作的 sqlSession")
+//	public SqlSessionTemplate sqlSession(SqlSessionFactoryBean sqlSessionFactory) throws Exception {
+//		return new SqlSessionTemplate(sqlSessionFactory.getObject(), ExecutorType.SIMPLE);
+//	}
 }

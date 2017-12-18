@@ -1,5 +1,7 @@
 package com.eastsoft.esgjyj.domain;
 
+import java.math.BigDecimal;
+
 public class Ajmx {
     private String id;
 
@@ -11,18 +13,16 @@ public class Ajmx {
 
     private Long caseSn;
 
-    private Double score;
+    private BigDecimal score;
 
-    private Double averageScore;
+    private BigDecimal averageScore;
 
     private String dfsm;
-    
-    private String ah;
 
     public String getId() {
         return id;
     }
-    
+
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
     }
@@ -59,19 +59,19 @@ public class Ajmx {
         this.caseSn = caseSn;
     }
 
-    public Double getScore() {
+    public BigDecimal getScore() {
         return score;
     }
 
-    public void setScore(Double score) {
+    public void setScore(BigDecimal score) {
         this.score = score;
     }
 
-    public Double getAverageScore() {
+    public BigDecimal getAverageScore() {
         return averageScore;
     }
 
-    public void setAverageScore(Double averageScore) {
+    public void setAverageScore(BigDecimal averageScore) {
         this.averageScore = averageScore;
     }
 
@@ -82,12 +82,4 @@ public class Ajmx {
     public void setDfsm(String dfsm) {
         this.dfsm = dfsm == null ? null : dfsm.trim();
     }
-
-	public String getAh() {
-		return ah;
-	}
-
-	public void setAh(String ah) {
-		this.ah = ah;
-	}
 }

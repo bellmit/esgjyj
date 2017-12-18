@@ -6,7 +6,7 @@
     <id column="XH" jdbcType="INTEGER" property="xh" />
     <result column="COL_INDEX" jdbcType="INTEGER" property="colIndex" />
     <result column="COL_NAME" jdbcType="VARCHAR" property="colName" />
-    <result column="SCORE" jdbcType="DOUBLE" property="score" />
+    <result column="SCORE" jdbcType="NUMERIC" property="score" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.eastsoft.esgjyj.domain.Khjg">
     <result column="DFSM" jdbcType="LONGVARCHAR" property="dfsm" />
@@ -36,7 +36,7 @@
       COL_NAME, SCORE, DFSM
       )
     values (#{dxid,jdbcType=VARCHAR}, #{xh,jdbcType=INTEGER}, #{colIndex,jdbcType=INTEGER}, 
-      #{colName,jdbcType=VARCHAR}, #{score,jdbcType=DOUBLE}, #{dfsm,jdbcType=LONGVARCHAR}
+      #{colName,jdbcType=VARCHAR}, #{score,jdbcType=NUMERIC}, #{dfsm,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.eastsoft.esgjyj.domain.Khjg">
@@ -75,7 +75,7 @@
         #{colName,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
-        #{score,jdbcType=DOUBLE},
+        #{score,jdbcType=NUMERIC},
       </if>
       <if test="dfsm != null">
         #{dfsm,jdbcType=LONGVARCHAR},
@@ -92,7 +92,7 @@
         COL_NAME = #{colName,jdbcType=VARCHAR},
       </if>
       <if test="score != null">
-        SCORE = #{score,jdbcType=DOUBLE},
+        SCORE = #{score,jdbcType=NUMERIC},
       </if>
       <if test="dfsm != null">
         DFSM = #{dfsm,jdbcType=LONGVARCHAR},
@@ -105,7 +105,7 @@
     update YJKH_KHJG
     set COL_INDEX = #{colIndex,jdbcType=INTEGER},
       COL_NAME = #{colName,jdbcType=VARCHAR},
-      SCORE = #{score,jdbcType=DOUBLE},
+      SCORE = #{score,jdbcType=NUMERIC},
       DFSM = #{dfsm,jdbcType=LONGVARCHAR}
     where DXID = #{dxid,jdbcType=VARCHAR}
       and XH = #{xh,jdbcType=INTEGER}
@@ -114,7 +114,7 @@
     update YJKH_KHJG
     set COL_INDEX = #{colIndex,jdbcType=INTEGER},
       COL_NAME = #{colName,jdbcType=VARCHAR},
-      SCORE = #{score,jdbcType=DOUBLE}
+      SCORE = #{score,jdbcType=NUMERIC}
     where DXID = #{dxid,jdbcType=VARCHAR}
       and XH = #{xh,jdbcType=INTEGER}
   </update>

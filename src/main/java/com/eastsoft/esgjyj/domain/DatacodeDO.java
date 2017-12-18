@@ -198,4 +198,5 @@ public class DatacodeDO implements Serializable {
 	public String getZxxtbm() {
 		return zxxtbm;
 	}
+
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eastsoft.esgjyj.dao.YjkhKhjgDao">
+
+	<select id="get" resultType="com.eastsoft.esgjyj.domain.YjkhKhjgDO">
+		select DXID,XH,COL_INDEX,COL_NAME,SCORE,DFSM from YJKH_KHJG where DXID = #{value}
+	</select>
+
+	<select id="list" resultType="com.eastsoft.esgjyj.domain.YjkhKhjgDO">
+		select DXID,XH,COL_INDEX as colIndex,COL_NAME as colName,SCORE,DFSM from YJKH_KHJG
+        <where>  
+		  		  <if test="dxid != null and dxid != ''"> and DXID = #{dxid} </if>
+		  		  <if test="xh != null and xh != ''"> and XH = #{xh} </if>
+		  		  <if test="colIndex != null and colIndex != ''"> and COL_INDEX = #{colIndex} </if>
+		  		  <if test="colName != null and colName != ''"> and COL_NAME = #{colName} </if>
+		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
+		  		  <if test="dfsm != null and dfsm != ''"> and DFSM = #{dfsm} </if>
+		  		</where>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from YJKH_KHJG
+		 <where>  
+		  		  <if test="dxid != null and dxid != ''"> and DXID = #{dxid} </if>
+		  		  <if test="xh != null and xh != ''"> and XH = #{xh} </if>
+		  		  <if test="colIndex != null and colIndex != ''"> and COL_INDEX = #{colIndex} </if>
+		  		  <if test="colName != null and colName != ''"> and COL_NAME = #{colName} </if>
+		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
+		  		  <if test="dfsm != null and dfsm != ''"> and DFSM = #{dfsm} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.eastsoft.esgjyj.domain.YjkhKhjgDO">
+		insert into YJKH_KHJG
+		(
+			DXID, 
+			XH, 
+			COL_INDEX, 
+			COL_NAME, 
+			SCORE, 
+			DFSM
+		)
+		values
+		(
+			#{dxid}, 
+			#{xh}, 
+			#{colIndex}, 
+			#{colName}, 
+			#{score}, 
+			#{dfsm}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.eastsoft.esgjyj.domain.YjkhKhjgDO">
+		update YJKH_KHJG 
+		<set>
+			<if test="xh != null">XH = #{xh}, </if>
+			<if test="colIndex != null">COL_INDEX = #{colIndex}, </if>
+			<if test="colName != null">COL_NAME = #{colName}, </if>
+			<if test="score != null">SCORE = #{score}, </if>
+			<if test="dfsm != null">DFSM = #{dfsm}</if>
+		</set>
+		where DXID = #{dxid}
+	</update>
+	
+	<delete id="remove">
+		delete from YJKH_KHJG where DXID = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from YJKH_KHJG where DXID in 
+		<foreach item="dxid" collection="array" open="(" separator="," close=")">
+			#{dxid}
+		</foreach>
+	</delete>
+
+</mapper>

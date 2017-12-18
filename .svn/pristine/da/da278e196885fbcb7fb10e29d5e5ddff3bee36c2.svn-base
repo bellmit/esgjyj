@@ -1,0 +1,55 @@
+package com.eastsoft.esgjyj.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.eastsoft.esgjyj.dao.YjkhAjmxDao;
+import com.eastsoft.esgjyj.domain.YjkhAjmxDO;
+import com.eastsoft.esgjyj.service.YjkhAjmxService;
+
+
+@Service
+public class YjkhAjmxServiceImpl implements YjkhAjmxService {
+    @Autowired
+    private YjkhAjmxDao yjkhAjmxDao;
+
+    @Override
+    public YjkhAjmxDO get(String id) {
+        return yjkhAjmxDao.get(id);
+    }
+
+    @Override
+    public List<YjkhAjmxDO> list(Map<String, Object> map) {
+        //return yjkhAjmxDao.list(map);
+        return yjkhAjmxDao.listByParam(map);
+    }
+
+    @Override
+    public int count(Map<String, Object> map) {
+        return yjkhAjmxDao.count(map);
+    }
+
+    @Override
+    public int save(YjkhAjmxDO yjkhAjmx) {
+        return yjkhAjmxDao.save(yjkhAjmx);
+    }
+
+    @Override
+    public int update(YjkhAjmxDO yjkhAjmx) {
+        return yjkhAjmxDao.update(yjkhAjmx);
+    }
+
+    @Override
+    public int remove(String id) {
+        return yjkhAjmxDao.remove(id);
+    }
+
+    @Override
+    public int batchRemove(String[] ids) {
+        return yjkhAjmxDao.batchRemove(ids);
+    }
+
+}

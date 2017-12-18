@@ -1,0 +1,71 @@
+package com.eastsoft.esgjyj.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.eastsoft.esgjyj.dao.YjkhKhdxDao;
+import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
+import com.eastsoft.esgjyj.service.YjkhKhdxService;
+
+
+
+@Service
+public class YjkhKhdxServiceImpl implements YjkhKhdxService {
+	@Autowired
+	private YjkhKhdxDao yjkhKhdxDao;
+	
+	@Override
+	public YjkhKhdxDO get(String id){
+		return yjkhKhdxDao.get(id);
+	}
+	
+	@Override
+	public List<YjkhKhdxDO> list(Map<String, Object> map){
+		return yjkhKhdxDao.list(map);
+	}
+	
+	@Override
+	public int count(Map<String, Object> map){
+		return yjkhKhdxDao.count(map);
+	}
+	
+	@Override
+	public int save(YjkhKhdxDO yjkhKhdx){
+		return yjkhKhdxDao.save(yjkhKhdx);
+	}
+	
+	@Override
+	public int update(YjkhKhdxDO yjkhKhdx){
+		return yjkhKhdxDao.update(yjkhKhdx);
+	}
+	
+	@Override
+	public int remove(String id){
+		return yjkhKhdxDao.remove(id);
+	}
+	
+	@Override
+	public int batchRemove(String[] ids){
+		return yjkhKhdxDao.batchRemove(ids);
+	}
+
+	@Override
+	public String dxlbConvert(String value) {
+		if("1".equals(value)){
+			return "审执部门法官";
+		}else if("2".equals(value)){
+			return "审执部门庭长";
+		}else if("3".equals(value)){
+			return "综合部门法官";
+		}else if("4".equals(value)){
+			return "法官助理";
+		}else if("5".equals(value)){
+			return "书记员";
+		}
+		return "";
+	}
+
+}

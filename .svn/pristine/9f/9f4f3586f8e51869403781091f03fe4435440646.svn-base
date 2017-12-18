@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eastsoft.esgjyj.dao.YjkhZgkhDao">
+
+	<select id="get" resultType="com.eastsoft.esgjyj.domain.YjkhZgkhDO">
+		select ID,DXID,ZBID,XH,FSSJ,SCORE,NOTE,KHRLB,KHRBS from YJKH_ZGKH where ID = #{value}
+	</select>
+
+	<select id="list" resultType="com.eastsoft.esgjyj.domain.YjkhZgkhDO">
+		select ID,DXID,ZBID,XH,FSSJ,SCORE,NOTE,KHRLB,KHRBS from YJKH_ZGKH
+        <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="dxid != null and dxid != ''"> and DXID = #{dxid} </if>
+		  		  <if test="zbid != null and zbid != ''"> and ZBID = #{zbid} </if>
+		  		  <if test="xh != null and xh != ''"> and XH = #{xh} </if>
+		  		  <if test="fssj != null and fssj != ''"> and FSSJ = #{fssj} </if>
+		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
+		  		  <if test="note != null and note != ''"> and NOTE = #{note} </if>
+		  		  <if test="khrlb != null and khrlb != ''"> and KHRLB = #{khrlb} </if>
+		  		  <if test="khrbs != null and khrbs != ''"> and KHRBS = #{khrbs} </if>
+		  		</where>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from YJKH_ZGKH
+		 <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="dxid != null and dxid != ''"> and DXID = #{dxid} </if>
+		  		  <if test="zbid != null and zbid != ''"> and ZBID = #{zbid} </if>
+		  		  <if test="xh != null and xh != ''"> and XH = #{xh} </if>
+		  		  <if test="fssj != null and fssj != ''"> and FSSJ = #{fssj} </if>
+		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
+		  		  <if test="note != null and note != ''"> and NOTE = #{note} </if>
+		  		  <if test="khrlb != null and khrlb != ''"> and KHRLB = #{khrlb} </if>
+		  		  <if test="khrbs != null and khrbs != ''"> and KHRBS = #{khrbs} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.eastsoft.esgjyj.domain.YjkhZgkhDO">
+		insert into YJKH_ZGKH
+		(
+			ID, 
+			DXID, 
+			ZBID, 
+			XH, 
+			FSSJ, 
+			SCORE, 
+			NOTE, 
+			KHRLB, 
+			KHRBS
+		)
+		values
+		(
+			#{id}, 
+			#{dxid}, 
+			#{zbid}, 
+			#{xh}, 
+			#{fssj}, 
+			#{score}, 
+			#{note}, 
+			#{khrlb}, 
+			#{khrbs}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.eastsoft.esgjyj.domain.YjkhZgkhDO">
+		update YJKH_ZGKH 
+		<set>
+			<if test="dxid != null">DXID = #{dxid}, </if>
+			<if test="zbid != null">ZBID = #{zbid}, </if>
+			<if test="xh != null">XH = #{xh}, </if>
+			<if test="fssj != null">FSSJ = #{fssj}, </if>
+			<if test="score != null">SCORE = #{score}, </if>
+			<if test="note != null">NOTE = #{note}, </if>
+			<if test="khrlb != null">KHRLB = #{khrlb}, </if>
+			<if test="khrbs != null">KHRBS = #{khrbs}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from YJKH_ZGKH where ID = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from YJKH_ZGKH where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

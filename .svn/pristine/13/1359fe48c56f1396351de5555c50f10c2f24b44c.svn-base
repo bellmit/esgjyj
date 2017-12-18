@@ -1,0 +1,55 @@
+package com.eastsoft.esgjyj.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
+
+import com.eastsoft.esgjyj.dao.YjkhDao;
+import com.eastsoft.esgjyj.domain.YjkhDO;
+import com.eastsoft.esgjyj.service.YjkhService;
+
+
+
+@Service
+public class YjkhServiceImpl implements YjkhService {
+	@Autowired
+	private YjkhDao yjkhDao;
+	
+	@Override
+	public YjkhDO get(String id){
+		return yjkhDao.get(id);
+	}
+	
+	@Override
+	public List<YjkhDO> list(Map<String, Object> map){
+		return yjkhDao.list(map);
+	}
+	
+	@Override
+	public int count(Map<String, Object> map){
+		return yjkhDao.count(map);
+	}
+	
+	@Override
+	public int save(YjkhDO yjkh){
+		return yjkhDao.save(yjkh);
+	}
+	
+	@Override
+	public int update(YjkhDO yjkh){
+		return yjkhDao.update(yjkh);
+	}
+	
+	@Override
+	public int remove(String id){
+		return yjkhDao.remove(id);
+	}
+	
+	@Override
+	public int batchRemove(String[] ids){
+		return yjkhDao.batchRemove(ids);
+	}
+	
+}

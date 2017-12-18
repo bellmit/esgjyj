@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eastsoft.esgjyj.dao.YjkhDao">
+
+	<select id="get" resultType="com.eastsoft.esgjyj.domain.YjkhDO">
+		select ID,COURT_NO,KHND,KSYF,JSYF,ACTIVE,CALCLASS from YJKH where ID = #{value}
+	</select>
+
+	<select id="list" resultType="com.eastsoft.esgjyj.domain.YjkhDO">
+		select ID,COURT_NO,KHND,KSYF,JSYF,ACTIVE,CALCLASS from YJKH
+        <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="courtNo != null and courtNo != ''"> and COURT_NO = #{courtNo} </if>
+		  		  <if test="khnd != null and khnd != ''"> and KHND = #{khnd} </if>
+		  		  <if test="ksyf != null and ksyf != ''"> and KSYF = #{ksyf} </if>
+		  		  <if test="jsyf != null and jsyf != ''"> and JSYF = #{jsyf} </if>
+		  		  <if test="active != null and active != ''"> and ACTIVE = #{active} </if>
+		  		  <if test="calclass != null and calclass != ''"> and CALCLASS = #{calclass} </if>
+		  		</where>
+	</select>
+	
+ 	<select id="count" resultType="int">
+		select count(*) from YJKH
+		 <where>  
+		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
+		  		  <if test="courtNo != null and courtNo != ''"> and COURT_NO = #{courtNo} </if>
+		  		  <if test="khnd != null and khnd != ''"> and KHND = #{khnd} </if>
+		  		  <if test="ksyf != null and ksyf != ''"> and KSYF = #{ksyf} </if>
+		  		  <if test="jsyf != null and jsyf != ''"> and JSYF = #{jsyf} </if>
+		  		  <if test="active != null and active != ''"> and ACTIVE = #{active} </if>
+		  		  <if test="calclass != null and calclass != ''"> and CALCLASS = #{calclass} </if>
+		  		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.eastsoft.esgjyj.domain.YjkhDO">
+		insert into YJKH
+		(
+			ID, 
+			COURT_NO, 
+			KHND, 
+			KSYF, 
+			JSYF, 
+			ACTIVE, 
+			CALCLASS
+		)
+		values
+		(
+			#{id}, 
+			#{courtNo}, 
+			#{khnd}, 
+			#{ksyf}, 
+			#{jsyf}, 
+			#{active}, 
+			#{calclass}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.eastsoft.esgjyj.domain.YjkhDO">
+		update YJKH 
+		<set>
+			<if test="courtNo != null">COURT_NO = #{courtNo}, </if>
+			<if test="khnd != null">KHND = #{khnd}, </if>
+			<if test="ksyf != null">KSYF = #{ksyf}, </if>
+			<if test="jsyf != null">JSYF = #{jsyf}, </if>
+			<if test="active != null">ACTIVE = #{active}, </if>
+			<if test="calclass != null">CALCLASS = #{calclass}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="remove">
+		delete from YJKH where ID = #{value}
+	</delete>
+	
+	<delete id="batchRemove">
+		delete from YJKH where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

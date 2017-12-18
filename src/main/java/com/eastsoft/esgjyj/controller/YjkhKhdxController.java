@@ -174,4 +174,8 @@ public class YjkhKhdxController {
         return R.ok();
     }
 
+    @GetMapping("/listOffice")
+    List<Office> listOffice(){
+        return yjkhKhdxService.listOffice();
+    }
 }

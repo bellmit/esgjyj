@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eastsoft.esgjyj.dao.ProgramMapper">
+  <resultMap id="BaseResultMap" type="com.eastsoft.esgjyj.domain.Program">
+    <id column="COURT_NO" jdbcType="VARCHAR" property="courtNo" />
+    <id column="MDID" jdbcType="VARCHAR" property="mdid" />
+    <result column="MDLEVEL" jdbcType="VARCHAR" property="mdlevel" />
+    <result column="MDCAPTION" jdbcType="VARCHAR" property="mdcaption" />
+    <result column="MDICON" jdbcType="VARCHAR" property="mdicon" />
+    <result column="MDNAME" jdbcType="VARCHAR" property="mdname" />
+    <result column="OPENPARM" jdbcType="VARCHAR" property="openparm" />
+    <result column="PARMTYPE" jdbcType="VARCHAR" property="parmtype" />
+    <result column="NOTES" jdbcType="VARCHAR" property="notes" />
+    <result column="PHELP" jdbcType="VARCHAR" property="phelp" />
+    <result column="MHPXH" jdbcType="INTEGER" property="mhpxh" />
+    <result column="SFMHXS" jdbcType="CHAR" property="sfmhxs" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    COURT_NO, MDID, MDLEVEL, MDCAPTION, MDICON, MDNAME, OPENPARM, PARMTYPE, NOTES, PHELP, 
+    MHPXH, SFMHXS
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.ProgramKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from S_PROGRAM
+    where COURT_NO = #{courtNo,jdbcType=VARCHAR}
+      and MDID = #{mdid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.ProgramKey">
+    delete from S_PROGRAM
+    where COURT_NO = #{courtNo,jdbcType=VARCHAR}
+      and MDID = #{mdid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.eastsoft.esgjyj.domain.Program">
+    insert into S_PROGRAM (COURT_NO, MDID, MDLEVEL, 
+      MDCAPTION, MDICON, MDNAME, 
+      OPENPARM, PARMTYPE, NOTES, 
+      PHELP, MHPXH, SFMHXS)
+    values (#{courtNo,jdbcType=VARCHAR}, #{mdid,jdbcType=VARCHAR}, #{mdlevel,jdbcType=VARCHAR}, 
+      #{mdcaption,jdbcType=VARCHAR}, #{mdicon,jdbcType=VARCHAR}, #{mdname,jdbcType=VARCHAR}, 
+      #{openparm,jdbcType=VARCHAR}, #{parmtype,jdbcType=VARCHAR}, #{notes,jdbcType=VARCHAR}, 
+      #{phelp,jdbcType=VARCHAR}, #{mhpxh,jdbcType=INTEGER}, #{sfmhxs,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eastsoft.esgjyj.domain.Program">
+    insert into S_PROGRAM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courtNo != null">
+        COURT_NO,
+      </if>
+      <if test="mdid != null">
+        MDID,
+      </if>
+      <if test="mdlevel != null">
+        MDLEVEL,
+      </if>
+      <if test="mdcaption != null">
+        MDCAPTION,
+      </if>
+      <if test="mdicon != null">
+        MDICON,
+      </if>
+      <if test="mdname != null">
+        MDNAME,
+      </if>
+      <if test="openparm != null">
+        OPENPARM,
+      </if>
+      <if test="parmtype != null">
+        PARMTYPE,
+      </if>
+      <if test="notes != null">
+        NOTES,
+      </if>
+      <if test="phelp != null">
+        PHELP,
+      </if>
+      <if test="mhpxh != null">
+        MHPXH,
+      </if>
+      <if test="sfmhxs != null">
+        SFMHXS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courtNo != null">
+        #{courtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="mdid != null">
+        #{mdid,jdbcType=VARCHAR},
+      </if>
+      <if test="mdlevel != null">
+        #{mdlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="mdcaption != null">
+        #{mdcaption,jdbcType=VARCHAR},
+      </if>
+      <if test="mdicon != null">
+        #{mdicon,jdbcType=VARCHAR},
+      </if>
+      <if test="mdname != null">
+        #{mdname,jdbcType=VARCHAR},
+      </if>
+      <if test="openparm != null">
+        #{openparm,jdbcType=VARCHAR},
+      </if>
+      <if test="parmtype != null">
+        #{parmtype,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="phelp != null">
+        #{phelp,jdbcType=VARCHAR},
+      </if>
+      <if test="mhpxh != null">
+        #{mhpxh,jdbcType=INTEGER},
+      </if>
+      <if test="sfmhxs != null">
+        #{sfmhxs,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eastsoft.esgjyj.domain.Program">
+    update S_PROGRAM
+    <set>
+      <if test="mdlevel != null">
+        MDLEVEL = #{mdlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="mdcaption != null">
+        MDCAPTION = #{mdcaption,jdbcType=VARCHAR},
+      </if>
+      <if test="mdicon != null">
+        MDICON = #{mdicon,jdbcType=VARCHAR},
+      </if>
+      <if test="mdname != null">
+        MDNAME = #{mdname,jdbcType=VARCHAR},
+      </if>
+      <if test="openparm != null">
+        OPENPARM = #{openparm,jdbcType=VARCHAR},
+      </if>
+      <if test="parmtype != null">
+        PARMTYPE = #{parmtype,jdbcType=VARCHAR},
+      </if>
+      <if test="notes != null">
+        NOTES = #{notes,jdbcType=VARCHAR},
+      </if>
+      <if test="phelp != null">
+        PHELP = #{phelp,jdbcType=VARCHAR},
+      </if>
+      <if test="mhpxh != null">
+        MHPXH = #{mhpxh,jdbcType=INTEGER},
+      </if>
+      <if test="sfmhxs != null">
+        SFMHXS = #{sfmhxs,jdbcType=CHAR},
+      </if>
+    </set>
+    where COURT_NO = #{courtNo,jdbcType=VARCHAR}
+      and MDID = #{mdid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eastsoft.esgjyj.domain.Program">
+    update S_PROGRAM
+    set MDLEVEL = #{mdlevel,jdbcType=VARCHAR},
+      MDCAPTION = #{mdcaption,jdbcType=VARCHAR},
+      MDICON = #{mdicon,jdbcType=VARCHAR},
+      MDNAME = #{mdname,jdbcType=VARCHAR},
+      OPENPARM = #{openparm,jdbcType=VARCHAR},
+      PARMTYPE = #{parmtype,jdbcType=VARCHAR},
+      NOTES = #{notes,jdbcType=VARCHAR},
+      PHELP = #{phelp,jdbcType=VARCHAR},
+      MHPXH = #{mhpxh,jdbcType=INTEGER},
+      SFMHXS = #{sfmhxs,jdbcType=CHAR}
+    where COURT_NO = #{courtNo,jdbcType=VARCHAR}
+      and MDID = #{mdid,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 手动添加 -->
+  <select id="selectByParams" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from S_PROGRAM
+    <where>
+      <if test="courtNo != null">
+        and COURT_NO = #{courtNo,jdbcType=VARCHAR}
+      </if>
+      <if test="parentLevel != null">
+        and MDLEVEL like #{parentLevel,jdbcType=VARCHAR} + '%'
+      </if>
+      <if test="courtNo != null and ownerId != null">
+        and exists (select 1 from S_PURVIEW where ID1 = #{ownerId,jdbcType=VARCHAR} and ((PURTYPE = '3' and ID2 = S_PROGRAM.MDID) or (PURTYPE = '1' and ID2 in (select ID1 from S_PURVIEW where COURT_NO = #{courtNo,jdbcType=VARCHAR} and PURTYPE = '4' and ID2 = S_PROGRAM.MDID))))
+      </if>
+    </where>
+    order by MDLEVEL
+  </select>
+</mapper>

@@ -1,6 +1,10 @@
 package com.eastsoft.esgjyj.controller;
 
+import com.eastsoft.esgjyj.dao.YjkhDao;
+import com.eastsoft.esgjyj.domain.YjkhDO;
+import com.eastsoft.esgjyj.service.CbsptReportService;
 import com.eastsoft.esgjyj.service.impl.TjbbServiceImpl;
+import com.eastsoft.esgjyj.util.DateUtil;
 import com.eastsoft.esgjyj.vo.FgkpVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,8 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
 
@@ -20,10 +25,15 @@ import java.util.List;
 public class TjbbController {
     @Autowired
     TjbbServiceImpl tjbbService;
+    @Autowired
+    CbsptReportService cbsptReportService;
+
+    @Autowired
+    YjkhDao yjkhDao;
     @GetMapping("/fgkp/list")
-    List<FgkpVO> fgkpList(String khid){
+    List<FgkpVO> fgkpList(String khid,String ofid){
         List<FgkpVO> fgkpVOS = new ArrayList<>();
-        return  tjbbService.listFgKp(khid);
+        return  tjbbService.listFgKp(khid,ofid);
     }
     @GetMapping("/tzkp/list")
     List<FgkpVO> tzkpList(String khid){
@@ -67,5 +77,29 @@ public class TjbbController {
     List<FgkpVO> prsjyList(String khid){
         List<FgkpVO> fgkpVOS = new ArrayList<>();
         return  tjbbService.listPrsjy(khid);
+    }
+
+    @GetMapping("/cbspt/list")
+    List<Map<String, Object>> cbspt(String khid){
+        YjkhDO yjkhDO = yjkhDao.get(khid);
+        String ksyf = yjkhDO.getKsyf();
+        String jsyf = yjkhDO.getJsyf();
+        String ksrq="",jzrq="";
+        ksrq = ksyf+"-01";
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");
+        Date jzrqDate = null;
+        try {
+            jzrqDate = sdf.parse(jsyf);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+        jzrq = sdf2.format(DateUtil.getLastDayOfMonth(jzrqDate));
+        Map<String,Object> map = new HashMap<>();
+        map.put("ksrq",ksrq);
+        map.put("jzrq",jzrq);
+        map.put("khid",khid);
+        List<Map<String, Object>> list = cbsptReportService.list(map);
+        return list;
     }
 }

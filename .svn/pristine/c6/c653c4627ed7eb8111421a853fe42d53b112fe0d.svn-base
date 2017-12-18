@@ -1,0 +1,50 @@
+package com.eastsoft.esgjyj.controller;
+
+import com.eastsoft.esgjyj.service.impl.TjbbServiceImpl;
+import com.eastsoft.esgjyj.vo.FgkpVO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+
+ */
+
+@RequestMapping("/tjbb")
+@RestController
+public class TjBBController {
+    @Autowired
+    TjbbServiceImpl tjbbService;
+    @GetMapping("/fgkp/list")
+    List<FgkpVO> fgkpList(){
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
+        return  tjbbService.listFgKp();
+    }
+    @GetMapping("/tzkp/list")
+    List<FgkpVO> tzkpList(){
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
+        return  tjbbService.listTzKp();
+    }
+    @GetMapping("/zhkp/list")
+    List<FgkpVO> zhkpList(){
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
+        return  tjbbService.listTzKp();
+    }
+
+    @GetMapping("/zlkp/list")
+    List<FgkpVO> zlkpList(){
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
+        return  tjbbService.listZlKp();
+    }
+
+    @GetMapping("/sjykp/list")
+    List<FgkpVO> sjykpList(){
+        List<FgkpVO> fgkpVOS = new ArrayList<>();
+        return  tjbbService.listSjyKp();
+    }
+}
