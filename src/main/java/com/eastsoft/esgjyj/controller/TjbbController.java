@@ -99,7 +99,7 @@ public class TjbbController {
         map.put("ksrq",ksrq);
         map.put("jzrq",jzrq);
         map.put("khid",khid);
-        List<Map<String, Object>> list = cbsptReportService.list(map);
+        List<Map<String, Object>> list = cbsptReportService.cbrList(map);
         return list;
     }
 }
