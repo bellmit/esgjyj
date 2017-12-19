@@ -40,7 +40,8 @@ public class SjyReportServiceImpl implements SjyReportService{
 			item.put("YJ", yjCnt);
 			count = rsMap.get(ofid) == null ? 0 : (Integer)rsMap.get(ofid);
 			if(count == 0) continue;
-			item.put("AVERAGE_SCORE", Math.round(yjCnt / count));
+			if(yjCnt == 0) continue;
+			item.put("AVERAGE_SCORE", Math.round(yjCnt * 1.0 / count));
 			newList.add(item);
 		}
 		return newList;
