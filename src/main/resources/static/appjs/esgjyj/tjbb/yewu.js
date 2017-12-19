@@ -80,7 +80,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "各业务部门书记员收结案一览表",
+                            title: "书记员协助办案一览表",
                             halign: "center",
                             align: "center",
                             colspan: 9,

@@ -80,7 +80,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "各业务部门法官助理收结案一览表",
+                            title: "法官助理辅助办案一览表",
                             halign: "center",
                             align: "center",
                             colspan: 9,
