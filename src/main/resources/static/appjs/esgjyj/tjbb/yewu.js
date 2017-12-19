@@ -80,7 +80,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "省法院机关综合部门法官助理业绩考评",
+                            title: "各业务部门书记员收结案一览表",
                             halign: "center",
                             align: "center",
                             colspan: 9,
@@ -97,6 +97,7 @@ function load() {
                             field: 'XS',
                             title: '新收',
                             align: "center",
+                            visible:false
                         },
                         {
                             field: 'YJ',
@@ -107,12 +108,14 @@ function load() {
                             field: 'XS_ZS',
                             title: '折算收案数',
                             align: "center",
+                            visible:false
 
                         },
                         {
                             field: 'YJ_ZS',
                             title: '折算结案数',
                             align: "center",
+                            visible:false
 
                         },
                         {

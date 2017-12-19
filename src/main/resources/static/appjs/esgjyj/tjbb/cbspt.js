@@ -80,7 +80,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "省法院机关综合部门法官助理业绩考评",
+                            title: "省法院机关综合部门法官收结案一览表",
                             halign: "center",
                             align: "center",
                             colspan: 9,
