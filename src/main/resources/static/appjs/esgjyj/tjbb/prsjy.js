@@ -127,11 +127,9 @@ function load() {
                                     title: "综合评价得分",
                                     valign: "middle",
                                     align: "center",
-                                    colspan: 1,
-                                    rowspan: 2,
-                                    formatter: function (value, row, index) {
-                                        return '<a href="#" onclick="preview(\'a8\',\''+row.khdx+ '\')">' + row.a8 + '</a>';
-                                    }
+                                    colspan: 2,
+                                    rowspan: 1,
+
                                 },
                                 {
                                     title: "浮动加减分",
@@ -180,21 +178,39 @@ function load() {
                                     }
                                 },
                                 {
-                                    field: 'a7',
-                                    title: '奖惩得分',
-                                    valign: "middle",
-                                    align: "center",
-                                    formatter: function (value, row, index) {
-                                        return '<a href="#" onclick="preview(\'a7\',\''+row.khdx+ '\')">' + row.a7 + '</a>';
-                                    }
-                                },
-                                {
                                     field: 'a8',
-                                    title: '审判调研',
+                                    title: '庭长打分',
                                     valign: "middle",
                                     align: "center",
                                     formatter: function (value, row, index) {
                                         return '<a href="#" onclick="preview(\'a8\',\''+row.khdx+ '\')">' + row.a8 + '</a>';
+                                    }
+                                },
+                                {
+                                    field: 'a15',
+                                    title: '审判团队负责人',
+                                    valign: "middle",
+                                    align: "center",
+                                    formatter: function (value, row, index) {
+                                        return '<a href="#" onclick="preview(\'a15\',\''+row.khdx+ '\')">' + row.a15 + '</a>';
+                                    }
+                                },
+                                {
+                                    field: 'a9',
+                                    title: '奖惩得分',
+                                    valign: "middle",
+                                    align: "center",
+                                    formatter: function (value, row, index) {
+                                        return '<a href="#" onclick="preview(\'a9\',\''+row.khdx+ '\')">' + row.a9 + '</a>';
+                                    }
+                                },
+                                {
+                                    field: 'a10',
+                                    title: '审判调研',
+                                    valign: "middle",
+                                    align: "center",
+                                    formatter: function (value, row, index) {
+                                        return '<a href="#" onclick="preview(\'a10\',\''+row.khdx+ '\')">' + row.a10 + '</a>';
                                     }
                                 },
 

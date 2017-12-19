@@ -355,6 +355,10 @@ public class TjbbServiceImpl {
                     total += khjgDO.getScore();
                     fgkpVO.setA7(String.format("%.2f", khjgDO.getScore()));
                 }
+                else if (15 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA15(String.format("%.2f", khjgDO.getScore()));
+                }
 
             }
             fgkpVO.setToScore(String.format("%.2f", total));
@@ -408,6 +412,10 @@ public class TjbbServiceImpl {
                     total += khjgDO.getScore();
                     fgkpVO.setA10(String.format("%.2f", khjgDO.getScore()));
                 }
+                else if (15 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA15(String.format("%.2f", khjgDO.getScore()));
+                }
             }
             fgkpVO.setToScore(String.format("%.2f", total));
             fgkpVOS.add(fgkpVO);
@@ -456,10 +464,16 @@ public class TjbbServiceImpl {
                 } else if (9 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
                     fgkpVO.setA9(String.format("%.2f", khjgDO.getScore()));
-                } else if (10 == khjgDO.getColIndex()) {
+                }
+                else if (10 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
                     fgkpVO.setA10(String.format("%.2f", khjgDO.getScore()));
                 }
+                else if (15 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA15(String.format("%.2f", khjgDO.getScore()));
+                }
+
             }
             fgkpVO.setToScore(String.format("%.2f", total));
             fgkpVOS.add(fgkpVO);
