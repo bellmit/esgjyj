@@ -21,12 +21,12 @@ public class HelloController {
 	FgzlReportServiceImpl fgzlReportService;
 	@GetMapping("/hello")
 	public void hello() {
-//		GySpyjkhService.execute();
-		Map<String, Object> map = new HashMap<>();
-		map.put("khid", "d7874cc6e070423a98ac55021b88fc63");
-		map.put("ksrq", "2017-01-01");
-		map.put("jzrq", "2017-12-18");
-		sjyReportService.sjyList(map);
-		fgzlReportService.fgzlList(map);
+		GySpyjkhService.execute();
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("khid", "d7874cc6e070423a98ac55021b88fc63");
+//		map.put("ksrq", "2017-01-01");
+//		map.put("jzrq", "2017-12-18");
+//		sjyReportService.sjyList(map);
+//		fgzlReportService.fgzlList(map);
 	}
 }

@@ -47,7 +47,8 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 			item.put("YJ_ZS", yj_zsCnt);
 			count = rsMap.get(ofid) == null ? 0 : (Integer)rsMap.get(ofid);
 			if(count == 0) continue;
-			item.put("AVERAGE_SCORE", Math.round((yjMap.get(ofid + "_zs") == null ? 0 : yjMap.get(ofid + "_zs")) / count));
+			if(yjCnt == 0) continue;
+			item.put("AVERAGE_SCORE", Math.round((yjMap.get(ofid + "_zs") == null ? 0 : yjMap.get(ofid + "_zs")) * 1.0 / count));
 			newList.add(item);
 		}
 		return newList;
@@ -67,11 +68,11 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 		}
 		if (cbrList.size() == 0) return map;
 		cbrbss = cbrbss.substring(0, cbrbss.lastIndexOf(",")) + ")";
-		String sql = "select CBSPTBS, AJLB from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
+		String sql = "select CBSPTBS, AJLB, CASEWORD from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
 		+ SftjUtil.generateXsWhere(ksrq, jzrq, "")
 		+ "and CBRBS IN " + cbrbss;
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
-		String cbsptbs = "", ajlb = "";
+		String cbsptbs = "", ajlb = "", caseword = "";
 		double count = 0, xs = 0.0;
 		for(Map<String, Object> item : list) {
 			cbsptbs = (String)item.get("CBSPTBS");
@@ -79,7 +80,8 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 			count = map.get(cbsptbs) == null ? 1 : (double)map.get(cbsptbs) + 1;
 			map.put(cbsptbs, count);
 			ajlb = (String)item.get("AJLB");
-			xs = gySpyjkhService.getLxxs(ajlb);
+			caseword = (String)item.get("CASEWORD");
+			xs = gySpyjkhService.getLxxs(ajlb, caseword);
 			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
 			map.put(cbsptbs + "_zs", xs);
 		}
@@ -100,18 +102,19 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 		}
 		if (cbrList.size() == 0) return map;
 		cbrbss = cbrbss.substring(0, cbrbss.lastIndexOf(",")) + ")";
-		String sql = "select CBSPTBS, AJLB from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
+		String sql = "select CBSPTBS, AJLB, CASEWORD from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
 		+ SftjUtil.generateYjWhere(ksrq, jzrq, "")
 		+ "and CBRBS IN " + cbrbss;
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
-		String cbsptbs = "", ajlb = "";
+		String cbsptbs = "", ajlb = "", caseword = "";
 		double count = 0, xs = 0.0;
 		for(Map<String, Object> item : list) {
 			cbsptbs = (String)item.get("CBSPTBS");
 			count = map.get(cbsptbs) == null ? 1 : (double)map.get(cbsptbs) + 1;
 			map.put(cbsptbs, count);
 			ajlb = (String)item.get("AJLB");
-			xs = gySpyjkhService.getLxxs(ajlb);
+			caseword = (String)item.get("CASEWORD");
+			xs = gySpyjkhService.getLxxs(ajlb, caseword);
 			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
 			map.put(cbsptbs + "_zs", xs);
 		}
@@ -189,10 +192,10 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 	 * @return
 	 */
 	public Map<String, Double> getXsMap(String ksrq, String jzrq) {
-		String sql = "select CBSPTBS, AJLB from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
+		String sql = "select CBSPTBS, AJLB, CASEWORD from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
 		+ SftjUtil.generateXsWhere(ksrq, jzrq, "");
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
-		String cbsptbs = "", ajlb = "";
+		String cbsptbs = "", ajlb = "", caseword = "";
 		Map<String, Double> map = new HashMap<>();
 		double count = 0, xs = 0.0;
 		for(Map<String, Object> item : list) {
@@ -201,7 +204,8 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 			count = map.get(cbsptbs) == null ? 1 : (double)map.get(cbsptbs) + 1;
 			map.put(cbsptbs, count);
 			ajlb = (String)item.get("AJLB");
-			xs = gySpyjkhService.getLxxs(ajlb);
+			caseword = (String)item.get("CASEWORD");
+			xs = gySpyjkhService.getLxxs(ajlb, caseword);
 			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
 			map.put(cbsptbs + "_zs", xs);
 		}
@@ -214,10 +218,10 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 	 * @return
 	 */
 	public Map<String, Double> getYjMap(String ksrq, String jzrq) {
-		String sql = "select CBSPTBS, AJLB from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
+		String sql = "select CBSPTBS, AJLB, CASEWORD from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
 		+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
-		String cbsptbs = "", ajlb = "";
+		String cbsptbs = "", ajlb = "", caseword = "";
 		Map<String, Double> map = new HashMap<>();
 		double count = 0, xs = 0.0;
 		for(Map<String, Object> item : list) {
@@ -225,7 +229,8 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 			count = map.get(cbsptbs) == null ? 1 : (double)map.get(cbsptbs) + 1;
 			map.put(cbsptbs, count);
 			ajlb = (String)item.get("AJLB");
-			xs = gySpyjkhService.getLxxs(ajlb);
+			caseword = (String)item.get("CASEWORD");
+			xs = gySpyjkhService.getLxxs(ajlb, caseword);
 			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
 			map.put(cbsptbs + "_zs", xs);
 		}

@@ -7,15 +7,18 @@ import java.util.List;
 import java.util.Map;
 
 import com.eastsoft.esgjyj.domain.Office;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eastsoft.esgjyj.dao.BaseDao;
 import com.eastsoft.esgjyj.dao.UserMapper;
 import com.eastsoft.esgjyj.domain.Program;
 import com.eastsoft.esgjyj.domain.User;
 import com.eastsoft.esgjyj.domain.UserWithBLOBs;
 import com.eastsoft.esgjyj.enums.UserState;
 import com.eastsoft.esgjyj.form.TreeNode;
+import com.eastsoft.esgjyj.util.PassWd;
 
 /**
  * 用户业务逻辑。
@@ -29,6 +32,8 @@ public class UserServiceImpl {
 	private UserMapper userMapper;
 	@Autowired
 	private ProgramServiceImpl programService;
+	@Autowired
+	private BaseDao baseDao;
 	
 	/**
 	 * 获取指定法院所有用户。
@@ -109,7 +114,19 @@ public class UserServiceImpl {
 		}
 		return nodeList;
 	}
-
+	/**
+	 * 获取登录密码
+	 * @param logid   登陆名
+	 * @return
+	 */
+	public String getPassword(String logid) {
+		String sql = "select LOGPASS from S_USER where LOGID = '" + logid + "'";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		String logpass = list.get(0).get("LOGPASS") == null ? "" : (String)list.get(0).get("LOGPASS");
+		PassWd passWd = new PassWd();
+		logpass = passWd.f_decrypt(logpass);
+		return logpass;
+	}
 	public Office getOfficeByuserId(String userId){
 		return userMapper.getByUserId( userId);
 	}
