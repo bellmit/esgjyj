@@ -186,7 +186,7 @@ public class PassWd
 
 	public static void main(String[] args) {
 		PassWd passWd = new PassWd();
-		System.out.println(passWd.f_decrypt("S1SAS24CS6S3SS8E5192"));
+		System.out.println(passWd.f_decrypt("SESASAS4SESA8S466408"));
 	}
 
 }
