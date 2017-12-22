@@ -57,8 +57,20 @@ public class YjkhKgssController {
         param.put("userid", ScopeUtil.getSessionUser(User.class).getUserid());
              yjkhKgssList = yjkhKgssService.list(param);
         }else{
+            if("A".equals(param.get("zbid"))){
+                yjkhKgssList = yjkhKgssService.list("调研理论成果");
+            }
             if("B".equals(param.get("zbid"))){
                 yjkhKgssList = yjkhKgssService.list("案例采用");
+            }
+            if("C".equals(param.get("zbid"))){
+                yjkhKgssList = yjkhKgssService.list("案例采用");
+            }
+            if("D".equals(param.get("zbid"))){
+                yjkhKgssList = yjkhKgssService.list("奖惩得分");
+            }
+            if("E".equals(param.get("zbid"))){
+                yjkhKgssList = yjkhKgssService.list("审判调研");
             }
         }
 
