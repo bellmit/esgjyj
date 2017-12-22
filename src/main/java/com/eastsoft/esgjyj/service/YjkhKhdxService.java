@@ -5,7 +5,6 @@ import java.util.Map;
 
 import org.springframework.transaction.annotation.Transactional;
 
-import com.eastsoft.esgjyj.domain.Office;
 import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
 
 /**
@@ -42,5 +41,5 @@ public interface YjkhKhdxService {
 	@Transactional(rollbackFor = Exception.class)
 	void copyAll(String khid);
 
-	List<Office> listOffice();
+	List<Map<String, Object>> listOffice();
 }

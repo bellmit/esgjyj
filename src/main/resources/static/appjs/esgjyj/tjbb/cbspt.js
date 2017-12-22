@@ -3,7 +3,6 @@ var khid ='';
 var ofid = '';
 $(function () {
     selectLoad();
-    selectOfficeLoad();
 });
 
 function selectLoad() {
@@ -80,7 +79,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "省法院法官收结案一览表",
+                            title: "法官收结案一览表",
                             halign: "center",
                             align: "center",
                             colspan: 9,
@@ -88,11 +87,47 @@ function load() {
                         }
                     ],
                     [
-                        {
-                            field: 'SHORTNAME',
-                            title: '部门',
+						{
+						    field: 'SHORTNAME',
+						    title: '部门',
+						    valign: "middle",
+						    align: "center",
+						    rowspan:2
+						},
+                     	{
+                     		title: "收结案情况",
+                            halign: "center",
                             align: "center",
-                        },
+                            colspan: 2,
+                     	},
+                     	{
+                     		title: "入额法官收结案情况",
+                            halign: "center",
+                            align: "center",
+                            colspan: 2,
+                     	},
+                     	{
+                     		title: "入额法官收结案折算数",
+                            halign: "center",
+                            align: "center",
+                            colspan: 2,
+                     	},
+                     	{
+                     		field: 'REFGS',
+                     		title: "入额法官数",
+                     		valign: "middle",
+                            align: "center",
+                            rowspan: 2,
+                     	},
+                     	{
+                            field: 'AVERAGE_SCORE',
+                            title: '入额法官人均结案数',
+                            valign: "middle",
+                            align: "center",
+                            rowspan:2
+                     	}
+                     ],
+                    [
                         {
                             field: 'XS',
                             title: '新收',
@@ -100,6 +135,16 @@ function load() {
                         },
                         {
                             field: 'YJ',
+                            title: '已结',
+                            align: "center",
+                        },
+                        {
+                            field: 'REFGXS',
+                            title: '新收',
+                            align: "center",
+                        },
+                        {
+                            field: 'REFGYJ',
                             title: '已结',
                             align: "center",
                         },
@@ -115,13 +160,6 @@ function load() {
                             align: "center",
 
                         },
-                        {
-                            field: 'AVERAGE_SCORE',
-                            title: '人均结案数',
-                            align: "center",
-
-                        },
-
                     ]]
             });
     columns: [

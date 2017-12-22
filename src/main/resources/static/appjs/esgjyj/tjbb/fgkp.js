@@ -1,5 +1,6 @@
 var prefix = "/tjbb/fgkp";
 var khid,ofid;
+var dxtype = "1";
 $(function () {
     selectLoad();
     selectLoad2();
@@ -42,7 +43,7 @@ function selectLoad2() {
         success: function (data) {
             //加载数据
             for (var i = 0; i < data.length; i++) {
-                html += '<option value="' + data[i].ofid + '">' + data[i].shortname + '</option>'
+                html += '<option value="' + data[i].OFID + '">' + data[i].SHORTNAME + '</option>'
             }
             $("#selectOffice").append(html);
             $("#selectOffice").chosen({
@@ -110,7 +111,7 @@ function load() {
 
                     [
                         {
-                            "title": "省法院机关法官审判业绩考评",
+                            "title": "法官业绩考评报表",
                             "halign": "center",
                             "align": "center",
                             "colspan": 16
@@ -224,7 +225,7 @@ function load() {
                         },
                         {
                             field: 'a7',
-                            title: '超期未结案',
+                            title: '超期限结案',
                             valign: "middle",
                             align: "center",
                             formatter: function (value, row, index) {

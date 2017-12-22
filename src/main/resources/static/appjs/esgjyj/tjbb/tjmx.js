@@ -1,8 +1,12 @@
 
-var prefix = "/esgjyj/yjkhAjmx"
+var prefix = "/esgjyj/yjkhAjmx";
+var colName = "案号";
+var flag = false;
 $(function() {
     khdxid = GetQueryString('khdxid');
-    colIndex = GetQueryString('colIndex')
+    colIndex = GetQueryString('colIndex');
+    if("2" == parent.dxtype) colName = "姓名";
+    if("1" == parent.dxtype || "2" == parent.dxtype || "3" == parent.dxtype || "8" == parent.dxtype) flag = true;
     selectLoad();
 });
 
@@ -91,7 +95,7 @@ function load() {
                             },
                             {
                                 field: 'AH',
-                                title: '案号',
+                                title: colName,
                                 align: "center",
 								width: '20%'
                             },
@@ -104,6 +108,7 @@ function load() {
                                 field: 'SCORE',
                                 title: '得分',
                                 align: "center",
+                                visible:flag
                             },
                              ]
 					});

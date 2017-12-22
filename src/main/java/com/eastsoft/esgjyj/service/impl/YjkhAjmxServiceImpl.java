@@ -64,37 +64,39 @@ public class YjkhAjmxServiceImpl implements YjkhAjmxService {
     	}
     	Map<String, Object> item = new HashMap<>();
     	item.put("AH", "合计");
-    	if("4,6".contains(lb)) {
+    	if("4,6".contains(lb) && "a3".equals(map.get("colIndex"))) {
     		item.put("DFSM", "本部门法官助理年度人均辅助结案数：" + Math.round(zsf) + "。              【得分说明：达到所在部门法官助理年度人均辅助结案数的，计40分；未达到的，"
     				+ "每低于20%，扣2分；每高于10%，加2分，不设上限。】");
+    		list.add(item);
     	} else if("5,7,9".contains(lb) && "a3".equals(colIndex)) {
     		item.put("DFSM", "本部门书记员年度人均记录案件数：" + Math.round(zsf) + "                                                    【得分说明：达到本部门书记员年度人均记录案件数的，计20分；"
     				+ "未达到的每低于20%，扣2分；每高于10%，加2分。】");
+    		list.add(item);
     	} else if("5,7,9".contains(lb) && "a4".equals(colIndex)) {
     		item.put("DFSM", "本部门书记员年度人均担任庭审记录案件数：" + Math.round(zsf) + "。                                                                                                               【得分说明：达到本部门书记员年度人均担任庭审记录案件数的，"
     				+ "计10分，未达到的每低于20%，扣2分；每高于10%，加2分。】");
-    	} else if("1".equals(lb)) {
-    		item.put("DFSM", "个案结案分值总和（原始分）：" + String.format("%.2f", ysf) + "分；本部门法官个案结案分值（原始分平均数）：" + String.format("%.2f", zsf) + "分。"
-    				+ "        【得分说明：以部门法官人均分为标准，达到计60分。每高于10%，加5分，不设上限。低于的且分值在部门法官年人均分值的100%-20%之间的，每低于人均值20%扣5分；"
-    				+ "分值在部门法官年人均分值的20%以下的，每低于人均分值20%，扣10分。】");
-    	} else if("2".equals(lb)) {
-    		item.put("DFSM", "个人结案数（折算后）：" + String.format("%.2f", ysf) + "分；本部门人均结案数（按50%折算后）：" + String.format("%.2f", zsf) + "分。"
-    				+ "       【得分说明：达到本部门人均办案数的50%，得40分。每高于10%，加5分，不设上限。低于的且分值在部门法官年人均分值的100%-20%之间的，每低于人均值20%扣5分；"
-    				+ "分值在部门法官年人均分值的20%以下的，每低于人均分值20%，扣10分。】");
-		} else if("3".equals(lb)) {
-			item.put("DFSM", "个人结案数（折算后）：" + String.format("%.2f", ysf) + "分；全院人均结案数（按30%折算后；2017年按15%折算后）：" + String.format("%.2f", zsf) + "分。"
-    				+ "       【得分说明：达到全院人均办案数的30%（2017年为15%），得 40分。每高于10%，加5分，不设上限。低于的且分值在部门法官年人均分值的100%-20%之间的，每低于人均值20%扣5分；"
-    				+ "分值在部门法官年人均分值的20%以下的，每低于人均分值20%，扣10分。】");
-		} else if("8".equals(lb)) {
-			item.put("DFSM", "个人结案数（折算后）：" + String.format("%.2f", ysf) + "分；本部门人均结案数（按50%折算后）：" + String.format("%.2f", zsf) + "分。"
-    				+ "       【得分说明：达到本部门人均办案数的50%，达到计40分。每高于10%，加5分，不设上限。低于的且分值在部门法官年人均分值的100%-20%之间的，每低于人均值20%扣5分；"
-    				+ "分值在部门法官年人均分值的20%以下的，每低于人均分值20%，扣10分。】");
-		}
-    	if("1".equals(lb) && !"a3".equals(colIndex)) {
-    		
-    	} else {
     		list.add(item);
-    	}
+    	} else if("1".equals(lb) && "a3".equals(map.get("colIndex"))) {
+    		item.put("DFSM", "个案结案分值总和（原始分）：" + String.format("%.2f", ysf) + "分；本部门入额法官个案结案分值（原始分平均数）：" + String.format("%.2f", zsf) + "分。"
+    				+ "        【得分说明：以本部门入额法官人均分为标准，达到计60分。每高于10%，加5分，不设上限。低于的且分值在本部门入额法官年人均分值的100%-20%之间的，每低于人均值20%扣5分；"
+    				+ "分值在本部门入额法官年人均分值的20%以下的，每低于人均分值20%，扣10分。】");
+    		list.add(item);
+    	} else if("2".equals(lb) && "a4".equals(map.get("colIndex"))) {
+    		item.put("DFSM", "个人承办结案数（折算后）：" + String.format("%.2f", ysf) + "分；本部门入额法官人均承办结案数（按50%折算后）：" + String.format("%.2f", zsf) + "分。"
+    				+ "       【得分说明：达到本部门入额法官人均办案数的50%，得40分。每高于10%，加5分，不设上限。低于的且分值在本部门入额法官年人均分值的100%-20%之间的，每低于人均值20%扣5分；"
+    				+ "分值在本部门入额法官年人均分值的20%以下的，每低于人均分值20%，扣10分。】");
+    		list.add(item);
+		} else if("3".equals(lb) && "a4".equals(map.get("colIndex"))) {
+			item.put("DFSM", "个人承办结案数（折算后）：" + String.format("%.2f", ysf) + "分；全院入额法官人均承办结案数（按30%折算后；2017年按15%折算后）：" + String.format("%.2f", zsf) + "分。"
+    				+ "       【得分说明：达到全院入额法官人均办案数的30%（2017年为15%），得 40分。每高于10%，加5分，不设上限。低于的且分值在本部门入额法官年人均分值的100%-20%之间的，每低于人均值20%扣5分；"
+    				+ "分值在本部门入额法官年人均分值的20%以下的，每低于人均分值20%，扣10分。】");
+			list.add(item);
+		} else if("8".equals(lb) && "a4".equals(map.get("colIndex"))) {
+			item.put("DFSM", "个人承办结案数（折算后）：" + String.format("%.2f", ysf) + "分；本部门入额法官人均承办结案数（按50%折算后）：" + String.format("%.2f", zsf) + "分。"
+    				+ "       【得分说明：达到本部门入额法官人均办案数的50%，达到计40分。每高于10%，加5分，不设上限。低于的且分值在本部门入额法官年人均分值的100%-20%之间的，每低于人均值20%扣5分；"
+    				+ "分值在本部门入额法官年人均分值的20%以下的，每低于人均分值20%，扣10分。】");
+			list.add(item);
+		}
     	return list;
     }
     /**
@@ -136,7 +138,7 @@ public class YjkhAjmxServiceImpl implements YjkhAjmxService {
 			count = gySpyjkhService.decimal(count);
 			fgMap = new HashMap<>();
 			fgMap.put("AH", "折算后得分");
-			fgMap.put("DFSM", "法官审判业绩考评人均分:" + count * 2 + ";法官审判业绩考评折算后（按50%折算）人均分:" + count);
+			fgMap.put("DFSM", "本部门入额法官审判业绩考评人均分:" + count * 2 + ";折算后（按50%折算）得分:" + count);
 			fgMap.put("SCORE", count);
 			map.put("人均分", fgMap);
 		}

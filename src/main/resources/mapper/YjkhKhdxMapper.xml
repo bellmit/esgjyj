@@ -8,8 +8,9 @@
 	</select>
 
 	<select id="list" resultType="com.eastsoft.esgjyj.domain.YjkhKhdxDO">
-		select ID,KHID,DXTYPE,USERID,PXH,MBJAS,OFFICEID from YJKH_KHDX
+		select ID,KHID,DXTYPE,USERID,PXH,MBJAS,OFFICEID from YJKH_KHDX,S_OFFICE
         <where>  
+        		  YJKH_KHDX.OFFICEID = S_OFFICE.OFID 
 		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
 		  		  <if test="khid != null and khid != ''"> and KHID = #{khid} </if>
 		  		  <if test="dxtype != null and dxtype != ''"> and DXTYPE = #{dxtype} </if>
@@ -17,8 +18,8 @@
 		  		  <if test="pxh != null and pxh != ''"> and PXH = #{pxh} </if>
 		  		  <if test="mbjas != null and mbjas != ''"> and MBJAS = #{mbjas} </if>
 		  		  <if test="officeid != null and officeid != ''"> and OFFICEID = #{officeid} </if>
-		  		</where>
-		order by OFFICEID
+		</where>
+		order by OFLEVEL
 	</select>
 	
  	<select id="count" resultType="int">

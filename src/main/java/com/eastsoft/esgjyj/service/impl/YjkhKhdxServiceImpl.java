@@ -1,6 +1,7 @@
 package com.eastsoft.esgjyj.service.impl;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -9,9 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.eastsoft.esgjyj.dao.BaseDao;
 import com.eastsoft.esgjyj.dao.YjkhDao;
 import com.eastsoft.esgjyj.dao.YjkhKhdxDao;
-import com.eastsoft.esgjyj.domain.Office;
 import com.eastsoft.esgjyj.domain.YjkhDO;
 import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
 import com.eastsoft.esgjyj.service.YjkhKhdxService;
@@ -21,6 +22,8 @@ import com.eastsoft.esgjyj.service.YjkhKhdxService;
 public class YjkhKhdxServiceImpl implements YjkhKhdxService {
 	@Autowired
 	private YjkhKhdxDao yjkhKhdxDao;
+	@Autowired
+	private BaseDao baseDao;
 
 	@Autowired
 	private YjkhDao yjkhDao;
@@ -92,8 +95,23 @@ public class YjkhKhdxServiceImpl implements YjkhKhdxService {
 	}
 
 	@Override
-	public List<Office> listOffice() {
-		return yjkhKhdxDao.listOffice();
+	public List<Map<String, Object>> listOffice() {
+		String sql = "select distinct OFFICEID as OFID,o.SHORTNAME from "
+				+ "YJKH_KHDX y,S_OFFICE o where y.OFFICEID = o.OFID "
+				+ " and DXTYPE = '1' order by o.OFLEVEL";
+		List<Map<String, Object>> list = baseDao.queryForList(sql);
+		List<Map<String, Object>> newList = new LinkedList<>();
+		Map<String, Object> map = new HashMap<>();
+		map.put("OFID", "");
+		map.put("SHORTNAME", "");
+		newList.add(map);
+		String ofid = "";
+		for(Map<String, Object> item : list) {
+			ofid = (String)item.get("OFID");
+			if("0F000119".equals(ofid)) continue;
+			newList.add(item);
+		}
+		return newList;
 	}
 
 	@Transactional(rollbackFor = Exception.class)

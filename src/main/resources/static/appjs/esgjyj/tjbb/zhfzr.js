@@ -1,4 +1,5 @@
-var prefix = "/tjbb/zhfzr"
+var prefix = "/tjbb/zhfzr";
+var dxtype = "8";
 $(function () {
     selectLoad();
 });

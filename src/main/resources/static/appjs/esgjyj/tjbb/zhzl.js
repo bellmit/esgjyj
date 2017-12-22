@@ -75,7 +75,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "省法院机关综合部门法官助理业绩考评",
+                            title: "综合审判部门法官助理考评报表",
                             halign: "center",
                             align: "center",
                             colspan: 9,
@@ -87,21 +87,25 @@ function load() {
                             field: 'office',
                             title: '部门',
                             align: "center",
+                            rowspan: 2
                         },
                         {
                             field: 'name',
                             title: '姓名',
                             align: "center",
+                            rowspan: 2
                         },
                         {
                             field: 'toScore',
                             title: '考核总分',
                             align: "center",
+                            rowspan: 2
                         },
                         {
                             field: 'a3',
                             title: '综合审判业绩',
                             align: "center",
+                            rowspan: 2,
                             formatter: function (value, row, index) {
                                 return '<a href="#" onclick="preview(\'a3\',\'' + row.khdx + '\')">' + row.a3 + '</a>';
                             }
@@ -110,10 +114,20 @@ function load() {
                             field: 'a4',
                             title: '个人办案业绩',
                             align: "center",
+                            rowspan: 2,
                             formatter: function (value, row, index) {
                                 return '<a href="#" onclick="preview(\'a4\',\'' + row.khdx + '\')">' + row.a4 + '</a>';
                             }
                         },
+                        {
+                            title: "综合审判调研",
+                            valign: "middle",
+                            align: "center",
+                            colspan: 3,
+                        }
+                        
+                   ],
+                   [
                         {
                             field: 'a5',
                             title: '调研理论成果',

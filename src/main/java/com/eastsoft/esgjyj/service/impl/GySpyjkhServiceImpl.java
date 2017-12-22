@@ -116,7 +116,7 @@ public class GySpyjkhServiceImpl {
 				this.save(khdxid, 6, "案件质量评查", 5, "");//默认满分
 				//5.超期限结案数
 				score = getCqxjas(id, userid, khdxid, ksrq, jzrq);
-				this.save(khdxid, 7, "超期未结案", score, "");
+				this.save(khdxid, 7, "超期限结案", score, "");
 				//6.长期未结案件数
 				score = getCqwjajs(id, userid, khdxid, ksrq, jzrq);
 				this.save(khdxid, 8, "长期未结案", score, "");
@@ -187,11 +187,11 @@ public class GySpyjkhServiceImpl {
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "辅助办案绩效得分", score, dfsm[1]);
 				//3.综合评价分
-//				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
-				this.save(khdxid, 5, "综合评价得分", 15, "");
+				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
+				this.save(khdxid, 5, "综合评价得分", score, "");
 				//15.综合评价分
 //				score = getZlpcjg(id, khdxid, "审判团队负责人打分", userid, ksrq, jzrq);
-				this.save(khdxid, 15, "审判团队负责人打分", 15, "");
+				this.save(khdxid, 15, "审判团队负责人打分", 0, "");
 				//4.奖惩得分
 				score = getZlpcjg(id, khdxid, "奖惩得分", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "奖惩得分", score, "");
@@ -218,11 +218,11 @@ public class GySpyjkhServiceImpl {
 				score = getZlpcjg(id, khdxid, "工作技能分", userid, ksrq, jzrq);
 				this.save(khdxid, 7, "工作技能得分", 20, "");//默认满分
 				//6.综合评价分
-//				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
-				this.save(khdxid, 8, "综合评价得分", 15, "");
+				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
+				this.save(khdxid, 8, "综合评价得分", score, "");
 				//15.综合评价分
 //				score = getZlpcjg(id, khdxid, "审判团队负责人打分", userid, ksrq, jzrq);
-				this.save(khdxid, 15, "审判团队负责人打分", 15, "");
+				this.save(khdxid, 15, "审判团队负责人打分", score, "");
 				//7.奖惩得分
 				score = getZlpcjg(id, khdxid, "奖惩得分", userid, ksrq, jzrq);
 				this.save(khdxid, 9, "奖惩得分", score, "");
@@ -252,7 +252,7 @@ public class GySpyjkhServiceImpl {
 				score = getZlpcjg(id, khdxid, "综合审判业绩", userid, ksrq, jzrq);
 				this.save(khdxid, 3, "综合审判业绩", score, "");
 				//2.个人办案业绩
-				dfsm = this.getXzbja(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
+				dfsm = this.getXzbjas(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
 //				dfsm = getTzGrbayj(id, khdxid, userid, khdxbm, ksrq, jzrq).split("\\&");
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "辅助办案业绩", score, dfsm[1]);
@@ -288,7 +288,7 @@ public class GySpyjkhServiceImpl {
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 3, "协助办结案件", score, dfsm[1]);
 				//2.ͥ庭审记录
-				dfsm = getTsjl(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
+				dfsm = getPrTsjl(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "庭审记录", score, dfsm[1]);
 				//3.形成电子卷宗
@@ -302,11 +302,11 @@ public class GySpyjkhServiceImpl {
 				score = getZlpcjg(id, khdxid, "工作技能分", userid, ksrq, jzrq);
 				this.save(khdxid, 7, "工作技能得分", 20, "");//默认满分
 				//6.综合评价分
-//				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
-				this.save(khdxid, 8, "综合评价得分", 15, "");
+				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
+				this.save(khdxid, 8, "综合评价得分", score, "");
 				//15.综合评价分
 //				score = getZlpcjg(id, khdxid, "审判团队负责人打分", userid, ksrq, jzrq);
-				this.save(khdxid, 15, "审判团队负责人打分", 15, "");
+				this.save(khdxid, 15, "审判团队负责人打分", score, "");
 				//7.奖惩得分
 				score = getZlpcjg(id, khdxid, "奖惩得分", userid, ksrq, jzrq);
 				this.save(khdxid, 9, "奖惩得分", score, "");
@@ -756,7 +756,7 @@ public class GySpyjkhServiceImpl {
 			jazfz += jafz;
 			jafz = 0.0;
 		}
-		sql = "select SN, AJLB, CBRBS from CASES where CBRBS = '" + khdx + "' "
+		sql = "select SN, AJLB, CBRBS, CASEWORD from CASES where CBRBS = '" + khdx + "' "
 				+ " and COURT_NO = '" + "0F" + "' "
 				+ SftjUtil.generateBaseWhere("")
 				+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
@@ -1072,7 +1072,7 @@ public class GySpyjkhServiceImpl {
 		String sql = "select * from YJKH_KHDX where KHID = '" + khzj + "' "
 				+ " and OFFICEID = '" + khdxbm + "' and DXTYPE = '" + dxtype + "'";
 		List<Map<String, Object>> fgzlList = baseDao.queryForList(sql);
-		String userid = "", username = "", khdxmc = "", khdxbmmc = "", dfsm = "";
+		String userid = "", username = "", khdxmc = "", khdxbmmc = "", dfsm = "", cbr = "";
 		sql = "select SHORTNAME from S_OFFICE where OFID = '" + khdxbm + "'";
 		List<Map<String, Object>> officeList = baseDao.queryForList(sql);
 		if(officeList.size() == 0) return 0.0 + "&部门人员为空！";
@@ -1095,15 +1095,16 @@ public class GySpyjkhServiceImpl {
 		for(Map<String, Object> item : fgzlList) {
 			userid = (String)item.get("USERID");
 			if(Tools.isEmpty(userid)) continue;
-			sql = "select SN, FGZL from CASES where FGZLBS = '" + userid + "' "
+			sql = "select SN, CBR, FGZL from CASES where FGZLBS = '" + userid + "' "
 					+ SftjUtil.generateBaseWhere("")
 					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
 			usernameList = baseDao.queryForList(sql);
 			for(Map<String, Object> map : usernameList) {
 				if(userid.equals(khdx)) {
 					khdxmc = (String)map.get("FGZL");
+					cbr = (String)map.get("CBR");
 					sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
-					if(sn != 0) this.saveSn(khdxid, "3", dxtype, sn, 0.00, khdxmc + "法官助理辅助结案!", fgzlList.size() == 0 ? 0 : zs * 1.0 / fgzlList.size());
+					if(sn != 0) this.saveSn(khdxid, "3", dxtype, sn, 0.00, khdxmc + "法官助理辅助法官" + cbr + "结案!", fgzlList.size() == 0 ? 0 : zs * 1.0 / fgzlList.size());
 				}
 				username = (String)map.get("FGZL");
 			}
@@ -1162,7 +1163,7 @@ public class GySpyjkhServiceImpl {
 			dcdf = 0.0;
 		}
 		if(list.size() > 0) {
-			zdf = this.decimal(zdf / list.size());
+			zdf = this.decimal(zdf / list.size() * 0.3);
 			dfsm += "所辅助全部法官人均业绩为:" + zdf + ";\n";
 			dfsm += khdxmc + "得分为:" + zdf + ";\n";
 		} else {
@@ -1222,7 +1223,7 @@ public class GySpyjkhServiceImpl {
 		double tzf = 0.0, pjf = 0.0, bl = 0.0;
 		if(sjyList.size() > 0) {
 			pjf = zs * 1.0 / sjyList.size();
-			if(pjf == 0) return 0.0 + "&" + "部门人员为空!";
+			if(pjf == 0) return 20.0 + "&" + "部门人员为空!";
 			dfsm += khdxbmmc + "书记员年度人均记录案件数为:" + pjf + ";\n";
 			dfsm += khdxmc + "记录案件数为:" + khdxs + ";\n";
 			bl = (khdxs - pjf) / pjf;
@@ -1242,7 +1243,82 @@ public class GySpyjkhServiceImpl {
 			if(df < 0) df = 0.00;
 			return df + "&" + dfsm;
 		} else {
-			return 0.00 + "&" + "部门人员为空!";
+			return 20.00 + "&" + "部门人员为空!";
+		}
+	}
+	/**
+	 * 协助办结案件
+	 * @param khzj       考核主键
+	 * @param khdx       考核对象id
+	 * @param khdxbm     考核对象部门
+	 * @param ksrq       开始日期
+	 * @param jzrq       截止日期
+	 * @return
+	 */
+	public String getXzbjas(String khzj, String khdxid, String khdx, String khdxbm, String ksrq, String jzrq, String dxtype) {
+		String sql = "select * from YJKH_KHDX where KHID = '" + khzj + "' "
+				+ " and OFFICEID = '" + khdxbm + "' and DXTYPE = '" + dxtype + "'";
+		List<Map<String, Object>> sjyList = baseDao.queryForList(sql);
+		String userid = "", khdxbmmc = "", khdxmc = "", dfsm = "", username = "";
+		sql = "select SHORTNAME from S_OFFICE where OFID = '" + khdxbm + "'";
+		List<Map<String, Object>> officeList = baseDao.queryForList(sql);
+		if(officeList.size() == 0) return 0.0 + "&部门人员为空！";
+		khdxbmmc = (String)officeList.get(0).get("SHORTNAME");
+		List<Map<String, Object>> usernameList = null;
+		int ajs = 0, zs = 0, khdxs = 0;
+		Long sn = 0L;
+		for(Map<String, Object> item : sjyList) {
+			userid = (String)item.get("USERID");
+			if(Tools.isEmpty(userid)) continue;
+			sql = "select SN, SJY from CASES where SJYBS = '" + userid + "' "
+					+ SftjUtil.generateBaseWhere("")
+					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			usernameList = baseDao.queryForList(sql);
+			ajs = usernameList.size();
+			if(userid.equals(khdx)) khdxs = ajs;
+			dfsm += username + "记录案件数为:" + ajs + ";\n";
+			zs += ajs;
+		}
+		for(Map<String, Object> item : sjyList) {
+			userid = (String)item.get("USERID");
+			if(Tools.isEmpty(userid)) continue;
+			sql = "select SN, SJY from CASES where SJYBS = '" + userid + "' "
+					+ SftjUtil.generateBaseWhere("")
+					      + SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			usernameList = baseDao.queryForList(sql);
+			for(Map<String, Object> map : usernameList) {
+				if(userid.equals(khdx)) {
+					khdxmc = (String)map.get("SJY");
+					sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
+					if(sn != 0) this.saveSn(khdxid, "3", dxtype, sn, 0.00, khdxmc + "协助办结案件!", zs * 1.0 / sjyList.size());
+				}
+				username = (String)map.get("SJY");
+			}
+		}
+		double tzf = 0.0, pjf = 0.0, bl = 0.0;
+		if(sjyList.size() > 0) {
+			pjf = zs * 1.0 / sjyList.size();
+			if(pjf == 0) return 40.0 + "&" + "部门人员为空!";
+			dfsm += khdxbmmc + "书记员年度人均记录案件数为:" + pjf + ";\n";
+			dfsm += khdxmc + "记录案件数为:" + khdxs + ";\n";
+			bl = (khdxs - pjf) / pjf;
+			if(bl > 0) {
+				while(bl - 0.1 > 0) {
+					tzf += 2;
+					bl -= 0.1;
+				}
+			} else {
+				while(bl + 0.2 < 0) {
+					tzf -= 2;
+					bl += 0.2;
+				}
+			}
+			double df = 40 + tzf;
+			df = this.decimal(df);
+			if(df < 0) df = 0.00;
+			return df + "&" + dfsm;
+		} else {
+			return 40.00 + "&" + "部门人员为空!";
 		}
 	}
 	/**
@@ -1257,6 +1333,85 @@ public class GySpyjkhServiceImpl {
 	public String getTsjl(String khzj, String khdxid, String khdx, String khdxbm, String ksrq, String jzrq, String dxtype) {
 		String sql = "select * from YJKH_KHDX where KHID = '" + khzj + "' "
 				+ " and OFFICEID = '" + khdxbm + "' and DXTYPE = '5'";
+		List<Map<String, Object>> sjyList = baseDao.queryForList(sql);
+		String userid = "", khdxbmmc = "", khdxmc = "", dfsm = "", username = "";
+		sql = "select SHORTNAME from S_OFFICE where OFID = '" + khdxbm + "'";
+		List<Map<String, Object>> officeList = baseDao.queryForList(sql);
+		if(officeList.size() == 0) return 0.0 + "&部门人员为空！";
+		khdxbmmc = (String)officeList.get(0).get("SHORTNAME");
+		List<Map<String, Object>> usernameList = null;
+		int ajs = 0, zs = 0, khdxs = 0;
+		long sn = 0L;
+		for(Map<String, Object> item : sjyList) {
+			userid = (String)item.get("USERID");
+			if(Tools.isEmpty(userid)) continue;
+			sql = "select SN, SJY from CASES where SJYBS = '" + userid + "' "
+						  + " and exists(select 1 from CASES_PQ where CASES.SN = CASES_PQ.CASE_SN "
+						  + " and CASES_PQ.FTYT like '%开庭%') "
+						  + SftjUtil.generateBaseWhere("")
+					      + SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			usernameList = baseDao.queryForList(sql);
+			ajs = usernameList.size();
+			if(userid.equals(khdx)) khdxs = ajs;
+			dfsm += username + "庭审记录案件数为:" + ajs + ";\n";
+			zs += ajs;
+		}
+		for(Map<String, Object> item : sjyList) {
+			userid = (String)item.get("USERID");
+			if(Tools.isEmpty(userid)) continue;
+			sql = "select SN, SJY from CASES where SJYBS = '" + userid + "' "
+						  + " and exists(select 1 from CASES_PQ where CASES.SN = CASES_PQ.CASE_SN "
+						  + " and CASES_PQ.FTYT like '%开庭%') "
+						  + SftjUtil.generateBaseWhere("")
+					      + SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			usernameList = baseDao.queryForList(sql);
+			for(Map<String, Object> map : usernameList) {
+				if(userid.equals(khdx)) {
+					khdxmc = (String)map.get("SJY");
+					sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
+					if(sn != 0) this.saveSn(khdxid, "4", dxtype, sn, 0.00, khdxmc + "庭审记录案件!", zs * 1.0 / sjyList.size());
+				}
+				username = (String)map.get("SJY");
+			}
+		}
+		double tzf = 0.0, pjf = 0.0, bl = 0.0;
+		if(sjyList.size() > 0) {
+			pjf = zs * 1.0 / sjyList.size();
+			dfsm += khdxbmmc + "书记员年度人均庭审记录案件数为:" + pjf + ";\n";
+			dfsm += khdxmc + "庭审记录案件数为:" + khdxs + ";\n";
+			if(pjf == 0) return 0.0 + "&部门人员为空!";
+			bl = (khdxs - pjf) / pjf;
+			if(bl > 0) {
+				while(bl - 0.1 > 0) {
+					tzf += 2;
+					bl -= 0.1;
+				}
+			} else {
+				while(bl + 0.2 < 0) {
+					tzf -= 2;
+					bl += 0.2;
+				}
+			}
+			double df = 10 + tzf;
+			df = this.decimal(df);
+			if(df < 0) df = 0.00;
+			return df + "&" + dfsm + ";";
+		} else {
+			return 0.00 + "&部门人员为空!";
+		}
+	}
+	/**
+	 * 庭审记录
+	 * @param khzj       考核主键
+	 * @param khdx       考核对象id
+	 * @param khdxbm     考核对象部门
+	 * @param ksrq       开始日期
+	 * @param jzrq       截止日期
+	 * @return
+	 */
+	public String getPrTsjl(String khzj, String khdxid, String khdx, String khdxbm, String ksrq, String jzrq, String dxtype) {
+		String sql = "select * from YJKH_KHDX where KHID = '" + khzj + "' "
+				+ " and OFFICEID = '" + khdxbm + "' and DXTYPE = '9'";
 		List<Map<String, Object>> sjyList = baseDao.queryForList(sql);
 		String userid = "", khdxbmmc = "", khdxmc = "", dfsm = "", username = "";
 		sql = "select SHORTNAME from S_OFFICE where OFID = '" + khdxbm + "'";
@@ -1501,7 +1656,11 @@ public class GySpyjkhServiceImpl {
 			case "刑一复": lxxs = AjlxCoefficient.XYFCoefficient.getValue(); break;
 			case "民撤": lxxs = AjlxCoefficient.MCCoefficient.getValue(); break;
 			case "破终": lxxs = AjlxCoefficient.PZCoefficient.getValue(); break;
-			default:break;
+			case "执监": lxxs = AjlxCoefficient.ZJCoefficient.getValue(); break;
+			case "司惩复": lxxs = AjlxCoefficient.SCFCoefficient.getValue();break;
+			case "执复": lxxs = AjlxCoefficient.ZFCoefficient.getValue();break;
+			case "执他": lxxs = AjlxCoefficient.ZTCoefficient.getValue();break;
+			default: lxxs = 0.0; break;
 			}
 		}
 		return lxxs;

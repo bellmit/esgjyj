@@ -75,7 +75,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "综合审判部门主要负责人考评报表",
+                            title: "综合审判部门书记员考评报表",
                             halign: "center",
                             align: "center",
                             colspan: 9,
@@ -164,7 +164,16 @@ function load() {
                 ]
             });
 }
-
+function preview(filed, khdx) {
+    layer.open({
+        type: 2,
+        title: '编辑',
+        maxmin: true,
+        shadeClose: false, // 点击遮罩关闭层
+        area: ['800px', '520px'],
+        content: "/esgjyj/tjbb/tjbx.html?colIndex=" + filed + "&&khdxid=" + khdx // iframe的url
+    });
+}
 function reLoad() {
     $('#exampleTable').bootstrapTable('refresh');
 }

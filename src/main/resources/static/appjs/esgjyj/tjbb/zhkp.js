@@ -1,4 +1,5 @@
-var prefix = "/tjbb/zhkp"
+var prefix = "/tjbb/zhkp";
+var dxtype = "3";
 $(function () {
     selectLoad();
 });
@@ -75,7 +76,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "综合审判部门主要负责人考评报表",
+                            title: "综合审判部门法官考评报表",
                             halign: "center",
                             align: "center",
                             colspan: 9,
