@@ -64,7 +64,7 @@ public class YjkhKgssController {
                 yjkhKgssList = yjkhKgssService.list("案例采用");
             }
             if("C".equals(param.get("zbid"))){
-                yjkhKgssList = yjkhKgssService.list("案例采用");
+                yjkhKgssList = yjkhKgssService.list("宣传表彰");
             }
             if("D".equals(param.get("zbid"))){
                 yjkhKgssList = yjkhKgssService.list("奖惩得分");
