@@ -120,99 +120,13 @@ function load() {
                         },
                         {
                             field: 'AVERAGE_SCORE',
-                            title: '人均结案数',
+                            title: '人均协助结案数',
                             align: "center",
 
                         },
 
                     ]]
             });
-    columns: [
-        [
-            {
-                title: "综合审判部门主要负责人考评报表",
-                halign: "center",
-                align: "center",
-                colspan: 9,
-                width: '100%',
-            }
-        ],
-        [
-            {
-                field: 'office',
-                title: '部门',
-                align: "center",
-                rowspan: 2,
-            },
-            {
-                field: 'name',
-                title: '姓名',
-                align: "center",
-                rowspan: 2,
-            },
-            {
-                field: 'toScore',
-                title: '考核总分',
-                align: "center",
-                rowspan: 2,
-            },
-            {
-                field: 'a3',
-                title: '综合审判业绩',
-                align: "center",
-                rowspan: 2,
-                formatter: function (value, row, index) {
-                    return '<a href="#" onclick="preview(\'a3\',\'' + row.khdx + '\')">' + row.a3 + '</a>';
-                }
-            },
-            {
-                field: 'a4',
-                title: '个人办案业绩',
-                align: "center",
-                rowspan: 2,
-                formatter: function (value, row, index) {
-                    return '<a href="#" onclick="preview(\'a4\',\'' + row.khdx + '\')">' + row.a4 + '</a>';
-                }
-            },
-            {
-                title: "综合审判调研",
-                valign: "middle",
-                align: "center",
-                colspan: 3,
-                rowspan: 1
-            }
-
-        ],
-        [
-            {
-                field: 'a5',
-                title: '调研、理论成果',
-                valign: "middle",
-                align: "center",
-                formatter: function (value, row, index) {
-                    return '<a href="#" onclick="preview(\'a5\',\'' + row.khdx + '\')">' + row.a5 + '</a>';
-                }
-            },
-            {
-                field: 'a6',
-                title: '案例采用',
-                valign: "middle",
-                align: "center",
-                formatter: function (value, row, index) {
-                    return '<a href="#" onclick="preview(\'a6\',\'' + row.khdx + '\')">' + row.a6 + '</a>';
-                }
-            },
-            {
-                field: 'a7',
-                title: '宣传表彰',
-                valign: "middle",
-                align: "center",
-                formatter: function (value, row, index) {
-                    return '<a href="#" onclick="preview(\'a7\',\'' + row.khdx + '\')">' + row.a7 + '</a>';
-                }
-            },
-        ]
-    ]
 }
 
 function reLoad() {

@@ -120,7 +120,7 @@ function load() {
                         },
                         {
                             field: 'AVERAGE_SCORE',
-                            title: '人均结案数',
+                            title: '人均辅助结案数',
                             align: "center",
 
                         },

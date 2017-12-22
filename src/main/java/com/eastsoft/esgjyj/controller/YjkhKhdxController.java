@@ -4,7 +4,6 @@ import java.util.*;
 
 import com.eastsoft.esgjyj.dao.OfficeMapper;
 import com.eastsoft.esgjyj.dao.UserMapper;
-import com.eastsoft.esgjyj.domain.Office;
 import com.eastsoft.esgjyj.util.*;
 import com.eastsoft.esgjyj.vo.YjkhKhdxVO;
 import org.apache.commons.lang.StringUtils;
@@ -172,7 +171,7 @@ public class YjkhKhdxController {
         return R.ok();
     }
     @GetMapping("/listOffice")
-    List<Office> listOffice(){
+    List<Map<String, Object>> listOffice(){
         return yjkhKhdxService.listOffice();
     }
 }

@@ -76,7 +76,7 @@ function load() {
 
                     [
                         {
-                            "title": "省法院机关法官助理业绩考评",
+                            "title": "法官助理考评报表",
                             "halign": "center",
                             "align": "center",
                             "colspan": 9
@@ -131,14 +131,10 @@ function load() {
                         },
                         {
                             title: "综合评价得分",
-
                             valign: "middle",
                             align: "center",
                             colspan: 2,
                             rowspan: 1,
-                            formatter: function (value, row, index) {
-                                return '<a href="#" onclick="preview(\'a5\',\'' + row.khdx + '\')">' + row.a5 + '</a>';
-                            }
                         },
                         {
                             title: "浮动加减分",
@@ -157,7 +153,7 @@ function load() {
                             valign: "middle",
                             align: "center",
                             formatter: function (value, row, index) {
-                                return '<a href="#" onclick="preview(\'a6\',\'' + row.khdx + '\')">' + row.a6 + '</a>';
+                                return '<a href="#" onclick="preview(\'a5\',\'' + row.khdx + '\')">' + row.a5 + '</a>';
                             }
                         },
                         {

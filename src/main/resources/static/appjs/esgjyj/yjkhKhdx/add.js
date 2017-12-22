@@ -79,6 +79,7 @@ function loadUser(id,username){
     $("#username").val(username);
     //id = id.replace("user_","");
     //alert(id[0].replace("user_",""));
+//    alert(id[0].replace("user_",""));
     $.getJSON("/getOfficeByUserId",{userId:id[0].replace("user_","")},function(res){
         $("#officeid").val(res.ofid);
         $("#officeName").val(res.shortname);

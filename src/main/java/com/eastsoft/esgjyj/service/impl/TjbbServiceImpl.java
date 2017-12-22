@@ -39,6 +39,7 @@ public class TjbbServiceImpl {
         param.put("officeid", ofid);
         List<YjkhKhdxDO> khdxDOS = yjkhKhdxDao.list(param);
         for (YjkhKhdxDO khdxDO : khdxDOS) {
+        	if ("0F000119".equals(khdxDO.getOfficeid())) continue;
             FgkpVO fgkpVO = new FgkpVO();
             Map<String, Object> param0 = new HashMap<>();
             param0.put("dxid", khdxDO.getId());
@@ -354,6 +355,9 @@ public class TjbbServiceImpl {
                 } else if (7 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
                     fgkpVO.setA7(String.format("%.2f", khjgDO.getScore()));
+                } else if (15 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA15(String.format("%.2f", khjgDO.getScore()));
                 }
                 else if (15 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
@@ -405,6 +409,9 @@ public class TjbbServiceImpl {
                 } else if (8 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
                     fgkpVO.setA8(String.format("%.2f", khjgDO.getScore()));
+                } else if (15 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA15(String.format("%.2f", khjgDO.getScore()));
                 } else if (9 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
                     fgkpVO.setA9(String.format("%.2f", khjgDO.getScore()));
@@ -461,6 +468,9 @@ public class TjbbServiceImpl {
                 } else if (8 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
                     fgkpVO.setA8(String.format("%.2f", khjgDO.getScore()));
+                } else if (15 == khjgDO.getColIndex()) {
+                    total += khjgDO.getScore();
+                    fgkpVO.setA15(String.format("%.2f", khjgDO.getScore()));
                 } else if (9 == khjgDO.getColIndex()) {
                     total += khjgDO.getScore();
                     fgkpVO.setA9(String.format("%.2f", khjgDO.getScore()));

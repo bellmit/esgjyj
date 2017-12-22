@@ -75,7 +75,7 @@ function load() {
 
                             [
                                 {
-                                    "title": "省法院机关书记员业绩考评",
+                                    "title": "书记员考评报表",
                                     "halign": "center",
                                     "align": "center",
                                     "colspan": 16
@@ -114,7 +114,8 @@ function load() {
                                     rowspan: 1
                                 },
                                 {
-                                    title: "工作技能得分",
+                                    field: "a7",
+                                	title: "工作技能得分",
                                     valign: "middle",
                                     align: "center",
                                     formatter: function (value, row, index) {
@@ -130,7 +131,6 @@ function load() {
                                     align: "center",
                                     colspan: 2,
                                     rowspan: 1,
-
                                 },
                                 {
                                     title: "浮动加减分",
@@ -184,16 +184,16 @@ function load() {
                                     valign: "middle",
                                     align: "center",
                                     formatter: function (value, row, index) {
-                                        return '<a href="#" onclick="preview(\'a8\',\''+row.khdx+ '\')">' + row.a8 + '</a>';
+                                        return '<a href="#" onclick="preview(\'a8\',\'' + row.khdx + '\')">' + row.a8 + '</a>';
                                     }
                                 },
                                 {
                                     field: 'a15',
-                                    title: '审判团队负责人',
+                                    title: '审判团队负责人打分',
                                     valign: "middle",
                                     align: "center",
                                     formatter: function (value, row, index) {
-                                        return '<a href="#" onclick="preview(\'a15\',\''+row.khdx+ '\')">' + row.a15 + '</a>';
+                                        return '<a href="#" onclick="preview(\'a15\',\'' + row.khdx + '\')">' + row.a15 + '</a>';
                                     }
                                 },
                                 {
@@ -213,8 +213,7 @@ function load() {
                                     formatter: function (value, row, index) {
                                         return '<a href="#" onclick="preview(\'a10\',\''+row.khdx+ '\')">' + row.a10 + '</a>';
                                     }
-                                },
-
+                                }
                             ]
                         ]
 					});

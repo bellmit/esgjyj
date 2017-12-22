@@ -1,4 +1,6 @@
-var prefix = "/tjbb/tzkp"
+var prefix = "/tjbb/tzkp";
+var dxtype = "2";
+	
 $(function () {
     selectLoad();
 });
@@ -75,7 +77,7 @@ function load() {
                 columns: [
                     [
                         {
-                            title: "省法院机关庭长业绩考评报表",
+                            title: "庭长业绩考评报表",
                             halign: "center",
                             align: "center",
                             colspan: 9,

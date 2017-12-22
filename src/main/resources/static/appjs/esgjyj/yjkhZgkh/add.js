@@ -13,9 +13,9 @@ $().ready(function() {
         selfOffice = true;
         validateRule(60);
     }else if(zbid=='4-1'){
-        $('#note').val("最大分值为60分");
+        $('#note').val("最大分值为30分");
         selfOffice = true;
-        validateRule(60);
+        validateRule(30);
     }
     else if(zbid=='8-1'){
         $('#note').val("最大分值为60分");

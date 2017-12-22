@@ -6,7 +6,6 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
-import com.eastsoft.esgjyj.domain.Office;
 import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
 
 /**
@@ -34,7 +33,4 @@ public interface YjkhKhdxDao {
 
 	@Select("delete from YJKH_KHDX where KHID=#{khid}")
 	void removeByKhid(String khid);
-
-	@Select("select distinct OFFICEID as OFID,o.SHORTNAME from YJKH_KHDX y,S_OFFICE o where y.OFFICEID = o.OFID")
-	List<Office> listOffice();
 }

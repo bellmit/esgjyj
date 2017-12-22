@@ -114,14 +114,16 @@ function load() {
                                     rowspan: 1
                                 },
                                 {
-                                    title: "工作技能得分",
+                                    field: "a7",
+                                	title: "工作技能得分",
                                     valign: "middle",
                                     align: "center",
-                                    colspan: 1,
-                                    rowspan: 2,
                                     formatter: function (value, row, index) {
                                         return '<a href="#" onclick="preview(\'a7\',\''+row.khdx+ '\')">' + row.a7 + '</a>';
-                                    }
+                                    },
+
+                                    colspan: 1,
+                                    rowspan: 2
                                 },
                                 {
                                     title: "综合评价得分",
@@ -129,7 +131,6 @@ function load() {
                                     align: "center",
                                     colspan: 2,
                                     rowspan: 1,
-
                                 },
                                 {
                                     title: "浮动加减分",
@@ -183,16 +184,16 @@ function load() {
                                     valign: "middle",
                                     align: "center",
                                     formatter: function (value, row, index) {
-                                        return '<a href="#" onclick="preview(\'a8\',\''+row.khdx+ '\')">' + row.a8 + '</a>';
+                                        return '<a href="#" onclick="preview(\'a8\',\'' + row.khdx + '\')">' + row.a8 + '</a>';
                                     }
                                 },
                                 {
                                     field: 'a15',
-                                    title: '审判团队负责人',
+                                    title: '审判团队负责人打分',
                                     valign: "middle",
                                     align: "center",
                                     formatter: function (value, row, index) {
-                                        return '<a href="#" onclick="preview(\'a15\',\''+row.khdx+ '\')">' + row.a15 + '</a>';
+                                        return '<a href="#" onclick="preview(\'a15\',\'' + row.khdx + '\')">' + row.a15 + '</a>';
                                     }
                                 },
                                 {
@@ -212,8 +213,7 @@ function load() {
                                     formatter: function (value, row, index) {
                                         return '<a href="#" onclick="preview(\'a10\',\''+row.khdx+ '\')">' + row.a10 + '</a>';
                                     }
-                                },
-
+                                }
                             ]
                         ]
 					});
