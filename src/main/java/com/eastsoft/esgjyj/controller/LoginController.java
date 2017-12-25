@@ -1,6 +1,7 @@
 package com.eastsoft.esgjyj.controller;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,7 +39,13 @@ public class LoginController {
     }
     @GetMapping("/autoLogin")
     public void autoLogin(HttpServletResponse response, String userinfo) {
-    	String info = Base64.decodeToString(userinfo);
+    	String info = "";
+    	userinfo = userinfo.replaceAll(" ", "+");
+		try {
+			info = new String(Base64.decode(userinfo), "GBK");
+		} catch (UnsupportedEncodingException e1) {
+			throw new RuntimeException("接收参数异常！");
+		}
     	String logid = "";
     	Pattern pattern = Pattern.compile(".*logid=(.*)&");
     	Matcher matcher = pattern.matcher(info);

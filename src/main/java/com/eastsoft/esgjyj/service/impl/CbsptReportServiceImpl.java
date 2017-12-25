@@ -88,7 +88,7 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 			map.put(cbsptbs, count);
 			ajlb = (String)item.get("AJLB");
 			caseword = (String)item.get("CASEWORD");
-			xs = gySpyjkhService.getLxxs(ajlb, caseword);
+			xs = gySpyjkhService.getLxxs(ajlb, cbsptbs, caseword);
 			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
 			map.put(cbsptbs + "_zs", xs);
 		}
@@ -121,7 +121,7 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 			map.put(cbsptbs, count);
 			ajlb = (String)item.get("AJLB");
 			caseword = (String)item.get("CASEWORD");
-			xs = gySpyjkhService.getLxxs(ajlb, caseword);
+			xs = gySpyjkhService.getLxxs(ajlb, cbsptbs, caseword);
 			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
 			map.put(cbsptbs + "_zs", xs);
 		}

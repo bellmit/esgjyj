@@ -22,6 +22,7 @@ import com.eastsoft.esgjyj.domain.Ajmx;
 import com.eastsoft.esgjyj.domain.Khjg;
 import com.eastsoft.esgjyj.domain.KhjgKey;
 import com.eastsoft.esgjyj.enums.AjlxCoefficient;
+import com.eastsoft.esgjyj.enums.LatCoefficient;
 import com.eastsoft.esgjyj.util.DateUtil;
 import com.eastsoft.esgjyj.util.SftjUtil;
 import com.eastsoft.esgjyj.util.Tools;
@@ -378,12 +379,12 @@ public class GySpyjkhServiceImpl {
 	 * @return
 	 */
 	public String getJafz(String khid, String khdxid, String khdx, String khdxbm, String ksrq, String jzrq) {
-		String sql = "select SN, AJLB, CBRBS, CASEWORD from CASES where (CBRBS = '" + khdx + "' OR SPZBS = '" + khdx + "' or HYTCYBS LIKE '%" + khdx + "%')"
+		String sql = "select SN, AJLB, CBRBS, CASEWORD, CBSPTBS from CASES where (CBRBS = '" + khdx + "' OR SPZBS = '" + khdx + "' or HYTCYBS LIKE '%" + khdx + "%')"
 				+ SftjUtil.generateBaseWhere("")
 				+ SftjUtil.generateYjWhere(ksrq, jzrq, "") + " and COURT_NO = '" + "0F" + "'";
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		double jafz = 0.0, df = 0.0, xs = 0.0, japjfz = 0.0;
-		String ajlb = "", cbrbs = "", caseword = "";
+		String ajlb = "", cbrbs = "", caseword = "", cbsptbs = "";
 		String[] dfsm;
 		Long sn = 0L;
 		//平均分
@@ -394,7 +395,8 @@ public class GySpyjkhServiceImpl {
 			ajlb = (String)item.get("AJLB");
 			cbrbs = (String)item.get("CBRBS");
 			caseword = (String)item.get("CASEWORD");
-			xs = getLxxs(ajlb, caseword);
+			cbsptbs = (String)item.get("CBSPTBS");
+			xs = getLxxs(ajlb, cbsptbs, caseword);
 			if(xs == 0.0) continue;
 			df = 10 * xs * getJsxs(cbrbs, khdx);
 			jafz += df;
@@ -730,7 +732,7 @@ public class GySpyjkhServiceImpl {
 		String sql = "select * from YJKH_KHDX where KHID = '" + khid + "' "
 				+ " and OFFICEID = '" + khdxbm + "' and DXTYPE = '1'";
 		List<Map<String, Object>> userList = baseDao.queryForList(sql);
-		String userid = "", username = "", dfsm = "", khdxmc = "", khdxbmmc = "", ajlb = "", caseword = "";
+		String userid = "", username = "", dfsm = "", khdxmc = "", khdxbmmc = "", ajlb = "", caseword = "", cbsptbs = "";
 		sql = "select SHORTNAME from S_OFFICE where OFID = '" + khdxbm + "'";
 		List<Map<String, Object>> officeList = baseDao.queryForList(sql);
 		if(officeList.size() == 0) return 0.0 + "部门人员为空！";
@@ -742,7 +744,7 @@ public class GySpyjkhServiceImpl {
 			userid = (String)item.get("USERID");
 			username = this.getUsername(userid);
 			if(userid.equals(khdx)) khdxmc = username;
-			sql = "select SN, AJLB, CBRBS, CASEWORD from CASES where CBRBS = '" + userid + "' "
+			sql = "select SN, AJLB, CBRBS, CASEWORD, CBSPTBS from CASES where CBRBS = '" + userid + "' "
 					+ " and COURT_NO = '" + "0F" + "' "
 					+ SftjUtil.generateBaseWhere("")
 					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
@@ -750,13 +752,14 @@ public class GySpyjkhServiceImpl {
 			for(Map<String, Object> map : list) {
 				ajlb = (String)map.get("AJLB");
 				caseword = (String)map.get("CASEWORD");
-				jafz += getLxxs(ajlb, caseword);
+				cbsptbs = (String)map.get("CBSPTBS");
+				jafz += getLxxs(ajlb, cbsptbs, caseword);
 			}
 			dfsm += username + "个案结案分值总和：" + jafz + ";\n";
 			jazfz += jafz;
 			jafz = 0.0;
 		}
-		sql = "select SN, AJLB, CBRBS, CASEWORD from CASES where CBRBS = '" + khdx + "' "
+		sql = "select SN, AJLB, CBRBS, CASEWORD, CBSPTBS from CASES where CBRBS = '" + khdx + "' "
 				+ " and COURT_NO = '" + "0F" + "' "
 				+ SftjUtil.generateBaseWhere("")
 				+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
@@ -766,7 +769,8 @@ public class GySpyjkhServiceImpl {
 			sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
 			ajlb = (String)map.get("AJLB");
 			caseword = (String)map.get("CASEWORD");
-			xs = getLxxs(ajlb, caseword);
+			cbsptbs = (String)map.get("CBSPTBS");
+			xs = getLxxs(ajlb, cbsptbs, caseword);
 			if(xs == 0.0) continue;
 			df = xs;
 			cbrdf += df;
@@ -871,7 +875,7 @@ public class GySpyjkhServiceImpl {
 		String sql = "select * from YJKH_KHDX where KHID = '" + khid + "' "
 				+ " and DXTYPE = '1'";
 		List<Map<String, Object>> userList = baseDao.queryForList(sql);
-		String userid = "", username = "", dfsm = "", khdxname = "", khdxbmmc = "", ajlb = "", caseword = "";
+		String userid = "", username = "", dfsm = "", khdxname = "", khdxbmmc = "", ajlb = "", caseword = "", cbsptbs = "";
 		List<Map<String, Object>> list = null;
 		sql = "select SHORTNAME from S_OFFICE where OFID = '" + khdxbm + "'";
 		List<Map<String, Object>> officeList = baseDao.queryForList(sql);
@@ -883,7 +887,7 @@ public class GySpyjkhServiceImpl {
 			userid = (String)item.get("USERID");
 			username = this.getUsername(userid);
 			if(userid.equals(khdx)) khdxname = username;
-			sql = "select SN, AJLB, CBRBS, CASEWORD from CASES where CBRBS = '" + userid + "' "
+			sql = "select SN, AJLB, CBRBS, CASEWORD, CBSPTBS from CASES where CBRBS = '" + userid + "' "
 					+ " and COURT_NO = '" + "0F" + "' "
 					+ SftjUtil.generateBaseWhere("")
 					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
@@ -891,13 +895,14 @@ public class GySpyjkhServiceImpl {
 			for(Map<String, Object> map : list) {
 				ajlb = (String)map.get("AJLB");
 				caseword = (String)map.get("CASEWORD");
-				jafz += getLxxs(ajlb, caseword);
+				cbsptbs = (String)map.get("CBSPTBS");
+				jafz += getLxxs(ajlb, cbsptbs,  caseword);
 			}
 			dfsm += username + "个案结案分值总和：" + jafz + ";\n";
 			jazfz += jafz;
 			jafz = 0.0;
 		}
-		sql = "select SN, CBRBS, AJLB, CASEWORD from CASES where CBRBS = '" + khdx + "' "
+		sql = "select SN, CBRBS, AJLB, CASEWORD, CBSPTBS from CASES where CBRBS = '" + khdx + "' "
 				+ " and COURT_NO = '0F' "
 				+ SftjUtil.generateBaseWhere("")
 				+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
@@ -907,7 +912,8 @@ public class GySpyjkhServiceImpl {
 			sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
 			ajlb = (String)map.get("AJLB");
 			caseword = (String)map.get("CASEWORD");
-			xs = getLxxs(ajlb, caseword);
+			cbsptbs = (String)map.get("CBSPTBS");
+			xs = getLxxs(ajlb, cbsptbs, caseword);
 			if(xs == 0.0) continue;
 			df = xs;
 			cbrdf += df;
@@ -1010,7 +1016,7 @@ public class GySpyjkhServiceImpl {
 		String sql = "select * from YJKH_KHDX where KHID = '" + khid + "' "
 				+ " and OFFICEID = '" + khdxbm + "' and DXTYPE = '3'";
 		List<Map<String, Object>> userList = baseDao.queryForList(sql);
-		String userid = "", username = "", dfsm = "", khdxname = "", khdxbmmc = "", ajlb = "", caseword = "";
+		String userid = "", username = "", dfsm = "", khdxname = "", khdxbmmc = "", ajlb = "", caseword = "", cbsptbs = "";
 		List<Map<String, Object>> list = null;
 		sql = "select SHORTNAME from S_OFFICE where OFID = '" + khdxbm + "'";
 		List<Map<String, Object>> officeList = baseDao.queryForList(sql);
@@ -1022,7 +1028,7 @@ public class GySpyjkhServiceImpl {
 			userid = (String)item.get("USERID");
 			username = this.getUsername(userid);
 			if(userid.equals(khdx)) khdxname = username;
-			sql = "select SN, AJLB, CBRBS, CASEWORD from CASES where CBRBS = '" + userid + "' "
+			sql = "select SN, AJLB, CBRBS, CASEWORD, CBSPTBS from CASES where CBRBS = '" + userid + "' "
 					+ " and COURT_NO = '0F' "
 					+ SftjUtil.generateBaseWhere("")
 					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
@@ -1030,13 +1036,14 @@ public class GySpyjkhServiceImpl {
 			for(Map<String, Object> map : list) {
 				ajlb = (String)map.get("AJLB");
 				caseword = (String)map.get("CASEWORD");
-				jafz += getLxxs(ajlb, caseword);
+				cbsptbs = (String)map.get("CBSPTBS");
+				jafz += getLxxs(ajlb, cbsptbs, caseword);
 			}
 			dfsm += username + "个案结案分值总和：" + jafz + ";\n";
 			jazfz += jafz;
 			jafz = 0.0;
 		}
-		sql = "select SN, AJLB, CASEWORD from CASES where CBRBS = '" + khdx + "' "
+		sql = "select SN, AJLB, CASEWORD, CBSPTBS from CASES where CBRBS = '" + khdx + "' "
 				+ " and COURT_NO = '0F' "
 				+ SftjUtil.generateBaseWhere("")
 				+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
@@ -1046,7 +1053,8 @@ public class GySpyjkhServiceImpl {
 			sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
 			ajlb = (String)map.get("AJLB");
 			caseword = (String)map.get("CASEWORD");
-			xs = getLxxs(ajlb, caseword);
+			cbsptbs = (String)map.get("CBSPTBS");
+			xs = getLxxs(ajlb, cbsptbs, caseword);
 			df = xs;
 			cbrdf += df;
 			//法官结案分值的个案得分明细插入到明细表
@@ -1536,7 +1544,7 @@ public class GySpyjkhServiceImpl {
 		String sql = "select * from YJKH_KHDX where KHID = '" + khid + "' "
 				+ " and OFFICEID = '" + khdxbm + "' and DXTYPE = '1'";
 		List<Map<String, Object>> userList = baseDao.queryForList(sql);
-		String userid = "", username = "", caseword = "";
+		String userid = "", username = "", caseword = "", cbsptbs = "";
 		List<Map<String, Object>> list = null;
 		Double jafz = 0.0, jazfz = 0.0;
 		String ajlb = "", cbrbs = "";
@@ -1544,7 +1552,7 @@ public class GySpyjkhServiceImpl {
 		for(Map<String, Object> item : userList) {
 			userid = (String)item.get("USERID");
 			username = this.getUsername(userid);
-			sql = "select SN, AJLB, CBRBS, CASEWORD from CASES where (CBRBS = '" + userid + "' OR SPZBS = '" + userid + "' or HYTCYBS LIKE '%" + userid + "%')"
+			sql = "select SN, AJLB, CBRBS, CASEWORD, CBSPTBS from CASES where (CBRBS = '" + userid + "' OR SPZBS = '" + userid + "' or HYTCYBS LIKE '%" + userid + "%')"
 					+ SftjUtil.generateBaseWhere("")
 					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
 			list = baseDao.queryForList(sql);
@@ -1552,7 +1560,8 @@ public class GySpyjkhServiceImpl {
 				ajlb = (String)map.get("AJLB");
 				cbrbs = (String)map.get("CBRBS");
 				caseword = (String)map.get("CASEWORD");
-				jafz += 10 * getLxxs(ajlb, caseword) * getJsxs(cbrbs, userid);
+				cbsptbs = (String)map.get("CBSPTBS");
+				jafz += 10 * getLxxs(ajlb, cbsptbs, caseword) * getJsxs(cbrbs, userid);
 			}
 			dfsm += username + "个案结案分值总和：" + jafz + ";\n";
 			jazfz += jafz;
@@ -1617,10 +1626,46 @@ public class GySpyjkhServiceImpl {
 	 * @param ajlb   案件类别
 	 * @return
 	 */
-	public double getLxxs(String ajlb, String caseword) {
+	public double getLxxs(String ajlb, String cbsptbs, String caseword) {
 		double lxxs = 0.0;
 		String ysajlb = "11,21,61,71", esajlb = "12,22,62,72", zsajlb = "1S, 1T, 1Y, 2Y, 2f, 2g, 6C, 6D, 6Y, 7F, 7G, 7Y, G1";
-		if(ysajlb.contains(ajlb)) {
+		if ("0F000101".equals(cbsptbs)) {
+		      if (!Tools.isEmpty(caseword)) {
+		        switch (caseword) { case "行申":
+		          lxxs = LatCoefficient.XSCoefficient.getValue(); break;
+		        case "民辖":
+		          lxxs = LatCoefficient.MXCoefficient.getValue(); break;
+		        case "民辖终":
+		          lxxs = LatCoefficient.MXZCoefficient.getValue(); break;
+		        case "民初":
+		          lxxs = LatCoefficient.MCCoefficient.getValue(); break;
+		        case "民终":
+		          lxxs = LatCoefficient.MZCoefficient.getValue(); break;
+		        case "刑抗":
+		          lxxs = LatCoefficient.XKCoefficient.getValue(); break;
+		        case "行抗":
+		          lxxs = LatCoefficient.XZKCoefficient.getValue(); break;
+		        case "执保":
+		          lxxs = LatCoefficient.ZBCoefficient.getValue(); break;
+		        default:
+		          lxxs = 0.0;
+		        }
+		        if (lxxs == 0.0) {
+		        	if (ysajlb.contains(ajlb))
+			            lxxs = 1.5;
+			          else if (esajlb.contains(ajlb))
+			            lxxs = 1.0;
+			          else if (zsajlb.contains(ajlb))
+			            lxxs = 0.5;
+			          else if (("15".equals(ajlb)) || ("1H".equals(ajlb)))
+			            lxxs = 0.07;
+		        }
+		    }
+		    else {
+		        lxxs = 0.0;
+		    }
+		}
+		else if(ysajlb.contains(ajlb)) {
 			lxxs = 1.5;
 		} else if(esajlb.contains(ajlb)) {
 			lxxs = 1;
@@ -1656,6 +1701,7 @@ public class GySpyjkhServiceImpl {
 			case "刑一复": lxxs = AjlxCoefficient.XYFCoefficient.getValue(); break;
 			case "民撤": lxxs = AjlxCoefficient.MCCoefficient.getValue(); break;
 			case "破终": lxxs = AjlxCoefficient.PZCoefficient.getValue(); break;
+			case "刑他": lxxs = AjlxCoefficient.XTCoefficient.getValue(); break;
 			case "执监": lxxs = AjlxCoefficient.ZJCoefficient.getValue(); break;
 			case "司惩复": lxxs = AjlxCoefficient.SCFCoefficient.getValue();break;
 			case "执复": lxxs = AjlxCoefficient.ZFCoefficient.getValue();break;
