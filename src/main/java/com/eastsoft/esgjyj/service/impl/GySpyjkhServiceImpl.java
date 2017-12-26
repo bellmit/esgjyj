@@ -1003,7 +1003,7 @@ public class GySpyjkhServiceImpl {
 //		return count + "&" + dfsm;
 //	}
 	/**
-	 * 个人办案业绩  （标准值为：综合审判部门（研究室、审管办）法官在考核区间内结案数达到本部门平均办案量的50%，即算完成办案任务）
+	 * 个人办案业绩  （标准值为：综合审判部门（研究室、审管办）法官在考核区间内结案数达到全院入额法官的15%，即算完成办案任务）
 	 * @param khid    考核主键
 	 * @param khdx    考核对象id
 	 * @param khdxbm  考核对象部门
@@ -1014,7 +1014,7 @@ public class GySpyjkhServiceImpl {
 	public String getTzGrbayj(String khid, String khdxid, String khdx, String khdxbm, String ksrq, String jzrq, String datatype) {
 		//从维护对象表中获取本部门人员
 		String sql = "select * from YJKH_KHDX where KHID = '" + khid + "' "
-				+ " and OFFICEID = '" + khdxbm + "' and DXTYPE = '3'";
+				+ " and DXTYPE = '1'";
 		List<Map<String, Object>> userList = baseDao.queryForList(sql);
 		String userid = "", username = "", dfsm = "", khdxname = "", khdxbmmc = "", ajlb = "", caseword = "", cbsptbs = "";
 		List<Map<String, Object>> list = null;
@@ -1058,9 +1058,18 @@ public class GySpyjkhServiceImpl {
 			df = xs;
 			cbrdf += df;
 			//法官结案分值的个案得分明细插入到明细表
-			this.saveSn(khdxid, "4", datatype, sn, df, "案件类型：" + this.getAjlb(ajlb) + ",案件类型系数(" + xs + ")", userList.size() == 0 ? 0 : jazfz / userList.size() * 0.5);
+			if(ksrq.substring(0, 4).equals("2017")) {
+				this.saveSn(khdxid, "4", datatype, sn, df, "案件类型：" + this.getAjlb(ajlb) + ",案件类型系数(" + xs + ")", userList.size() == 0 ? 0 : jazfz / userList.size() * 0.3 * 0.5 * 0.5);
+			} else {
+				this.saveSn(khdxid, "4", datatype, sn, df, "案件类型：" + this.getAjlb(ajlb) + ",案件类型系数(" + xs + ")", userList.size() == 0 ? 0 : jazfz / userList.size() * 0.3 * 0.5);
+			}
 		}
-		double cnt = getJsjg(cbrdf, userList.size() == 0 ? 0 : jazfz / userList.size() * 0.5, datatype);
+		double cnt = 0.0;
+		if(ksrq.substring(0, 4).equals("2017")) {
+			cnt = getJsjg(cbrdf, userList.size() == 0 ? 0 : jazfz / userList.size() * 0.3 * 0.5 * 0.5, datatype);
+		} else {
+			cnt = getJsjg(cbrdf, userList.size() == 0 ? 0 : jazfz / userList.size() * 0.3 * 0.5, datatype);
+		}
 		dfsm += khdxbmmc + " 的平均法官结案分值：" + jazfz / userList.size() + ";\n";
 		dfsm += khdxname + " 的法官结案分值为：" + cbrdf + ";\n";
 		double count = this.decimal(cnt);
