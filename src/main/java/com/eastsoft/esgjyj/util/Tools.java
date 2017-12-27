@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.UUID;
 
+import org.apache.commons.codec.binary.Base64;
 
 import com.alibaba.druid.filter.config.ConfigTools;
 
@@ -70,4 +71,18 @@ public class Tools {
         String s = UUID.randomUUID().toString(); 
         return s;
     }
+    
+    public static String generateImgBase64Str(byte[] bytes) {
+		if (bytes == null || bytes.length == 0) {
+			return "";
+		}
+		String imgBase64Str = "data:image/jpg;base64," + Tools.base64Encode(bytes);
+		return imgBase64Str;
+	}
+    
+    public static String base64Encode(byte[] bytes) {
+		String str = Base64.encodeBase64String(bytes);
+		str = str.replaceAll(" ", "").replaceAll("\r\n", "");
+		return str;
+	}
 }

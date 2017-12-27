@@ -33,9 +33,9 @@ public class YjkhKgssDO implements Serializable {
 	//$column.comments
 	private String note;
 	//$column.comments
-	private String lrrbs;
+	private String note1;
 	//$column.comments
-	private Date lrsj;
+	private String path;
 	//$column.comments
 	private String zt;
 
@@ -127,29 +127,18 @@ public class YjkhKgssDO implements Serializable {
 	public String getNote() {
 		return note;
 	}
-	/**
-	 * 设置：${column.comments}
-	 */
-	public void setLrrbs(String lrrbs) {
-		this.lrrbs = lrrbs;
+	
+	public String getNote1() {
+		return note1;
 	}
-	/**
-	 * 获取：${column.comments}
-	 */
-	public String getLrrbs() {
-		return lrrbs;
+	public void setNote1(String note1) {
+		this.note1 = note1;
 	}
-	/**
-	 * 设置：${column.comments}
-	 */
-	public void setLrsj(Date lrsj) {
-		this.lrsj = lrsj;
+	public String getPath() {
+		return path;
 	}
-	/**
-	 * 获取：${column.comments}
-	 */
-	public Date getLrsj() {
-		return lrsj;
+	public void setPath(String path) {
+		this.path = path;
 	}
 	/**
 	 * 设置：${column.comments}

@@ -1,5 +1,6 @@
 $().ready(function() {
 	validateRule();
+	getImgUrl();
 });
 
 $.validator.setDefaults({
@@ -104,6 +105,24 @@ function validateRule() {
 			}
 		}
 	})
+}
+//获取图片的路径
+function getImgUrl() {
+	$.ajax({
+		url: '/esgjyj/yjkhKgss/imgUrl',
+		type: 'POST',
+		data:{
+			id: GetQueryString('id')
+		},
+		async: false,
+		success: function(result) {
+			console.log(result.url);
+			$('#url_img').attr('src', result.url);
+		},
+		error : function(request) {
+			parent.layer.alert("Connection error");
+		}
+	});
 }
 
 var wrapper = new Vue({

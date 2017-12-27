@@ -2,7 +2,7 @@
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
 <generatorConfiguration>
 	<!-- 指定jdbc路径 -->
-	<classPathEntry location="/Users/Ben/Applications/maven/repo/com/sybase/jconn3/6.0/jconn3-6.0.jar" />
+	<classPathEntry location="E:/maven/repo/com/sybase/jconn3/6.0/jconn3-6.0.jar" />
 	<context id="mybatisGenerator">
 		<!-- 取消注释 -->
 		<commentGenerator>

@@ -1,23 +1,35 @@
 package com.eastsoft.esgjyj.controller;
 
-import java.util.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.eastsoft.esgjyj.context.ScopeUtil;
 import com.eastsoft.esgjyj.dao.UserMapper;
 import com.eastsoft.esgjyj.domain.User;
-import com.eastsoft.esgjyj.domain.YjkhKhdxDO;
-import com.eastsoft.esgjyj.service.YjkhKhdxService;
-import com.eastsoft.esgjyj.service.YjkhZbwhService;
-import com.eastsoft.esgjyj.util.PageUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
-
 import com.eastsoft.esgjyj.domain.YjkhKgssDO;
 import com.eastsoft.esgjyj.service.YjkhKgssService;
-import com.eastsoft.esgjyj.util.PageUtils;
-import com.eastsoft.esgjyj.util.Query;
+import com.eastsoft.esgjyj.service.YjkhZbwhService;
 import com.eastsoft.esgjyj.util.R;
+import com.eastsoft.esgjyj.util.Tools;
+
+
 
 /**
  * ${comments}
@@ -38,6 +50,9 @@ public class YjkhKgssController {
 
     @Autowired
     private YjkhZbwhService yjkhZbwhService;
+    
+    @Value("${data.path}")
+    private String dataDir;
 
     @GetMapping("/get/{id}")
     YjkhKgssDO get(@PathVariable("id") String id) {
@@ -87,17 +102,50 @@ public class YjkhKgssController {
      * 保存
      */
     @PostMapping("/save")
-    public R save(YjkhKgssDO yjkhKgss) {
-        yjkhKgss.setXh(0);
-        yjkhKgss.setId(UUID.randomUUID().toString().replace("-", ""));
-        if ("self".equals(yjkhKgss.getUserid())) {
-            yjkhKgss.setUserid(ScopeUtil.getSessionUser(User.class).getUserid());
-            yjkhKgss.setZt("0");
-        }
-        if (yjkhKgssService.save(yjkhKgss) > 0) {
-            return R.ok();
-        }
-        return R.ok();
+    public R save(YjkhKgssDO yjkhKgss, @RequestParam(name="file", required=false) MultipartFile file) {
+    	try {
+    		String uuid = UUID.randomUUID().toString().replace("-", "");
+    		String filename = file.getOriginalFilename();
+			byte[] bytes = file.getBytes();
+			String destPath = dataDir + File.separator
+					+ "img" + File.separator + uuid + "_" + filename;
+			FileUtils.writeByteArrayToFile(new File(destPath), bytes);
+			yjkhKgss.setXh(0);
+	        yjkhKgss.setId(uuid);
+	        if ("self".equals(yjkhKgss.getUserid())) {
+	            yjkhKgss.setUserid(ScopeUtil.getSessionUser(User.class).getUserid());
+	            yjkhKgss.setZt("0");
+	            yjkhKgss.setPath(destPath);
+	        }
+	        if (yjkhKgssService.save(yjkhKgss) > 0) {
+	            return R.ok();
+	        }
+	        return R.ok();
+		} catch (IOException e) {
+			throw new RuntimeException();
+		}
+    }
+    
+    @PostMapping("/imgUrl")
+    @ResponseBody
+    public Map<String, Object> getPhotoStr(String id) {
+    	YjkhKgssDO yjkhKgssDO = yjkhKgssService.get(id);
+    	Map<String, Object> map = new HashMap<>();
+    	map.put("url", "");
+    	if (yjkhKgssDO == null) {
+			return map;
+		}
+    	String path = yjkhKgssDO.getPath();
+    	String base64Str = "";
+    	byte[] bytes;
+		try {
+			bytes = FileUtils.readFileToByteArray(new File(path));
+			base64Str = Tools.generateImgBase64Str(bytes);
+		} catch (IOException e) {
+			throw new RuntimeException("读取图片时出错！");
+		}
+		map.put("url", base64Str);
+		return map;
     }
 
     /**

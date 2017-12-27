@@ -4,11 +4,11 @@
 <mapper namespace="com.eastsoft.esgjyj.dao.YjkhKgssDao">
 
 	<select id="get" resultType="com.eastsoft.esgjyj.domain.YjkhKgssDO">
-		select ID,USERID,ZBID,XH,FSSJ,SCORE,NOTE,LRRBS,LRSJ,ZT from YJKH_KGSS where ID = #{value}
+		select ID,USERID,ZBID,XH,FSSJ,SCORE,NOTE,NOTE1,PATH,ZT from YJKH_KGSS where ID = #{value}
 	</select>
 
 	<select id="list" resultType="com.eastsoft.esgjyj.domain.YjkhKgssDO">
-		select ID,USERID,ZBID,XH,FSSJ,SCORE,NOTE,LRRBS,LRSJ,ZT from YJKH_KGSS
+		select ID,USERID,ZBID,XH,FSSJ,SCORE,NOTE,NOTE1,PATH,ZT from YJKH_KGSS
         <where>  
 		  		  <if test="id != null and id != ''"> and ID = #{id} </if>
 		  		  <if test="userid != null and userid != ''"> and USERID = #{userid} </if>
@@ -17,8 +17,8 @@
 		  		  <if test="fssj != null and fssj != ''"> and FSSJ = #{fssj} </if>
 		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
 		  		  <if test="note != null and note != ''"> and NOTE = #{note} </if>
-		  		  <if test="lrrbs != null and lrrbs != ''"> and LRRBS = #{lrrbs} </if>
-		  		  <if test="lrsj != null and lrsj != ''"> and LRSJ = #{lrsj} </if>
+		  		  <if test="note1 != null and note1 != ''"> and NOTE1 = #{note1} </if>
+		  		  <if test="path != null and path != ''"> and PATH = #{path} </if>
 		  		  <if test="zt != null and zt != ''"> and ZT = #{zt} </if>
 		  		</where>
 	</select>
@@ -33,8 +33,8 @@
 		  		  <if test="fssj != null and fssj != ''"> and FSSJ = #{fssj} </if>
 		  		  <if test="score != null and score != ''"> and SCORE = #{score} </if>
 		  		  <if test="note != null and note != ''"> and NOTE = #{note} </if>
-		  		  <if test="lrrbs != null and lrrbs != ''"> and LRRBS = #{lrrbs} </if>
-		  		  <if test="lrsj != null and lrsj != ''"> and LRSJ = #{lrsj} </if>
+		  		  <if test="note1 != null and note1 != ''"> and NOTE1 = #{note1} </if>
+		  		  <if test="path != null and path != ''"> and PATH = #{path} </if>
 		  		  <if test="zt != null and zt != ''"> and ZT = #{zt} </if>
 		  		</where>
 	</select>
@@ -49,8 +49,8 @@
 			FSSJ, 
 			SCORE, 
 			NOTE, 
-			LRRBS, 
-			LRSJ, 
+			NOTE1, 
+			PATH, 
 			ZT
 		)
 		values
@@ -62,8 +62,8 @@
 			#{fssj}, 
 			#{score}, 
 			#{note}, 
-			#{lrrbs}, 
-			#{lrsj}, 
+			#{note1}, 
+			#{path}, 
 			#{zt}
 		)
 	</insert>
@@ -77,8 +77,8 @@
 			<if test="fssj != null">FSSJ = #{fssj}, </if>
 			<if test="score != null">SCORE = #{score}, </if>
 			<if test="note != null">NOTE = #{note}, </if>
-			<if test="lrrbs != null">LRRBS = #{lrrbs}, </if>
-			<if test="lrsj != null">LRSJ = #{lrsj}, </if>
+			<if test="note1 != null">NOTE1 = #{note1}, </if>
+			<if test="path != null">PATH = #{path}, </if>
 			<if test="zt != null">ZT = #{zt}</if>
 		</set>
 		where ID = #{id}
