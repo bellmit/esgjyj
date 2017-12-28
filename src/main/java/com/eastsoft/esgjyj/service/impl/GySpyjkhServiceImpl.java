@@ -542,7 +542,7 @@ public class GySpyjkhServiceImpl {
 	 */
 	public double getCqwjajs(String khid, String khdx, String khdxid, String ksrq, String jzrq) {
 		String sql = "select * from CASES where CBRBS = '" + khdx + "' and COURT_NO = '" 
-						+ "0F" + "' and CASEWORD not in ('立民复','立刑复','立行复')"
+						+ "0F" + "' and CASEWORD not in ('立民复','立刑复','立行复', '立确复', '信访') "
 						+ SftjUtil.generateC18wjWhere("");
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		Long sn = 0L;
