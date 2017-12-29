@@ -9,13 +9,13 @@ public enum AjlxCoefficient {
 	XJCoefficient("刑监", 0.5),
 	MJCoefficient("民监", 0.5),
 	XZJCoefficient("行监", 0.5),
-	WPJCoefficient("委赔监", 0.5),
+	WPJCoefficient("委赔监", 1),
 	XZCoefficient("刑再", 1),
 	MZCoefficient("民再", 1),
 	XZZCoefficient("行再", 1),
 	MTCoefficient("民提", 1),
 	XZTCoefficient("行提", 0.5),
-	WPTCoefficient("委赔提", 0.5),
+	WPTCoefficient("委赔提", 1),
 	WPCoefficient("委赔", 1),
 	FPCoefficient("法赔", 1),
 	SJXCoefficient("司救刑", 1),
@@ -25,7 +25,7 @@ public enum AjlxCoefficient {
 	SJZCoefficient("司救执", 1),
 	SJFCoefficient("司救访", 1),
 	XGCoefficient("刑更", 0.07),
-	XGBCoefficient("刑更备", 0.07),
+	XGBCoefficient("刑更备", 1),
 	XHCoefficient("刑核", 1),
 	XEFCoefficient("刑二复", 1),
 	XYFCoefficient("刑一复", 1),
@@ -37,7 +37,8 @@ public enum AjlxCoefficient {
 	ZFCoefficient("执复", 1),
 	ZTCoefficient("执他", 1),
 	XSFCoefficient("行审复", 1),
-	MXZCoefficient("民辖终", 1);
+	MXZCoefficient("民辖终", 0.9),
+	PTCofficient("赔他", 1);
 	
 	private final String text;
 	private final double value;

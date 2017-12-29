@@ -75,12 +75,13 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 		}
 		if (cbrList.size() == 0) return map;
 		cbrbss = cbrbss.substring(0, cbrbss.lastIndexOf(",")) + ")";
-		String sql = "select CBSPTBS, AJLB, CASEWORD from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
+		String sql = "select CBSPTBS, AJLB, CASEWORD, BH from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
 		+ SftjUtil.generateXsWhere(ksrq, jzrq, "")
 		+ "and CBRBS IN " + cbrbss;
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		String cbsptbs = "", ajlb = "", caseword = "";
 		double count = 0, xs = 0.0;
+		int bh;
 		for(Map<String, Object> item : list) {
 			cbsptbs = (String)item.get("CBSPTBS");
 			if(Tools.isEmpty(cbsptbs)) continue;
@@ -88,7 +89,24 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 			map.put(cbsptbs, count);
 			ajlb = (String)item.get("AJLB");
 			caseword = (String)item.get("CASEWORD");
-			xs = gySpyjkhService.getLxxs(ajlb, cbsptbs, caseword);
+			bh = (Integer)item.get("BH");
+			if("刑更".equals(caseword)) {
+				switch (bh) {
+				case 24: xs = 1; break;
+				case 98: xs = 1; break;
+				case 105: xs = 1; break;
+				case 106: xs = 1; break;
+				case 131: xs = 1; break;
+				case 190: xs = 1; break;
+				case 274: xs = 1; break;
+				case 279: xs = 1; break;
+				case 304: xs = 1; break;
+				case 305: xs = 1; break;
+				default: xs = gySpyjkhService.getLxxs(ajlb, cbsptbs, caseword); break;
+				}
+			} else {
+				xs = gySpyjkhService.getLxxs(ajlb, cbsptbs, caseword);
+			}
 			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
 			map.put(cbsptbs + "_zs", xs);
 		}
@@ -109,11 +127,12 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 		}
 		if (cbrList.size() == 0) return map;
 		cbrbss = cbrbss.substring(0, cbrbss.lastIndexOf(",")) + ")";
-		String sql = "select CBSPTBS, AJLB, CASEWORD from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
+		String sql = "select CBSPTBS, AJLB, CASEWORD, BH from CASES where COURT_NO = '0F' " + SftjUtil.generateBaseWhere("")
 		+ SftjUtil.generateYjWhere(ksrq, jzrq, "")
 		+ "and CBRBS IN " + cbrbss;
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		String cbsptbs = "", ajlb = "", caseword = "";
+		int bh;
 		double count = 0, xs = 0.0;
 		for(Map<String, Object> item : list) {
 			cbsptbs = (String)item.get("CBSPTBS");
@@ -121,7 +140,24 @@ public class CbsptReportServiceImpl implements CbsptReportService{
 			map.put(cbsptbs, count);
 			ajlb = (String)item.get("AJLB");
 			caseword = (String)item.get("CASEWORD");
-			xs = gySpyjkhService.getLxxs(ajlb, cbsptbs, caseword);
+			bh = (Integer)item.get("BH");
+			if("刑更".equals(caseword)) {
+				switch (bh) {
+				case 24: xs = 1; break;
+				case 98: xs = 1; break;
+				case 105: xs = 1; break;
+				case 106: xs = 1; break;
+				case 131: xs = 1; break;
+				case 190: xs = 1; break;
+				case 274: xs = 1; break;
+				case 279: xs = 1; break;
+				case 304: xs = 1; break;
+				case 305: xs = 1; break;
+				default: xs = gySpyjkhService.getLxxs(ajlb, cbsptbs, caseword); break;
+				}
+			} else {
+				xs = gySpyjkhService.getLxxs(ajlb, cbsptbs, caseword);
+			}
 			xs = map.get(cbsptbs + "_zs") == null ? xs : (double)map.get(cbsptbs + "_zs") + xs;
 			map.put(cbsptbs + "_zs", xs);
 		}
