@@ -147,7 +147,7 @@ function load() {
                         },
                         {
                             field: 'a7',
-                            title: '宣传表彰',
+                            title: '表彰奖励',
                             align: "center",
                             formatter: function (value, row, index) {
                                 return '<a href="#" onclick="preview(\'a7\',\'' + row.khdx + '\')">' + row.a7 + '</a>';
@@ -232,7 +232,7 @@ function load() {
             },
             {
                 field: 'a7',
-                title: '宣传表彰',
+                title: '表彰奖励',
                 valign: "middle",
                 align: "center",
                 formatter: function (value, row, index) {

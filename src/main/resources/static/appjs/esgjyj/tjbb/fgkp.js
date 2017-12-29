@@ -288,7 +288,7 @@ function load() {
                         },
                         {
                             field: 'a14',
-                            title: '宣传表彰',
+                            title: '表彰奖励',
                             valign: "middle",
                             align: "center",
                             formatter: function (value, row, index) {

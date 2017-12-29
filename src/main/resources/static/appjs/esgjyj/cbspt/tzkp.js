@@ -155,7 +155,7 @@ function load() {
                         },
                         {
                             field: 'a8',
-                            title: '宣传表彰',
+                            title: '表彰奖励',
                             align: "center",
                             formatter: function (value, row, index) {
                                 return '<a href="#" onclick="preview(\'a8\',\'' + row.khdx + '\')">' + row.a8 + '</a>';

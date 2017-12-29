@@ -1,5 +1,6 @@
 package com.eastsoft.esgjyj.service.impl;
 
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -113,7 +114,7 @@ public class GySpyjkhServiceImpl {
 				//保存
 				this.save(khdxid, 5, "再审改判发回", score, "");
 				//4.案件质量评查结果꣩
-				score = getZlpcjg(id, khdxid, "案件质量评查结果", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "1-1", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "案件质量评查", 5, "");//默认满分
 				//5.超期限结案数
 				score = getCqxjas(id, userid, khdxid, ksrq, jzrq);
@@ -126,20 +127,22 @@ public class GySpyjkhServiceImpl {
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 9, "服判息诉率", score, dfsm[1]);
 				//8.信访投诉数
-				score = getZlpcjg(id, khdxid, "信访投诉数", userid, ksrq, jzrq);
-				this.save(khdxid, 10, "信访投诉", score, "");
+//				score = getZlpcjg(id, khdxid, "1-5", userid, ksrq, jzrq);
+				score = getJfxcount("1-5");
+				this.save(khdxid, 10, "信访投诉", 4 - score, "");
 				//9.引发负面舆情次数
-				score = getZlpcjg(id, khdxid, "引发负面舆情次数", userid, ksrq, jzrq);
-				this.save(khdxid, 11, "引发负面舆情", score, "");
+//				score = getZlpcjg(id, khdxid, "1-6", userid, ksrq, jzrq);
+				score = getJfxcount("1-6");
+				this.save(khdxid, 11, "引发负面舆情", 2 - score, "");
 				//10.调研、理论成果
-				score = getZlpcjg(id, khdxid, "调研、理论成果", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "1-2", userid, ksrq, jzrq);
 				this.save(khdxid, 12, "调研、理论成果", score, "");
 				//11.案例采用
-				score = getZlpcjg(id, khdxid, "案例采用", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "1-3", userid, ksrq, jzrq);
 				this.save(khdxid, 13, "案例采用", score, "");
-				//12.宣传表彰
-				score = getZlpcjg(id, khdxid, "宣传表彰", userid, ksrq, jzrq);
-				this.save(khdxid, 14, "宣传表彰", score, "");
+				//12.表彰奖励
+				score = getZlpcjg(id, khdxid, "1-4", userid, ksrq, jzrq);
+				this.save(khdxid, 14, "表彰奖励", score, "");
 			} else if("2".equals(dxtype)) {//审执部门庭长考核指标
 				//1.部门法官业绩
 				dfsm = this.getBmfgyj(id, khdxbm).split("\\&");
@@ -150,34 +153,34 @@ public class GySpyjkhServiceImpl {
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "个人业绩", score, dfsm[1]);
 				//3.综合评价
-				score = getZlpcjg(id, khdxid, "综合评价", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "2-1", userid, ksrq, jzrq);
 				this.save(khdxid, 5, "综合评价", score, "");
 				//4.调研、理论成果
-				score = getZlpcjg(id, khdxid, "调研、理论成果", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "2-2", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "调研、理论成果", score, "");
 				//5.案例采用
-				score = getZlpcjg(id, khdxid, "案例采用", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "2-3", userid, ksrq, jzrq);
 				this.save(khdxid, 7, "案例采用", score, "");
-				//6.宣传表彰
-				score = getZlpcjg(id, khdxid, "宣传表彰", userid, ksrq, jzrq);
-				this.save(khdxid, 8, "宣传表彰", score, "");
+				//6.表彰奖励
+				score = getZlpcjg(id, khdxid, "2-4", userid, ksrq, jzrq);
+				this.save(khdxid, 8, "表彰奖励", score, "");
 			} else if("3".equals(dxtype)) {//综合部门法官考核指标
 				//1.综合审判业绩
-				score = getZlpcjg(id, khdxid, "综合审判业绩", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "3-1", userid, ksrq, jzrq);
 				this.save(khdxid, 3, "综合审判业绩", score, "");
 				//2.个人办案业绩
 				dfsm = getGrbayj(id, khdxid, userid, khdxbm, ksrq, jzrq).split("\\&");
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "个人办案业绩", score, dfsm[1]);
 				//3.调研、理论成果
-				score = getZlpcjg(id, khdxid, "调研、理论成果", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "3-2", userid, ksrq, jzrq);
 				this.save(khdxid, 5, "调研、理论成果", score, "");
 				//4.案例采用
-				score = getZlpcjg(id, khdxid, "案例采用", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "3-3", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "案例采用", score, "");
-				//5.宣传表彰
-				score = getZlpcjg(id, khdxid, "宣传表彰", userid, ksrq, jzrq);
-				this.save(khdxid, 7, "宣传表彰", score, "");
+				//5.表彰奖励
+				score = getZlpcjg(id, khdxid, "3-4", userid, ksrq, jzrq);
+				this.save(khdxid, 7, "表彰奖励", score, "");
 			} else if("4".equals(dxtype)) {//法官助理考核指标
 				//1.岗位业绩基础分
 				dfsm = this.getGwyj(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
@@ -188,16 +191,16 @@ public class GySpyjkhServiceImpl {
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "辅助办案绩效得分", score, dfsm[1]);
 				//3.综合评价分
-				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "4-1", userid, ksrq, jzrq);
 				this.save(khdxid, 5, "综合评价得分", score, "");
 				//15.综合评价分
 //				score = getZlpcjg(id, khdxid, "审判团队负责人打分", userid, ksrq, jzrq);
 				this.save(khdxid, 15, "审判团队负责人打分", 0, "");
 				//4.奖惩得分
-				score = getZlpcjg(id, khdxid, "奖惩得分", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "4-2", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "奖惩得分", score, "");
 				//5.审判调研
-				score = getZlpcjg(id, khdxid, "审判调研", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "4-3", userid, ksrq, jzrq);
 				this.save(khdxid, 7, "审判调研", score, "");
 			} else if("5".equals(dxtype)) {//书记员考核指标
 				//1.协助办结案件
@@ -209,30 +212,30 @@ public class GySpyjkhServiceImpl {
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "庭审记录", score, dfsm[1]);
 				//3.形成电子卷宗
-//				score = getZlpcjg(id, khdxid, "形成电子卷宗", userid, ksrq, jzrq);
+//				score = getZlpcjg(id, khdxid, "5-1", userid, ksrq, jzrq);
 //				score = getDzjzScore(userid, ksrq, jzrq);
 				this.save(khdxid, 5, "电子卷宗", 10, "");
 				//4.卷宗管理工作
-//				score = getZlpcjg(id, khdxid, "卷宗管理工作", userid, ksrq, jzrq);
+//				score = getZlpcjg(id, khdxid, "5-2", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "卷宗管理工作", 10, "");
 				//5.工作技能分
-				score = getZlpcjg(id, khdxid, "工作技能分", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "5-3", userid, ksrq, jzrq);
 				this.save(khdxid, 7, "工作技能得分", 20, "");//默认满分
 				//6.综合评价分
-				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "5-4", userid, ksrq, jzrq);
 				this.save(khdxid, 8, "综合评价得分", score, "");
 				//15.综合评价分
 //				score = getZlpcjg(id, khdxid, "审判团队负责人打分", userid, ksrq, jzrq);
 				this.save(khdxid, 15, "审判团队负责人打分", score, "");
 				//7.奖惩得分
-				score = getZlpcjg(id, khdxid, "奖惩得分", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "5-5", userid, ksrq, jzrq);
 				this.save(khdxid, 9, "奖惩得分", score, "");
 				//8.审判调研
-				score = getZlpcjg(id, khdxid, "审判调研", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "5-6", userid, ksrq, jzrq);
 				this.save(khdxid, 10, "审判调研", score, "");
 			} else if("6".equals(dxtype)) {//综合审判部门法官助理
 				//1.综合审判业绩
-				score = getZlpcjg(id, khdxid, "综合审判业绩", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "6-1", userid, ksrq, jzrq);
 				this.save(khdxid, 3, "综合审判业绩", score, "");
 				//2.个人办案业绩
 				dfsm = getGwyj(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
@@ -240,17 +243,17 @@ public class GySpyjkhServiceImpl {
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "个人办案业绩", score, dfsm[1]);
 				//3.调研、理论成果
-				score = getZlpcjg(id, khdxid, "调研、理论成果", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "6-2", userid, ksrq, jzrq);
 				this.save(khdxid, 5, "调研、理论成果", score, "");
 				//4.案例采用
-				score = getZlpcjg(id, khdxid, "案例采用", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "6-3", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "案例采用", score, "");
-				//5.宣传表彰
-				score = getZlpcjg(id, khdxid, "宣传表彰", userid, ksrq, jzrq);
-				this.save(khdxid, 7, "宣传表彰", score, "");
+				//5.表彰奖励
+				score = getZlpcjg(id, khdxid, "6-4", userid, ksrq, jzrq);
+				this.save(khdxid, 7, "表彰奖励", score, "");
 			} else if("7".equals(dxtype)) {//综合审判部门书记员
 				//1.综合审判业绩
-				score = getZlpcjg(id, khdxid, "综合审判业绩", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "7-1", userid, ksrq, jzrq);
 				this.save(khdxid, 3, "综合审判业绩", score, "");
 				//2.个人办案业绩
 				dfsm = this.getXzbjas(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
@@ -258,31 +261,31 @@ public class GySpyjkhServiceImpl {
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "辅助办案业绩", score, dfsm[1]);
 				//3.调研、理论成果
-				score = getZlpcjg(id, khdxid, "调研、理论成果", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "7-2", userid, ksrq, jzrq);
 				this.save(khdxid, 5, "调研、理论成果", score, "");
 				//4.案例采用
-				score = getZlpcjg(id, khdxid, "案例采用", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "7-3", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "案例采用", score, "");
-				//5.宣传表彰
-				score = getZlpcjg(id, khdxid, "宣传表彰", userid, ksrq, jzrq);
-				this.save(khdxid, 7, "宣传表彰", score, "");
+				//5.表彰奖励
+				score = getZlpcjg(id, khdxid, "7-4", userid, ksrq, jzrq);
+				this.save(khdxid, 7, "表彰奖励", score, "");
 			} else if("8".equals(dxtype)) {//综合部门主要负责人考核指标
 				//1.综合审判业绩
-				score = getZlpcjg(id, khdxid, "综合审判业绩", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "8-1", userid, ksrq, jzrq);
 				this.save(khdxid, 3, "综合审判业绩", score, "");
 				//2.个人办案业绩
 				dfsm = getTzGrbayj(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
 				score = Double.parseDouble(dfsm[0]);
 				this.save(khdxid, 4, "个人办案业绩", score, dfsm[1]);
 				//3.调研、理论成果
-				score = getZlpcjg(id, khdxid, "调研、理论成果", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "8-2", userid, ksrq, jzrq);
 				this.save(khdxid, 5, "调研、理论成果", score, "");
 				//4.案例采用
-				score = getZlpcjg(id, khdxid, "案例采用", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "8-3", userid, ksrq, jzrq);
 				this.save(khdxid, 6, "案例采用", score, "");
-				//5.宣传表彰
-				score = getZlpcjg(id, khdxid, "宣传表彰", userid, ksrq, jzrq);
-				this.save(khdxid, 7, "宣传表彰", score, "");
+				//5.表彰奖励
+				score = getZlpcjg(id, khdxid, "8-4", userid, ksrq, jzrq);
+				this.save(khdxid, 7, "表彰奖励", score, "");
 			} else if("9".equals(dxtype)) {//书记员考核指标
 				//1.协助办结案件
 				dfsm = this.getXzbja(id, khdxid, userid, khdxbm, ksrq, jzrq, dxtype).split("\\&");
@@ -303,16 +306,16 @@ public class GySpyjkhServiceImpl {
 				score = getZlpcjg(id, khdxid, "工作技能分", userid, ksrq, jzrq);
 				this.save(khdxid, 7, "工作技能得分", 20, "");//默认满分
 				//6.综合评价分
-				score = getZlpcjg(id, khdxid, "综合评价分", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "9-4", userid, ksrq, jzrq);
 				this.save(khdxid, 8, "综合评价得分", score, "");
 				//15.综合评价分
 //				score = getZlpcjg(id, khdxid, "审判团队负责人打分", userid, ksrq, jzrq);
 				this.save(khdxid, 15, "审判团队负责人打分", score, "");
 				//7.奖惩得分
-				score = getZlpcjg(id, khdxid, "奖惩得分", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "9-5", userid, ksrq, jzrq);
 				this.save(khdxid, 9, "奖惩得分", score, "");
 				//8.审判调研
-				score = getZlpcjg(id, khdxid, "审判调研", userid, ksrq, jzrq);
+				score = getZlpcjg(id, khdxid, "9-6", userid, ksrq, jzrq);
 				this.save(khdxid, 10, "审判调研", score, "");
 			}
 		}
@@ -471,14 +474,14 @@ public class GySpyjkhServiceImpl {
 		ksrq = ksrq + " 00:00:00";
 		jzrq = jzrq + " 23:59:59";
 		String sql = "select YJKH_ZBWH.*, YJKH_ZGKH.* from YJKH_ZBWH, YJKH_ZGKH where YJKH_ZBWH.ID = YJKH_ZGKH.ZBID "
-				+ " and YJKH_ZGKH.DXID = '" + khdx + "' and YJKH_ZBWH.ZBMC = '" + zbmc + "'";
+				+ " and YJKH_ZGKH.DXID = '" + khdx + "' and YJKH_ZBWH.ID = '" + zbmc + "'";
 //				+ " and YJKH_ZBWH.KHID = '" + khid + "'";
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		double zbsx = 0.0, score = 0.0, zf = 0.0;
 		String zfz = "";
 		if(list.size() == 0) {
 			sql = "select YJKH_ZBWH.*, YJKH_KGSS.* from YJKH_ZBWH, YJKH_KGSS where YJKH_ZBWH.ID = YJKH_KGSS.ZBID "
-					+ " and YJKH_KGSS.USERID = '" + userid + "' and YJKH_ZBWH.ZBMC = '" + zbmc + "' "
+					+ " and YJKH_KGSS.USERID = '" + userid + "' and YJKH_ZBWH.ID = '" + zbmc + "' "
 					+ " and FSSJ >= '" + ksrq + "' and FSSJ <= '"
 					+ jzrq + "' and YJKH_KGSS.ZT = '1'";
 			List<Map<String, Object>> kgList = baseDao.queryForList(sql);
@@ -504,6 +507,16 @@ public class GySpyjkhServiceImpl {
 		double count = Double.parseDouble(zfz + zf);
 		count = this.decimal(count);
 		if(count < 0) count = 0.00;
+		return count;
+	}
+	/**
+	 * 获取信访投诉和负面舆情次数
+	 * @param zbid     指标主键
+	 * @return
+	 */
+	public int getJfxcount(String zbid) {
+		String sql = "select COUNT(*) from YJKH_KGSS where ZBID = '" + zbid + "'";
+		int count = baseDao.queryForInt(sql);
 		return count;
 	}
 	/**
@@ -542,7 +555,7 @@ public class GySpyjkhServiceImpl {
 	 */
 	public double getCqwjajs(String khid, String khdx, String khdxid, String ksrq, String jzrq) {
 		String sql = "select * from CASES where CBRBS = '" + khdx + "' and COURT_NO = '" 
-						+ "0F" + "' and CASEWORD not in ('立民复','立刑复','立行复', '立确复', '信访') "
+						+ "0F" + "' and CASEWORD not in ('立民复','立刑复','立行复', '立确复', '信访', '信', '访') "
 						+ SftjUtil.generateC18wjWhere("");
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		Long sn = 0L;
@@ -1100,9 +1113,15 @@ public class GySpyjkhServiceImpl {
 		for(Map<String, Object> item : fgzlList) {
 			userid = (String)item.get("USERID");
 			if(Tools.isEmpty(userid)) continue;
-			sql = "select SN, FGZL from CASES where FGZLBS = '" + userid + "' "
+			if ("2017".equals(ksrq.substring(0, 4))) {
+				sql = "select SN, FGZL from CASES where FGZLBS like '%" + userid + "%' "
+						  + SftjUtil.generateBaseWhere("")
+					      + SftjUtil.generateYjWhere("2017-05-01", jzrq, "");
+			} else {
+				sql = "select SN, FGZL from CASES where FGZLBS like '%" + userid + "%' "
 						  + SftjUtil.generateBaseWhere("")
 					      + SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			}
 			usernameList = baseDao.queryForList(sql);
 			ajs = usernameList.size();
 			if(userid.equals(khdx)) khdxs = ajs;
@@ -1112,16 +1131,27 @@ public class GySpyjkhServiceImpl {
 		for(Map<String, Object> item : fgzlList) {
 			userid = (String)item.get("USERID");
 			if(Tools.isEmpty(userid)) continue;
-			sql = "select SN, CBR, FGZL from CASES where FGZLBS = '" + userid + "' "
-					+ SftjUtil.generateBaseWhere("")
-					+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			if ("2017".equals(ksrq.substring(0, 4))) {
+				sql = "select SN, CBR, FGZL from CASES where FGZLBS like '%" + userid + "%' "
+						+ SftjUtil.generateBaseWhere("")
+						+ SftjUtil.generateYjWhere("2017-05-01", jzrq, "");
+			} else {
+				sql = "select SN, CBR, FGZL from CASES where FGZLBS like '%" + userid + "%' "
+						+ SftjUtil.generateBaseWhere("")
+						+ SftjUtil.generateYjWhere(ksrq, jzrq, "");
+			}
 			usernameList = baseDao.queryForList(sql);
 			for(Map<String, Object> map : usernameList) {
 				if(userid.equals(khdx)) {
 					khdxmc = (String)map.get("FGZL");
 					cbr = (String)map.get("CBR");
 					sn = map.get("SN") == null ? 0 : ((BigDecimal)map.get("SN")).longValue();
-					if(sn != 0) this.saveSn(khdxid, "3", dxtype, sn, 0.00, khdxmc + "法官助理辅助法官" + cbr + "结案!", fgzlList.size() == 0 ? 0 : zs * 1.0 / fgzlList.size());
+					if(sn == 0) continue;
+					if("4".equals(dxtype)) {
+						this.saveSn(khdxid, "3", dxtype, sn, 0.00, khdxmc + "法官助理辅助法官" + cbr + "结案!", fgzlList.size() == 0 ? 0 : zs * 1.0 / fgzlList.size());
+					} else if("6".equals(dxtype)) {
+						this.saveSn(khdxid, "4", dxtype, sn, 0.00, khdxmc + "法官助理辅助法官" + cbr + "结案!", fgzlList.size() == 0 ? 0 : zs * 1.0 / fgzlList.size());
+					}
 				}
 				username = (String)map.get("FGZL");
 			}
@@ -1715,6 +1745,8 @@ public class GySpyjkhServiceImpl {
 			case "司惩复": lxxs = AjlxCoefficient.SCFCoefficient.getValue();break;
 			case "执复": lxxs = AjlxCoefficient.ZFCoefficient.getValue();break;
 			case "执他": lxxs = AjlxCoefficient.ZTCoefficient.getValue();break;
+			case "行审复": lxxs = AjlxCoefficient.XSFCoefficient.getValue();break;
+			case "民辖终": lxxs = AjlxCoefficient.MXZCoefficient.getValue();break;
 			default: lxxs = 0.0; break;
 			}
 		}

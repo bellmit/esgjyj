@@ -61,7 +61,6 @@ public class YjkhKgssController {
         yjkhKgssDO.setZbName(yjkhZbwhService.get(yjkhKgssDO.getZbid()).getZbmc());
         return yjkhKgssDO;
     }
-
     @ResponseBody
     @GetMapping("/list")
     public List<YjkhKgssDO> list(@RequestParam Map<String, Object> param) {
@@ -79,13 +78,19 @@ public class YjkhKgssController {
                 yjkhKgssList = yjkhKgssService.list("案例采用");
             }
             if("C".equals(param.get("zbid"))){
-                yjkhKgssList = yjkhKgssService.list("宣传表彰");
+                yjkhKgssList = yjkhKgssService.list("表彰奖励");
             }
             if("D".equals(param.get("zbid"))){
                 yjkhKgssList = yjkhKgssService.list("奖惩得分");
             }
             if("E".equals(param.get("zbid"))){
                 yjkhKgssList = yjkhKgssService.list("审判调研");
+            }
+            if("F".equals(param.get("zbid"))){
+                yjkhKgssList = yjkhKgssService.list("信访投诉数");
+            }
+            if("G".equals(param.get("zbid"))){
+                yjkhKgssList = yjkhKgssService.list("引发负面舆情次数");
             }
         }
 
@@ -105,6 +110,24 @@ public class YjkhKgssController {
     public R save(YjkhKgssDO yjkhKgss, @RequestParam(name="file", required=false) MultipartFile file) {
     	try {
     		String uuid = UUID.randomUUID().toString().replace("-", "");
+    		String userid = yjkhKgss.getUserid();
+    		if(!Tools.isEmpty(userid)) userid = userid.substring(userid.indexOf("_") + 1);
+    		if(file == null) {
+    			yjkhKgss.setXh(0);
+    	        yjkhKgss.setId(uuid);
+    	        yjkhKgss.setUserid(userid);
+    	        if("F".equals(yjkhKgss.getZbid())) {
+    	        	yjkhKgss.setZbid("1-5");
+    	        } else {
+    	        	yjkhKgss.setZbid("1-6");
+    	        }
+    	        yjkhKgss.setScore(-1f);
+    	        yjkhKgss.setZt("0");
+    	        if (yjkhKgssService.save(yjkhKgss) > 0) {
+    	            return R.ok();
+    	        }
+    	        return R.ok();
+    		}
     		String filename = file.getOriginalFilename();
 			byte[] bytes = file.getBytes();
 			String destPath = dataDir + File.separator

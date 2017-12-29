@@ -64,11 +64,16 @@ public class YjkhAjmxServiceImpl implements YjkhAjmxService {
     	}
     	Map<String, Object> item = new HashMap<>();
     	item.put("AH", "合计");
-    	if("4,6".contains(lb) && "a3".equals(map.get("colIndex"))) {
+    	if("4".contains(lb) && "a3".equals(map.get("colIndex"))) {
     		item.put("DFSM", "本部门法官助理年度人均辅助结案数：" + Math.round(zsf) + "。              【得分说明：达到所在部门法官助理年度人均辅助结案数的，计40分；未达到的，"
     				+ "每低于20%，扣2分；每高于10%，加2分，不设上限。】");
     		list.add(item);
-    	} else if("5,7,9".contains(lb) && "a3".equals(colIndex)) {
+    	} else if("6".contains(lb) && "a4".equals(map.get("colIndex"))) {
+    		item.put("DFSM", "本部门法官助理年度人均辅助结案数：" + Math.round(zsf) + "。              【得分说明：达到所在部门法官助理年度人均辅助结案数的，计40分；未达到的，"
+    				+ "每低于20%，扣2分；每高于10%，加2分，不设上限。】");
+    		list.add(item);
+    	}
+    	else if("5,7,9".contains(lb) && "a3".equals(colIndex)) {
     		item.put("DFSM", "本部门书记员年度人均记录案件数：" + Math.round(zsf) + "                                                    【得分说明：达到本部门书记员年度人均记录案件数的，计20分；"
     				+ "未达到的每低于20%，扣2分；每高于10%，加2分。】");
     		list.add(item);

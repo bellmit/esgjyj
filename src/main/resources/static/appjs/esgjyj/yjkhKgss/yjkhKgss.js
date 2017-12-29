@@ -1,9 +1,14 @@
 var self = '';
 var zbid = '';
-var prefix = "/esgjyj/yjkhKgss"
+var prefix = "/esgjyj/yjkhKgss";
+var flag = true;
 $(function () {
     self = GetQueryString('self');
     zbid = GetQueryString('zbid')
+    if('F' == zbid || 'G' == zbid) {
+    	flag = false;
+    	$('#button').append('<button type="button" class="btn  btn-primary" onclick="batchRemove()"><i class="fa fa-plus" aria-hidden="true"></i>删除</button>');
+    }
     load();
 });
 
@@ -15,11 +20,17 @@ function GetQueryString(name) {
 }
 
 function load() {
+	var url = '';
+	if('F' == zbid || 'G' == zbid) {
+		url = prefix + '/list?self=false';
+	} else {
+		url = prefix + '/list?self=true';
+	}
     $('#exampleTable')
         .bootstrapTable(
             {
                 method: 'get', // 服务器数据的请求方式 get or post
-                url: prefix + "/list?self=true", // 服务器数据的加载地址
+                url: url, // 服务器数据的加载地址
                 //	showRefresh : true,
                 //	showToggle : true,
                 //	showColumns : true,
@@ -89,18 +100,19 @@ function load() {
                         title: '备注'
                     },
                     {
-                        field: 'lrrbs',
+                        field: 'note1',
                         title: '',
                         visible: false
                     },
                     {
-                        field: 'lrsj',
+                        field: 'path',
                         title: '',
                         visible: false
                     },
                     {
                         field: 'zt',
                         title: '状态',
+                        visible: flag,
                         formatter:function(value,row,index){
                             if(value==0){
                                 return '<a class="btn btn-success btn-xs">待审批</a>'
@@ -137,13 +149,19 @@ function reLoad() {
 }
 
 function add() {
+	var url = '';
+	if('F' == zbid || 'G' == zbid) {
+		url = prefix + '/yjkhKgssKfx.html?zbid=' + zbid;
+	} else {
+		url = prefix + '/add.html?self=' + self + '&&zbid=' + zbid; // iframe的url
+	}
     layer.open({
         type: 2,
         title: '增加',
         maxmin: true,
         shadeClose: false, // 点击遮罩关闭层
         area: ['800px', '520px'],
-        content: prefix + '/add.html?self=' + self + '&&zbid=' + zbid // iframe的url
+        content: url
     });
 }
 

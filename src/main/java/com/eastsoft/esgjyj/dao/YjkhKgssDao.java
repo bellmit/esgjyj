@@ -31,6 +31,6 @@ public interface YjkhKgssDao {
 	
 	int batchRemove(String[] ids);
 
-	@Select("select k.* from YJKH_KGSS k,YJKH_ZBWH z where k.ZBID = z.ID AND z.ZBMC = #{var0}")
+	@Select("select k.* from YJKH_KGSS k,YJKH_ZBWH z where k.ZBID = z.ID AND z.ZBMC = #{var0} order by k.USERID")
 	List<YjkhKgssDO> listLikeZbid(String var0);
 }
