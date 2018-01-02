@@ -125,6 +125,7 @@ public class FgzlYjkhServiceImpl {
 		case "刘福贵": zs = zs / 2;break;
 		case "李建伟": zs = zs / 2;break;
 		case "宛荣玉": zs = zs / 2;break;
+		case "刘鑫": zs = zs / 2;break;
 		default:
 			break;
 		}

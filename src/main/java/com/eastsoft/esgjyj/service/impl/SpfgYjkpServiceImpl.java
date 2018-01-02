@@ -82,7 +82,6 @@ public class SpfgYjkpServiceImpl {
 		switch (username) {
 		case "王忠": japjfz = japjfz * 0.5;break;
 		case "邓鲁峰": japjfz = japjfz * 0.5;break;
-		case "刘鑫": japjfz = japjfz * 0.5;break;
 		case "徐兴军": japjfz = japjfz * 0.5;break;
 		case "刘革": japjfz = japjfz * 0.5;break;
 		case "张华": japjfz = japjfz * 0.5;break;

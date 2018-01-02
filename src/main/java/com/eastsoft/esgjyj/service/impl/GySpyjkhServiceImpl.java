@@ -104,6 +104,7 @@ public class GySpyjkhServiceImpl {
 		}
 		ksrq = ksyf;
 		jzrq = simple.format(date);
+		jzrq = "2017-12-31";
 		//遍历考核对象
 		sql = "select * from YJKH_KHDX where KHID = '" + id + "' order by DXTYPE";
 		userList = baseDao.queryForList(sql);
