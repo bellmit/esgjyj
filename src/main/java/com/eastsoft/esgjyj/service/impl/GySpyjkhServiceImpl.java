@@ -352,7 +352,7 @@ public class GySpyjkhServiceImpl {
 	public void execute() {
 		Logger logger = LoggerFactory.getLogger(getClass());
 		logger.info("---------------------------------------考核结果计算------------------------------------------");
-		String sql = "select * from YJKH where COURT_NO = '" + "0F" + "' and ACTIVE = '1'";
+		String sql = "select * from YJKH where COURT_NO = '0F' and ACTIVE = '1'";
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		for(Map<String, Object> item : list) {
 			executeOne(item);
@@ -846,6 +846,7 @@ public class GySpyjkhServiceImpl {
 			case "行审复": lxxs = AjlxCoefficient.XSFCoefficient.getValue();break;
 			case "民辖终": lxxs = AjlxCoefficient.MXZCoefficient.getValue();break;
 			case "赔他": lxxs = AjlxCoefficient.PTCofficient.getValue();break;
+			case "民他": lxxs = AjlxCoefficient.MTCoefficient.getValue();break;
 			default: lxxs = 0.0; break;
 			}
 		}

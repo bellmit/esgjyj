@@ -82,6 +82,52 @@ public class FgzlYjkhServiceImpl {
 				}
 			}
 		}
+		String username;
+		sql = "select USERNAME from S_USER where USERID = '" + khdx + "'";
+		List<Map<String, Object>> userList = baseDao.queryForList(sql);
+		username = (String)userList.get(0).get("USERNAME");
+		switch (username) {
+		case "董立强": zs = zs / 2;break;
+		case "孔祥昆": zs = zs / 2;break;
+		case "崔龙虓": zs = zs / 2;break;
+		case "陈旭": zs = zs / 2;break;
+		case "刘小玉": zs = zs / 2;break;
+		case "杨扬": zs = zs / 2;break;
+		case "李继生": zs = zs / 2;break;
+		case "张斌": zs = zs / 2;break;
+		case "李增涛": zs = zs / 2;break;
+		case "冯艳楠": zs = zs / 2;break;
+		case "周蓉蓉": zs = zs / 2;break;
+		case "丁波": zs = zs / 2;break;
+		case "付辉": zs = zs / 2;break;
+		case "李晓云": zs = zs / 2;break;
+		case "胡凤鳞": zs = zs / 2;break;
+		case "杜娜娜": zs = zs / 2;break;
+		case "张琛": zs = zs / 2;break;
+		case "侯希民": zs = zs / 2;break;
+		case "苏陶成": zs = zs / 2;break;
+		case "滕飞": zs = zs / 2;break;
+		case "高凌云": zs = zs / 2;break;
+		case "张太楼": zs = zs / 2;break;
+		case "梁敏": zs = zs / 2;break;
+		case "刘娟": zs = zs / 2;break;
+		case "刘栋": zs = zs / 2;break;
+		case "赵琳": zs = zs / 2;break;
+		case "田晓菲": zs = zs / 2;break;
+		case "法如春": zs = zs / 2;break;
+		case "权威": zs = zs / 2;break;
+		case "汤艳艳": zs = zs / 2;break;
+		case "宋玉": zs = zs / 2;break;
+		case "姚美科": zs = zs / 2;break;
+		case "宋海东": zs = zs / 2;break;
+		case "朱桦": zs = zs / 2;break;
+		case "赵世德": zs = zs / 2;break;
+		case "刘福贵": zs = zs / 2;break;
+		case "李建伟": zs = zs / 2;break;
+		case "宛荣玉": zs = zs / 2;break;
+		default:
+			break;
+		}
 		double tzf = 0.0, pjf = 0.0, bl = 0.0;
 		if(fgzlList.size() > 0) {
 			pjf = zs * 1.0 / fgzlList.size();

@@ -74,6 +74,32 @@ public class SpfgYjkpServiceImpl {
 			//法官结案分值的个案得分明细插入到明细表
 			gySpyjkhService.saveSn(khdxid, "3", "1", sn, df, "案件类型：" + gySpyjkhService.getAjlb(ajlb) + ",个案分值（10分） x 案件类型系数(" + xs + ") x 合议庭角色系数(" + gySpyjkhService.getJsxs(cbrbs, khdx) + ")", japjfz);
 		}
+		sql = "select USERNAME from S_USER where USERID = '" + khdx + "'";
+		String username;
+		sql = "select USERNAME from S_USER where USERID = '" + khdx + "'";
+		List<Map<String, Object>> userList = baseDao.queryForList(sql);
+		username = (String)userList.get(0).get("USERNAME");
+		switch (username) {
+		case "王忠": japjfz = japjfz * 0.5;break;
+		case "邓鲁峰": japjfz = japjfz * 0.5;break;
+		case "刘鑫": japjfz = japjfz * 0.5;break;
+		case "徐兴军": japjfz = japjfz * 0.5;break;
+		case "刘革": japjfz = japjfz * 0.5;break;
+		case "张华": japjfz = japjfz * 0.5;break;
+		case "刘振会": japjfz = japjfz * 0.5;break;
+		case "刘旭阳": japjfz = japjfz * 0.5;break;
+		case "陈东强": japjfz = japjfz * 0.5;break;
+		case "肖彬": japjfz = japjfz * 0.5;break;
+		case "康靖": japjfz = japjfz * 0.5;break;
+		case "王琛": japjfz = japjfz * 0.5;break;
+		case "山莹": japjfz = japjfz * 0.5;break;
+		case "刘加鹏": japjfz = japjfz * 0.5;break;
+		case "冯波": japjfz = japjfz * 0.5;break;
+		case "陈新厂": japjfz = japjfz * 0.5;break;
+		case "姜晓玲": japjfz = japjfz * 0.5;break;
+		default:
+			break;
+		}
 		double cnt = gySpyjkhService.getJsjg(jafz, japjfz, "1");
 		cnt = gySpyjkhService.decimal(cnt);
 		//

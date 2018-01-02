@@ -129,6 +129,9 @@ public class YjkhKgssController {
     	        return R.ok();
     		}
     		String filename = file.getOriginalFilename();
+    		if(filename.contains("\\") || filename.contains("//") || filename.contains("/")) {
+    			filename = filename.substring(filename.lastIndexOf("\\") + 1);
+    		}
 			byte[] bytes = file.getBytes();
 			String destPath = dataDir + File.separator
 					+ "img" + File.separator + uuid + "_" + filename;

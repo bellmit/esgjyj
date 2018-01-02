@@ -17,6 +17,7 @@ import com.eastsoft.esgjyj.service.YjkhAjmxService;
 import com.eastsoft.esgjyj.util.SysTools;
 
 
+
 @Service
 public class YjkhAjmxServiceImpl implements YjkhAjmxService {
     @Autowired
