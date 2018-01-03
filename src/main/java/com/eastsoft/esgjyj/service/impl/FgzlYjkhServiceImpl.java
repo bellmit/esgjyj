@@ -96,12 +96,12 @@ public class FgzlYjkhServiceImpl {
 		case "李继生": zs = zs / 2;break;
 		case "张斌": zs = zs / 2;break;
 		case "李增涛": zs = zs / 2;break;
-		case "冯艳楠": zs = zs / 2;break;
-		case "周蓉蓉": zs = zs / 2;break;
+		case "冯艳楠": zs = zs * 2 / 3;break;
+		case "周蓉蓉": zs = zs * 2 / 3;break;
 		case "丁波": zs = zs / 2;break;
 		case "付辉": zs = zs / 2;break;
 		case "李晓云": zs = zs / 2;break;
-		case "胡凤鳞": zs = zs / 2;break;
+		case "胡凤鳞": zs = zs * 7 / 12;break;
 		case "杜娜娜": zs = zs / 2;break;
 		case "张琛": zs = zs / 2;break;
 		case "侯希民": zs = zs / 2;break;
@@ -126,6 +126,13 @@ public class FgzlYjkhServiceImpl {
 		case "李建伟": zs = zs / 2;break;
 		case "宛荣玉": zs = zs / 2;break;
 		case "刘鑫": zs = zs / 2;break;
+		case "董雯婧": zs = zs * 7 / 12;break;
+		case "宋扬": zs = zs * 5 / 12;break;
+		case "庞现亭": zs = zs * 5 / 12;break;
+		case "李明明": zs = zs / 2;break;
+		case "吕静": zs = zs * 7 / 12;break;
+		case "宗芳如": zs = zs * 7 / 12;break;
+		case "高燕": zs = zs * 7 / 12;break;
 		default:
 			break;
 		}
@@ -160,7 +167,8 @@ public class FgzlYjkhServiceImpl {
 	 * @return
 	 */
 	public double getFzbajxf(String khzj, String khdx) {
-		String sql = "select CBRBS, FGZL, CBR from CASES where FGZLBS = '" + khdx + "'";
+		String sql = "select CBRBS, FGZL, CBR from CASES where FGZLBS = '" + khdx + "'"
+				+ " and CBSPTBS <> '0F000012'";
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		String cbrbs = "";
 		List<Map<String, Object>> dfList = null;

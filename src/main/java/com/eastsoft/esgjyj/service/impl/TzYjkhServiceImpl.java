@@ -141,8 +141,19 @@ public class TzYjkhServiceImpl {
 			//法官结案分值的个案得分明细插入到明细表
 			gySpyjkhService.saveSn(khdxid, "4", "2", sn, df, "案件类型：" + gySpyjkhService.getAjlb(ajlb) + ",案件类型系数(" + xs + ")", jazfz / userList.size() / 2);
 		}
+		String username;
+		double zs;
+		sql = "select USERNAME from S_USER where USERID = '" + khdx + "'";
+		List<Map<String, Object>> user = baseDao.queryForList(sql);
+		username = (String)user.get(0).get("USERNAME");
+		zs = jazfz / userList.size() / 2;
+		switch (username) {
+		case "王永起": zs = zs * 3 / 4;break;
+		case "刘勇": zs = zs * 2 / 3;break;
+		case "黄明春": zs = zs / 2;break;
+		}
 		if(userList.size() == 0) return 0.0;
-		double cnt = gySpyjkhService.getJsjg(cbrdf, jazfz / userList.size() / 2, "2");
+		double cnt = gySpyjkhService.getJsjg(cbrdf, zs, "2");
 		double count = gySpyjkhService.decimal(cnt);
 		if(count < 0) count = 0.00;
 		return count;

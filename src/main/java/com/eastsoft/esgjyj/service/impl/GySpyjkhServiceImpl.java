@@ -357,6 +357,7 @@ public class GySpyjkhServiceImpl {
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		for(Map<String, Object> item : list) {
 			executeOne(item);
+//			redisService.szfgZ(item);
 		}
 	}
 	/**

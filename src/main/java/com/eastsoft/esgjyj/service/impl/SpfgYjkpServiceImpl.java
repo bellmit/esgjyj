@@ -82,7 +82,6 @@ public class SpfgYjkpServiceImpl {
 		switch (username) {
 		case "王忠": japjfz = japjfz * 0.5;break;
 		case "邓鲁峰": japjfz = japjfz * 0.5;break;
-		case "徐兴军": japjfz = japjfz * 0.5;break;
 		case "刘革": japjfz = japjfz * 0.5;break;
 		case "张华": japjfz = japjfz * 0.5;break;
 		case "刘振会": japjfz = japjfz * 0.5;break;
@@ -96,6 +95,16 @@ public class SpfgYjkpServiceImpl {
 		case "冯波": japjfz = japjfz * 0.5;break;
 		case "陈新厂": japjfz = japjfz * 0.5;break;
 		case "姜晓玲": japjfz = japjfz * 0.5;break;
+		case "马慧芹": japjfz = japjfz * 0.6;break;
+		case "李莉军": japjfz = japjfz * 5 / 6;break;
+		case "蒋海年": japjfz = japjfz * 5 / 12;break;
+		case "李永生": japjfz = japjfz * 3 / 4;break;
+		case "张秀梅": japjfz = japjfz / 2;break;
+		case "姚峰": japjfz = japjfz * 5 / 12;break;
+		case "蒋炎炎": japjfz = japjfz * 3 / 4;break;
+		case "魏群": japjfz = japjfz * 7 / 12;break;
+		case "范翠真": japjfz = japjfz / 2;break;
+		case "贾新芳": japjfz = japjfz * 5 / 6;break;
 		default:
 			break;
 		}
