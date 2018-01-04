@@ -91,7 +91,6 @@ public class FgzlYjkhServiceImpl {
 		case "孔祥昆": zs = zs / 2;break;
 		case "崔龙虓": zs = zs / 2;break;
 		case "陈旭": zs = zs / 2;break;
-		case "刘小玉": zs = zs / 2;break;
 		case "杨扬": zs = zs / 2;break;
 		case "李继生": zs = zs / 2;break;
 		case "张斌": zs = zs / 2;break;
@@ -133,6 +132,7 @@ public class FgzlYjkhServiceImpl {
 		case "吕静": zs = zs * 7 / 12;break;
 		case "宗芳如": zs = zs * 7 / 12;break;
 		case "高燕": zs = zs * 7 / 12;break;
+		case "陈庆亮": zs = zs / 2;break;
 		default:
 			break;
 		}

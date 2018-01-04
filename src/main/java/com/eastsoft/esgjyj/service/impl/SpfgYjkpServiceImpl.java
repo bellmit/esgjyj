@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.eastsoft.esgjyj.dao.BaseDao;
 import com.eastsoft.esgjyj.util.SftjUtil;
+import com.eastsoft.esgjyj.util.SysTools;
 
 /**
  * 计算入额法官的绩效考核(共12个指标, 本类只统计客观指标)
@@ -105,6 +106,10 @@ public class SpfgYjkpServiceImpl {
 		case "魏群": japjfz = japjfz * 7 / 12;break;
 		case "范翠真": japjfz = japjfz / 2;break;
 		case "贾新芳": japjfz = japjfz * 5 / 6;break;
+		case "张金柱": japjfz = japjfz / 2;break;
+		case "刘晓梅": japjfz = japjfz * 5 / 6;break;
+		case "张磊": if ("0F000003".equals(khdxbm)) japjfz = japjfz / 2;break;
+		case "王海娜": japjfz = japjfz / 2;break;
 		default:
 			break;
 		}
@@ -178,7 +183,8 @@ public class SpfgYjkpServiceImpl {
 	public double getCqxjas(String khid, String khdx, String khdxid, String ksrq, String jzrq) {
 		String sql = "select SN from CASES, CASES_SX where CASES.SN = CASES_SX.CASE_SN and CASES.CBRBS = '" + khdx 
 						+ "' and COURT_NO = '0F' "
-						+ SftjUtil.generateCsxjaWhere(ksrq, jzrq, "", "");
+						+ SftjUtil.generateCsxjaWhere(ksrq, jzrq, "", "")
+						+ " and " + SysTools.generateAhSQLNoAs("") + " not in ('(2015)鲁商初字第64号')";;
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		Long sn = 0L;
 		List<Long> snList = new ArrayList<>();
@@ -204,7 +210,8 @@ public class SpfgYjkpServiceImpl {
 	public double getCqwjajs(String khid, String khdx, String khdxid, String ksrq, String jzrq) {
 		String sql = "select * from CASES where CBRBS = '" + khdx + "' and COURT_NO = '" 
 						+ "0F" + "' and CASEWORD not in ('立民复','立刑复','立行复', '立确复', '信访', '信', '访') "
-						+ SftjUtil.generateC18wjWhere("");
+						+ SftjUtil.generateC18wjWhere("")
+						+ " and " + SysTools.generateAhSQLNoAs("") + " not in ('(2012)鲁民三初字第3号', '(2015)鲁行终字第19号', '(2016)鲁民初61号', '(2015)鲁商初字第45号', '(2015)鲁商初字第51号', '(2016)鲁刑终285号')";
 		List<Map<String, Object>> list = baseDao.queryForList(sql);
 		Long sn = 0L;
 		List<Long> snList = new ArrayList<>();

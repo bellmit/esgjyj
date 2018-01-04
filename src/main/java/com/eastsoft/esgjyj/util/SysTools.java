@@ -68,7 +68,15 @@ public class SysTools {
 				+ " + CONVERT(VARCHAR, " + prefix + ".BH) + ltrim(rtrim(" + prefix + ".TSBH)) + '号' AS AH";
 		return sql;
 	}
-
+	public static String generateAhSQLNoAs(String prefix){
+		if (Tools.isEmpty(prefix)) {
+			prefix = "CASES";
+		}
+		String sql = "'(' + " + prefix + ".ND + ')' + " + prefix + ".COURT_ABBRNAME + " + prefix + ".CASEWORD"
+				+ " + (CASE WHEN " + prefix + ".ND > '2015' THEN NULL ELSE '字第' END)"
+				+ " + CONVERT(VARCHAR, " + prefix + ".BH) + ltrim(rtrim(" + prefix + ".TSBH)) + '号' ";
+		return sql;
+	}
 	public static void main(String[] args) {
 		System.out.println(generateAhSQL(null));
 	}

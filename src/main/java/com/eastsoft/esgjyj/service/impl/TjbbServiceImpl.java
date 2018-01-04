@@ -40,6 +40,7 @@ public class TjbbServiceImpl {
         List<YjkhKhdxDO> khdxDOS = yjkhKhdxDao.list(param);
         for (YjkhKhdxDO khdxDO : khdxDOS) {
         	if ("0F000119".equals(khdxDO.getOfficeid())) continue;
+//        	if ("0F000324".equals(khdxDO.getUserid())) continue;
             FgkpVO fgkpVO = new FgkpVO();
             Map<String, Object> param0 = new HashMap<>();
             param0.put("dxid", khdxDO.getId());
