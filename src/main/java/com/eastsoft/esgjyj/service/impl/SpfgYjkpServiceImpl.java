@@ -110,6 +110,7 @@ public class SpfgYjkpServiceImpl {
 		case "刘晓梅": japjfz = japjfz * 5 / 6;break;
 		case "张磊": if ("0F000003".equals(khdxbm)) japjfz = japjfz / 2;break;
 		case "王海娜": japjfz = japjfz / 2;break;
+		case "于军波": japjfz = japjfz / 2;break;
 		default:
 			break;
 		}
